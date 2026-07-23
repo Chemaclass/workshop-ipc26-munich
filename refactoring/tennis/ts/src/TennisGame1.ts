@@ -1,22 +1,24 @@
-import type { TennisGame } from './tennis-game';
+import { TennisGame } from './TennisGame';
 
 export class TennisGame1 implements TennisGame {
-  private m_score1 = 0;
-  private m_score2 = 0;
+  private m_score1: number = 0;
+  private m_score2: number = 0;
+  private player1Name: string;
+  private player2Name: string;
 
-  // biome-ignore lint/complexity/noUselessConstructor: kata smell — names are accepted but ignored
-  constructor(player1Name: string, player2Name: string) {}
+  constructor(player1Name: string, player2Name: string) {
+    this.player1Name = player1Name;
+    this.player2Name = player2Name;
+  }
 
   wonPoint(playerName: string): void {
-    if (playerName === 'player1') {
-      this.m_score1++;
-    } else {
-      this.m_score2++;
-    }
+    if (playerName === 'player1') this.m_score1 += 1;
+    else this.m_score2 += 1;
   }
 
   getScore(): string {
-    let score = '';
+    let score: string = '';
+    let tempScore: number = 0;
     if (this.m_score1 === this.m_score2) {
       switch (this.m_score1) {
         case 0:
@@ -33,22 +35,15 @@ export class TennisGame1 implements TennisGame {
           break;
       }
     } else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
-      const minusResult = this.m_score1 - this.m_score2;
-      if (minusResult === 1) {
-        score = 'Advantage player1';
-      } else if (minusResult === -1) {
-        score = 'Advantage player2';
-      } else if (minusResult >= 2) {
-        score = 'Win for player1';
-      } else {
-        score = 'Win for player2';
-      }
+      const minusResult: number = this.m_score1 - this.m_score2;
+      if (minusResult === 1) score = 'Advantage player1';
+      else if (minusResult === -1) score = 'Advantage player2';
+      else if (minusResult >= 2) score = 'Win for player1';
+      else score = 'Win for player2';
     } else {
       for (let i = 1; i < 3; i++) {
-        let tempScore = 0;
-        if (i === 1) {
-          tempScore = this.m_score1;
-        } else {
+        if (i === 1) tempScore = this.m_score1;
+        else {
           score += '-';
           tempScore = this.m_score2;
         }

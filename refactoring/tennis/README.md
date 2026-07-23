@@ -7,7 +7,7 @@ Refactor complex conditional-heavy logic safely. Practice improving readability 
 This kata comes in two languages. Pick one:
 
 - **PHP** → [`php/`](php/) (PHP 8.4 + PHPUnit) — several versions provided, each with a different design challenge
-- **TypeScript** → [`ts/`](ts/) (Node + Vitest) — `TennisGame1`, the version to start from
+- **TypeScript** → [`ts/`](ts/) (Node + Vitest) — the original kata's six implementations (`TennisGame1`–`TennisGame6`); start with `TennisGame1`
 
 The `make` interface is identical in both. From your chosen folder:
 
