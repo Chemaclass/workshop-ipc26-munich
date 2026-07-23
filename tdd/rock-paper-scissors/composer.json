@@ -1,6 +1,6 @@
 {
     "description": "A setup for PHP code katas",
-    "name": "chemaclass/workshop-ipc26-berlin",
+    "name": "chemaclass/workshop-ipc26-munich",
     "type": "project",
     "license": "MIT",
     "keywords": ["php", "scaffolding"],

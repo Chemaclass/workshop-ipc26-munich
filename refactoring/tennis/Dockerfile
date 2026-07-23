@@ -5,6 +5,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends git unzip libzi
     docker-php-ext-install zip && \
     curl https://getcomposer.org/composer.phar -o /usr/bin/composer && chmod +x /usr/bin/composer
 
-WORKDIR /srv/workshop-ipc26-berlin/refactoring/tennis
+WORKDIR /srv/workshop-ipc26-munich/refactoring/tennis
 
 CMD ["sh", "-c", "composer install --no-interaction && composer test"]

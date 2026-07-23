@@ -3,9 +3,9 @@ services:
     build: .
     container_name: ipc26-rps
     command: sh -c "composer install --no-interaction && tail -f /dev/null"
-    working_dir: /srv/workshop-ipc26-berlin/tdd/rock-paper-scissors
+    working_dir: /srv/workshop-ipc26-munich/tdd/rock-paper-scissors
     volumes:
-      - .:/srv/workshop-ipc26-berlin/tdd/rock-paper-scissors:delegated
+      - .:/srv/workshop-ipc26-munich/tdd/rock-paper-scissors:delegated
     environment:
       XDEBUG_MODE: debug
       XDEBUG_SESSION: PHPSTORM

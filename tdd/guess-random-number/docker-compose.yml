@@ -3,9 +3,9 @@ services:
     build: .
     container_name: ipc26-guess-number
     command: sh -c "composer install --no-interaction && tail -f /dev/null"
-    working_dir: /srv/workshop-ipc26-berlin/tdd/guess-random-number
+    working_dir: /srv/workshop-ipc26-munich/tdd/guess-random-number
     volumes:
-      - .:/srv/workshop-ipc26-berlin/tdd/guess-random-number:delegated
+      - .:/srv/workshop-ipc26-munich/tdd/guess-random-number:delegated
     environment:
       XDEBUG_MODE: debug
       XDEBUG_SESSION: PHPSTORM

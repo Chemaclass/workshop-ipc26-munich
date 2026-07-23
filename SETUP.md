@@ -23,11 +23,11 @@ Set up auth so `git push` works. Either:
 
 ## 2. Fork, clone, push
 
-Fork [Chemaclass/workshop-ipc26-berlin](https://github.com/Chemaclass/workshop-ipc26-berlin) (top-right **Fork** button), then:
+Fork [Chemaclass/workshop-ipc26-munich](https://github.com/Chemaclass/workshop-ipc26-munich) (top-right **Fork** button), then:
 
 ```bash
-git clone https://github.com/<your-username>/workshop-ipc26-berlin.git
-cd workshop-ipc26-berlin
+git clone https://github.com/<your-username>/workshop-ipc26-munich.git
+cd workshop-ipc26-munich
 
 # verify push works
 echo "ready" > .ready
