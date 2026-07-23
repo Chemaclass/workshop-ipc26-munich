@@ -131,9 +131,3 @@ docker rm -f \
 - [The art of testing: where design meets quality](https://chemaclass.com/blog/the-art-of-testing/)
 - [Test-Driven (Development) – What is challenging about it?](https://chemaclass.com/blog/test-driven-development/)
 - [TDD vs BDD - Design or Workflow?](https://chemaclass.com/blog/tdd-vs-bdd/)
-
----
-
-## Extra
-
-- [Workshop Presentation Slides](https://docs.google.com/presentation/d/1wo_45EQuy39sTKTo45xtjUP_bLdo-VkpHLOP79frRic/edit?usp=sharing)
