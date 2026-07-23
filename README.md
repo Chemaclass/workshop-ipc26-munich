@@ -128,6 +128,18 @@ docker rm -f \
 
 ### Blog Posts
 
-- [The art of testing: where design meets quality](https://chemaclass.com/blog/the-art-of-testing/)
-- [Test-Driven (Development) – What is challenging about it?](https://chemaclass.com/blog/test-driven-development/)
-- [TDD vs BDD - Design or Workflow?](https://chemaclass.com/blog/tdd-vs-bdd/)
+**Pair programming**
+
+- [Effective Pair Programming](https://chemaclass.com/blog/effective-pair-programming/)
+- [Pull Requests vs Pair Programming](https://chemaclass.com/blog/pull-request-vs-pair-prog/)
+
+**Testing & refactoring**
+
+- [The Art of Testing: Where Design Meets Quality](https://chemaclass.com/blog/the-art-of-testing/)
+- [Test-Driven (Development)](https://chemaclass.com/blog/test-driven-development/)
+- [TDD vs BDD](https://chemaclass.com/blog/tdd-vs-bdd/)
+- [London vs Chicago](https://chemaclass.com/blog/london-vs-chicago/)
+- [To Mock or Not to Mock](https://chemaclass.com/blog/to-mock-or-not-to-mock/)
+- [How to Test Private Methods?](https://chemaclass.com/blog/how-to-test-private-methods/)
+- [Testing Effectively Legacy Code](https://chemaclass.com/blog/testing-effectively-legacy-code/)
+- [The Art of Refactoring](https://chemaclass.com/blog/the-art-of-refactoring/)
