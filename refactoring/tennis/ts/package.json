@@ -1,0 +1,20 @@
+{
+  "name": "@chemaclass/workshop-ipc26-munich-tennis",
+  "description": "A setup for TypeScript code katas",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["typescript", "scaffolding"],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check-cs": "biome check .",
+    "fix-cs": "biome check --write .",
+    "stan": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

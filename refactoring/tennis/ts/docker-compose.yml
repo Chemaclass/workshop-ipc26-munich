@@ -1,0 +1,8 @@
+services:
+  tennis-refactoring-ts:
+    build: .
+    container_name: ipc26-tennis-ts
+    command: sh -c "npm install && tail -f /dev/null"
+    working_dir: /srv/workshop-ipc26-munich/refactoring/tennis/ts
+    volumes:
+      - .:/srv/workshop-ipc26-munich/refactoring/tennis/ts:delegated

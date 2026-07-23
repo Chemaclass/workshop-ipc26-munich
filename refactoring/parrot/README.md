@@ -2,56 +2,26 @@
 
 Refactor code using Polymorphism. The kata is fully functional with a complete test suite. Your objective is to improve the code while keeping all tests passing.
 
-## Quick Start
+## Getting Started
 
-### Option 1: Using Docker (Recommended)
+This kata comes in two languages. Pick one:
 
-Run the project in a Docker container with zero PHP setup required.
+- **PHP** → [`php/`](php/) (PHP 8.4 + PHPUnit)
+- **TypeScript** → [`ts/`](ts/) (Node + Vitest)
 
-#### Run Tests Once
-
-To run the complete test suite automatically:
-
-```bash
-docker-compose up
-```
-
-This will install dependencies and run all tests. The container exits after completion.
-
-#### Run Individual Commands
-
-To keep the container running and execute commands repeatedly, use the `-d` flag:
+The `make` interface is identical in both. From your chosen folder:
 
 ```bash
-# Start the container in the background
-docker-compose up -d
-
-# Run tests
-docker-compose exec parrot-refactoring composer test
-
-# Stop the container when done
-docker-compose down
+make up      # build + start container, install deps
+make test    # run tests
+make watch   # re-run tests on every save
+make stan    # static analysis / type check
+make cs      # check coding standards
+make fix-cs  # fix coding standards
+make down    # stop
 ```
 
-Alternatively, use the container name directly:
-
-```bash
-docker exec ipc26-parrot composer test
-```
-
-### Option 2: Local PHP Setup
-
-Requires:
-
-- PHP 8.4+
-- Composer
-
-Install dependencies and run tests:
-
-```bash
-composer install
-composer test
-```
+Prefer no Docker? `cd php && composer install && composer test`, or `cd ts && npm install && npm test`.
 
 ---
 
@@ -59,16 +29,10 @@ composer test
 
 ### Project Structure
 
-- `src/` - Contains the Parrot class and ParrotTypeEnum that need to be refactored
-- `tests/` - Contains the complete test suite (all tests are passing)
+- `src/` — the code that needs to be refactored
+- `tests/` — the complete test suite (all tests are passing)
 
-### Dependencies
-
-The kata uses:
-
-- [PHPUnit](https://phpunit.de/) - Testing framework
-- [PHPStan](https://github.com/phpstan/phpstan) - Static analysis
-- [Easy Coding Standard (ECS)](https://github.com/symplify/easy-coding-standard) - Code standards (PSR-12)
+Your job: improve the design (polymorphism over the type switch) while keeping every test green.
 
 ---
 

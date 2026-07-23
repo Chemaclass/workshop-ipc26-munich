@@ -1,33 +1,34 @@
-# Hands-On Refactoring Workshop: Modernizing Legacy PHP with Pair Programming
+# Hands-On TDD & Refactoring Workshop — PHP & TypeScript
 
-Transform messy legacy PHP into clean, maintainable software, without breaking
-existing behavior.
+Write clean, maintainable software with confidence: drive behavior with tests,
+and reshape existing code without breaking it.
 
-We start with simple refactoring exercises and progress to advanced
-techniques. Using legacy-style code katas, you practice automated tests
-(golden, characterization, snapshot) to build confidence and safety while
-modernizing code.
+We start with simple exercises and progress to advanced techniques. Using code
+katas, you practice automated tests (parameterized, golden, characterization)
+to build confidence and safety while designing and modernizing code.
+
+Every kata ships in **two languages — PHP and TypeScript**. Pick whichever you
+work in; the exercises, tests, and `make` commands mirror each other.
 
 Through pair programming, you experience:
 
 - Collaborative problem-solving
 - Test-Driven Development (TDD) in action
-- Safe, incremental changes that bring clarity and structure to real legacy
-  code
+- Safe, incremental changes that bring clarity and structure to real code
 
 ---
 
 ## Katas
 
-Four independent katas. Each lives in its own folder with its own
-`composer.json`, `Dockerfile`, and `docker-compose.yml`. Pick any and start.
+Four independent katas. Each lives in its own folder with a shared problem brief
+and two language siblings: `php/` and `ts/`. Pick any and start.
 
-| # | Kata | Track | Focus | Time |
-|---|---|---|---|---|
-| 1 | [Rock Paper Scissors](tdd/rock-paper-scissors/README.md) | TDD | Parameterized tests, clear rules | 30–45 min |
-| 2 | [Guess the Random Number](tdd/guess-random-number/README.md) | TDD | Mocking randomness, isolating I/O | 45–60 min |
-| 3 | [Parrot](refactoring/parrot/README.md) | Refactoring | Polymorphism, removing smells | 30–45 min |
-| 4 | [Tennis](refactoring/tennis/README.md) | Refactoring | Taming conditionals, naming | 45–60 min |
+| # | Kata | Track | Languages | Focus | Time |
+|---|---|---|---|---|---|
+| 1 | [Rock Paper Scissors](tdd/rock-paper-scissors/README.md) | TDD | PHP · TS | Parameterized tests, clear rules | 30–45 min |
+| 2 | [Guess the Random Number](tdd/guess-random-number/README.md) | TDD | PHP · TS | Mocking randomness, isolating I/O | 45–60 min |
+| 3 | [Parrot](refactoring/parrot/README.md) | Refactoring | PHP · TS | Polymorphism, removing smells | 30–45 min |
+| 4 | [Tennis](refactoring/tennis/README.md) | Refactoring | PHP · TS | Taming conditionals, naming | 45–60 min |
 
 ---
 
@@ -38,40 +39,53 @@ Four independent katas. Each lives in its own folder with its own
 
 ### Option 1: Docker (recommended)
 
-No local PHP needed. Requires Docker running.
+No local PHP or Node needed. Requires Docker running.
 
 ```bash
-make up                           # start all 4 kata containers at once
-make test                         # run all tests
-make down                         # stop all containers
+make up-php    # start all 4 PHP kata containers
+make up-ts     # start all 4 TS kata containers
+make up        # start everything (PHP + TS)
+
+make test-php  # run all PHP tests
+make test-ts   # run all TS tests
+make test      # run everything
+
+make down      # stop all containers
 ```
 
-Or work on a single kata:
+Or work on a single kata in a single language:
 
 ```bash
-cd tdd/rock-paper-scissors        # or any other kata
-make up                           # build + install deps + keep container alive
-make test                         # run tests
-make watch                        # run tests on every file save (TDD flow)
-make stan                         # static analysis
-make cs                           # check coding standards
-make fix-cs                       # fix coding standards
-make down                         # stop when done
+cd tdd/rock-paper-scissors/php     # or .../ts, or any other kata
+make up                            # build + install deps + keep container alive
+make test                          # run tests
+make watch                         # run tests on every file save (TDD flow)
+make stan                          # static analysis / type check
+make cs                            # check coding standards
+make fix-cs                        # fix coding standards
+make down                          # stop when done
 ```
 
-Service names: `rock-paper-scissors-tdd`, `guess-number-tdd`,
-`parrot-refactoring`, `tennis-refactoring`.
+The `make` targets are identical across languages — only the toolchain behind
+them differs.
 
-Each kata builds a PHP 8.4 image with Xdebug + Composer.
+| | PHP | TypeScript |
+|---|---|---|
+| Runtime | PHP 8.4 | Node 22 |
+| Tests | PHPUnit | Vitest |
+| Static analysis (`stan`) | PHPStan | `tsc --noEmit` |
+| Coding standards (`cs`) | Easy Coding Standard | Biome |
 
-### Option 2: Local PHP
+### Option 2: Local
 
-Requires PHP 8.4+ and Composer.
+Requires PHP 8.4+ / Composer, or Node 22+ / npm.
 
 ```bash
-cd <kata-folder>
-composer install
-composer test
+cd <kata-folder>/php     # PHP
+composer install && composer test
+
+cd <kata-folder>/ts      # TypeScript
+npm install && npm test
 ```
 
 See each kata's README for details.
@@ -83,7 +97,15 @@ See each kata's README for details.
 Stop and remove all workshop containers:
 
 ```bash
-docker rm -f ipc26-parrot ipc26-tennis ipc26-rps ipc26-guess-number
+make down
+```
+
+Or by name:
+
+```bash
+docker rm -f \
+  ipc26-rps-php ipc26-guess-number-php ipc26-parrot-php ipc26-tennis-php \
+  ipc26-rps-ts  ipc26-guess-number-ts  ipc26-parrot-ts  ipc26-tennis-ts
 ```
 
 ---
@@ -115,4 +137,3 @@ docker rm -f ipc26-parrot ipc26-tennis ipc26-rps ipc26-guess-number
 ## Extra
 
 - [Workshop Presentation Slides](https://docs.google.com/presentation/d/1wo_45EQuy39sTKTo45xtjUP_bLdo-VkpHLOP79frRic/edit?usp=sharing)
-

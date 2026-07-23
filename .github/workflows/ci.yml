@@ -5,13 +5,13 @@ on:
   pull_request:
 
 jobs:
-  # Disabled until workshop kata day — uncomment and fix as part of the exercise.
-  # rock-paper-scissors:
-  #   name: Rock Paper Scissors (TDD)
+  # --- TDD katas: disabled until workshop kata day (start from a stub) ---
+  # rock-paper-scissors-php:
+  #   name: Rock Paper Scissors (TDD, PHP)
   #   runs-on: ubuntu-latest
   #   defaults:
   #     run:
-  #       working-directory: tdd/rock-paper-scissors
+  #       working-directory: tdd/rock-paper-scissors/php
   #   steps:
   #     - uses: actions/checkout@v4
   #     - uses: shivammathur/setup-php@v2
@@ -23,13 +23,28 @@ jobs:
   #     - run: composer phpstan
   #     - run: composer check-cs
 
-  # Disabled until workshop kata day — uncomment and fix as part of the exercise.
-  # guess-random-number:
-  #   name: Guess Random Number (TDD)
+  # rock-paper-scissors-ts:
+  #   name: Rock Paper Scissors (TDD, TS)
   #   runs-on: ubuntu-latest
   #   defaults:
   #     run:
-  #       working-directory: tdd/guess-random-number
+  #       working-directory: tdd/rock-paper-scissors/ts
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
+  #     - run: npm install --no-audit --no-fund
+  #     - run: npm test
+  #     - run: npm run stan
+  #     - run: npm run check-cs
+
+  # guess-random-number-php:
+  #   name: Guess Random Number (TDD, PHP)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: tdd/guess-random-number/php
   #   steps:
   #     - uses: actions/checkout@v4
   #     - uses: shivammathur/setup-php@v2
@@ -41,12 +56,29 @@ jobs:
   #     - run: composer phpstan
   #     - run: composer check-cs
 
-  parrot:
-    name: Parrot (Refactoring)
+  # guess-random-number-ts:
+  #   name: Guess Random Number (TDD, TS)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: tdd/guess-random-number/ts
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
+  #     - run: npm install --no-audit --no-fund
+  #     - run: npm test
+  #     - run: npm run stan
+  #     - run: npm run check-cs
+
+  # --- Refactoring katas: live (complete code, tests pass on main) ---
+  parrot-php:
+    name: Parrot (Refactoring, PHP)
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: refactoring/parrot
+        working-directory: refactoring/parrot/php
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -58,13 +90,28 @@ jobs:
       - run: composer phpstan
       - run: composer check-cs
 
-  # Disabled until workshop kata day — uncomment and fix as part of the exercise.
-  # tennis:
-  #   name: Tennis (Refactoring)
+  parrot-ts:
+    name: Parrot (Refactoring, TS)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: refactoring/parrot/ts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run stan
+      - run: npm run check-cs
+
+  # tennis-php:
+  #   name: Tennis (Refactoring, PHP)
   #   runs-on: ubuntu-latest
   #   defaults:
   #     run:
-  #       working-directory: refactoring/tennis
+  #       working-directory: refactoring/tennis/php
   #   steps:
   #     - uses: actions/checkout@v4
   #     - uses: shivammathur/setup-php@v2
@@ -75,3 +122,19 @@ jobs:
   #     - run: composer test
   #     - run: composer phpstan
   #     - run: composer check-cs
+
+  # tennis-ts:
+  #   name: Tennis (Refactoring, TS)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: refactoring/tennis/ts
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
+  #     - run: npm install --no-audit --no-fund
+  #     - run: npm test
+  #     - run: npm run stan
+  #     - run: npm run check-cs

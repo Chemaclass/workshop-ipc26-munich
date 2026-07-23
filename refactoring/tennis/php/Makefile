@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
-SERVICE = rock-paper-scissors-tdd
-CONTAINER = ipc26-rps
+SERVICE = tennis-refactoring
+CONTAINER = ipc26-tennis-php
 
 help: ## Show this help message.
 	@echo 'usage: make [target]'

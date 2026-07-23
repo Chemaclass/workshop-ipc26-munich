@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 SERVICE = guess-number-tdd
-CONTAINER = ipc26-guess-number
+CONTAINER = ipc26-guess-number-php
 
 help: ## Show this help message.
 	@echo 'usage: make [target]'

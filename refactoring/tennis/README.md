@@ -1,51 +1,27 @@
 # Tennis Refactoring Kata
 
-Refactor complex conditional-heavy logic safely. Practice improving readability with meaningful names and abstractions while eliminating duplication. Several versions are provided, each with different design challenges.
+Refactor complex conditional-heavy logic safely. Practice improving readability with meaningful names and abstractions while eliminating duplication.
 
-## Quick Start
+## Getting Started
 
-### Option 1: Using Docker (Recommended)
+This kata comes in two languages. Pick one:
 
-Run the project in a Docker container with zero PHP setup required.
+- **PHP** → [`php/`](php/) (PHP 8.4 + PHPUnit) — several versions provided, each with a different design challenge
+- **TypeScript** → [`ts/`](ts/) (Node + Vitest) — `TennisGame1`, the version to start from
 
-#### Run Tests Once
-
-To run the complete test suite automatically:
-
-```bash
-docker-compose up
-```
-
-This will install dependencies and run all tests. The container exits after completion.
-
-#### Run Individual Commands
-
-To keep the container running and execute commands repeatedly, use the `-d` flag:
+The `make` interface is identical in both. From your chosen folder:
 
 ```bash
-# Start the container in the background
-docker-compose up -d
-
-# Run tests
-docker-compose exec tennis-refactoring composer test
-
-# Stop the container when done
-docker-compose down
+make up      # build + start container, install deps
+make test    # run tests
+make watch   # re-run tests on every save
+make stan    # static analysis / type check
+make cs      # check coding standards
+make fix-cs  # fix coding standards
+make down    # stop
 ```
 
-### Option 2: Local PHP Setup
-
-Requires:
-
-- PHP 8.4+
-- Composer
-
-Install dependencies and run tests:
-
-```bash
-composer install
-composer test
-```
+Prefer no Docker? `cd php && composer install && composer test`, or `cd ts && npm install && npm test`.
 
 ---
 
@@ -57,10 +33,10 @@ Imagine you work for a consultancy company, and one of your colleagues has been 
 
 ### How to Approach
 
-- Start with `TennisGame1` class
+- Start with the `TennisGame1` class
 - The test suite is fairly comprehensive and runs quickly
 - You should not need to change the tests, only run them often as you refactor
-- Note: The player names are hard-coded to "player1" and "player2" in several implementations—you may want to fix this and add suitable test cases
+- Note: the player names are hard-coded to "player1" and "player2"—you may want to fix this and add suitable test cases
 
 ---
 

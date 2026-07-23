@@ -2,50 +2,26 @@
 
 Practice Test-Driven Development by building a guessing game. Control randomness with mocks/stubs, cover edge cases, and separate logic from I/O for easier testing.
 
-## Quick Start
+## Getting Started
 
-### Option 1: Using Docker (Recommended)
+This kata comes in two languages. Pick one:
 
-Run the project in a Docker container with zero PHP setup required.
+- **PHP** → [`php/`](php/) (PHP 8.4 + PHPUnit)
+- **TypeScript** → [`ts/`](ts/) (Node + Vitest)
 
-#### Run Tests Once
-
-To run the complete test suite automatically:
-
-```bash
-docker-compose up
-```
-
-This will install dependencies and run all tests. The container exits after completion.
-
-#### Run Individual Commands
-
-To keep the container running and execute commands repeatedly, use the `-d` flag:
+The `make` interface is identical in both. From your chosen folder:
 
 ```bash
-# Start the container in the background
-docker-compose up -d
-
-# Run tests
-docker-compose exec guess-number-tdd composer test
-
-# Stop the container when done
-docker-compose down
+make up      # build + start container, install deps
+make test    # run tests
+make watch   # re-run tests on every save (TDD flow)
+make stan    # static analysis / type check
+make cs      # check coding standards
+make fix-cs  # fix coding standards
+make down    # stop
 ```
 
-### Option 2: Local PHP Setup
-
-Requires:
-
-- PHP 8.4+
-- Composer
-
-Install dependencies and run tests:
-
-```bash
-composer install
-composer test
-```
+Prefer no Docker? `cd php && composer install && composer test`, or `cd ts && npm install && npm test`.
 
 ---
 
@@ -64,6 +40,8 @@ Build a simple game where a player tries to guess a randomly generated number be
 - If the player uses all 3 attempts unsuccessfully, they **lose**
 
 ### Use Cases
+
+The examples below are shown in PHP; the TypeScript version mirrors the same behaviour.
 
 **1. Player wins on the first guess**
 ```php
@@ -104,41 +82,20 @@ final class GuessingNumberGame
 
 ### TDD Plan
 
-**Test 1: Win on first try**
-```php
-$game = new GuessingNumberGame(new StubGenerator(5));
-assert($game->guessNumber(5) === "You win!");
-```
+**Test 1: Win on first try** — `guessNumber(5)` with generated `5` returns `"You win!"`
 
-**Test 2: Hint "higher" and "lower"**
-```php
-$game = new GuessingNumberGame(new StubGenerator(7));
-assert($game->guessNumber(4) === "Higher");
-assert($game->guessNumber(9) === "Lower");
-```
+**Test 2: Hint "higher" and "lower"** — with generated `7`, a guess of `4` returns `"Higher"`, a guess of `9` returns `"Lower"`
 
-**Test 3: Win on last attempt**
-```php
-$game = new GuessingNumberGame(new StubGenerator(7));
-$game->guessNumber(3);
-$game->guessNumber(6);
-assert($game->guessNumber(7) === "You win!");
-```
+**Test 3: Win on last attempt** — with generated `7`, two wrong guesses then `7` returns `"You win!"`
 
-**Test 4: Lose after 3 wrong attempts**
-```php
-$game = new GuessingNumberGame(new StubGenerator(5));
-$game->guessNumber(1);
-$game->guessNumber(2);
-assert($game->guessNumber(3) === "You lose! The number was 5");
-```
+**Test 4: Lose after 3 wrong attempts** — with generated `5`, three wrong guesses returns `"You lose! The number was 5"`
 
 ### Implementation Tips
 
 - Track the number of attempts left
 - Lock in the generated number on instantiation
-- Return messages from `guessNumber()` method
-- Use dependency injection for `RandomNumberGenerator` in tests
+- Return messages from the `guessNumber()` method
+- Inject the random number generator so tests can stub it
 
 ### Things to Avoid
 

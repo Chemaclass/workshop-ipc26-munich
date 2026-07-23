@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
-SERVICE = parrot-refactoring
-CONTAINER = ipc26-parrot
+SERVICE = rock-paper-scissors-tdd-ts
+CONTAINER = ipc26-rps-ts
 
 help: ## Show this help message.
 	@echo 'usage: make [target]'
@@ -9,7 +9,7 @@ help: ## Show this help message.
 	@echo 'targets:'
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | column -t -s ':' | sed 's/^  //'
 
-build: ## Build the PHP container.
+build: ## Build the Node container.
 	docker-compose build
 
 up: ## Start container in background.
@@ -19,16 +19,16 @@ down: ## Stop container.
 	docker-compose down
 
 test: ## Run the tests.
-	docker-compose run --rm $(SERVICE) composer test
+	docker-compose run --rm $(SERVICE) npm test
 
-stan: ## Run static analysis.
-	docker-compose run --rm $(SERVICE) composer phpstan
+stan: ## Run type checking.
+	docker-compose run --rm $(SERVICE) npm run stan
 
 cs: ## Check coding standards.
-	docker-compose run --rm $(SERVICE) composer check-cs
+	docker-compose run --rm $(SERVICE) npm run check-cs
 
 fix-cs: ## Fix coding standards.
-	docker-compose run --rm $(SERVICE) composer fix-cs
+	docker-compose run --rm $(SERVICE) npm run fix-cs
 
 watch: ## Run tests in watch mode (requires 'make up' first).
-	docker exec $(CONTAINER) composer test:watch
+	docker exec $(CONTAINER) npm run test:watch

@@ -1,10 +1,10 @@
 services:
-  parrot-refactoring:
+  tennis-refactoring:
     build: .
-    container_name: ipc26-parrot
+    container_name: ipc26-tennis-php
     command: sh -c "composer install --no-interaction && tail -f /dev/null"
     volumes:
-      - .:/srv/workshop-ipc26-munich/refactoring/parrot:delegated
+      - .:/srv/workshop-ipc26-munich/refactoring/tennis/php:delegated
     environment:
       XDEBUG_MODE: debug
       XDEBUG_SESSION: PHPSTORM
