@@ -11,5 +11,7 @@ language you'll use:
 Not sure? Pick the language you write day-to-day — you can switch later, the
 katas are identical in both.
 
-Each guide verifies the same three things: a GitHub account, push access to your
-own fork, and the Rock Paper Scissors tests running green on your machine.
+Each guide verifies the same three things: a GitHub account, that you can pull
+workshop updates (`upstream`) and push your work (your fork), and the Rock Paper
+Scissors tests running green on your machine. Clear all three and we start
+coding on the day, not configuring.
