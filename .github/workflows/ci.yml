@@ -106,6 +106,39 @@ jobs:
       - run: npm run stan
       - run: npm run check-cs
 
+  # gilded-rose-php:
+  #   name: Gilded Rose (Refactoring, PHP)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: refactoring/gilded-rose/php
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: '8.4'
+  #         coverage: none
+  #     - run: composer install --no-interaction --prefer-dist
+  #     - run: composer test
+  #     - run: composer phpstan
+  #     - run: composer check-cs
+
+  # gilded-rose-ts:
+  #   name: Gilded Rose (Refactoring, TS)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: refactoring/gilded-rose/ts
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
+  #     - run: npm install --no-audit --no-fund
+  #     - run: npm test
+  #     - run: npm run stan
+  #     - run: npm run check-cs
+
   # tennis-php:
   #   name: Tennis (Refactoring, PHP)
   #   runs-on: ubuntu-latest
