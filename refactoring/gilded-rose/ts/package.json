@@ -1,0 +1,22 @@
+{
+  "name": "@chemaclass/workshop-ipc26-munich-gilded-rose",
+  "description": "A setup for TypeScript code katas",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["typescript", "scaffolding"],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check-cs": "biome check .",
+    "fix-cs": "biome check --write .",
+    "stan": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
