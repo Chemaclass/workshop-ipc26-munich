@@ -72,6 +72,39 @@ jobs:
   #     - run: npm run stan
   #     - run: npm run check-cs
 
+  # spinner-wheel-php:
+  #   name: Spinner Wheel (TDD, PHP)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: tdd/spinner-wheel/php
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: '8.4'
+  #         coverage: none
+  #     - run: composer install --no-interaction --prefer-dist
+  #     - run: composer test
+  #     - run: composer phpstan
+  #     - run: composer check-cs
+
+  # spinner-wheel-ts:
+  #   name: Spinner Wheel (TDD, TS)
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: tdd/spinner-wheel/ts
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '22'
+  #     - run: npm install --no-audit --no-fund
+  #     - run: npm test
+  #     - run: npm run stan
+  #     - run: npm run check-cs
+
   # --- Refactoring katas: live (complete code, tests pass on main) ---
   parrot-php:
     name: Parrot (Refactoring, PHP)

@@ -20,15 +20,16 @@ Through pair programming, you experience:
 
 ## Katas
 
-Four independent katas. Each lives in its own folder with a shared problem brief
+Five independent katas. Each lives in its own folder with a shared problem brief
 and two language siblings: `php/` and `ts/`. Pick any and start.
 
 | # | Kata | Track | Languages | Focus | Time |
 |---|---|---|---|---|---|
 | 1 | [Rock Paper Scissors](tdd/rock-paper-scissors/README.md) | TDD | PHP · TS | Parameterized tests, clear rules | 30–45 min |
 | 2 | [Guess the Random Number](tdd/guess-random-number/README.md) | TDD | PHP · TS | Mocking randomness, isolating I/O | 45–60 min |
-| 3 | [Parrot](refactoring/parrot/README.md) | Refactoring | PHP · TS | Polymorphism, removing smells | 30–45 min |
-| 4 | [Tennis](refactoring/tennis/README.md) | Refactoring | PHP · TS | Taming conditionals, naming | 45–60 min |
+| 3 | [Spinner Wheel](tdd/spinner-wheel/README.md) | TDD + AI agent | PHP · TS | Shareable results, a small web app built with an agent | 60-90 min |
+| 4 | [Parrot](refactoring/parrot/README.md) | Refactoring | PHP · TS | Polymorphism, removing smells | 30–45 min |
+| 5 | [Tennis](refactoring/tennis/README.md) | Refactoring | PHP · TS | Taming conditionals, naming | 45–60 min |
 
 ---
 
@@ -42,8 +43,8 @@ and two language siblings: `php/` and `ts/`. Pick any and start.
 No local PHP or Node needed. Requires Docker running.
 
 ```bash
-make up-php    # start all 4 PHP kata containers
-make up-ts     # start all 4 TS kata containers
+make up-php    # start all 5 PHP kata containers
+make up-ts     # start all 5 TS kata containers
 make up        # start everything (PHP + TS)
 
 make test-php  # run all PHP tests
@@ -104,8 +105,8 @@ Or by name:
 
 ```bash
 docker rm -f \
-  ipc26-rps-php ipc26-guess-number-php ipc26-parrot-php ipc26-tennis-php \
-  ipc26-rps-ts  ipc26-guess-number-ts  ipc26-parrot-ts  ipc26-tennis-ts
+  ipc26-rps-php ipc26-guess-number-php ipc26-spinner-wheel-php ipc26-parrot-php ipc26-tennis-php \
+  ipc26-rps-ts  ipc26-guess-number-ts  ipc26-spinner-wheel-ts  ipc26-parrot-ts  ipc26-tennis-ts
 ```
 
 ---

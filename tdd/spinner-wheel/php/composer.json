@@ -1,0 +1,41 @@
+{
+    "description": "A setup for PHP code katas",
+    "name": "chemaclass/workshop-ipc26-munich",
+    "type": "project",
+    "license": "MIT",
+    "keywords": ["php", "scaffolding"],
+    "require": {
+        "php": ">=8.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "symfony/var-dumper": "^6.4",
+        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "symplify/easy-coding-standard": "^11.1",
+        "symplify/phpstan-extensions": "^11.1",
+        "spatie/phpunit-watcher": "^1.23"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kata\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KataTests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit",
+        "test:watch": "phpunit-watcher watch",
+        "check-cs": "ecs check --ansi",
+        "fix-cs": "ecs check --fix --ansi",
+        "phpstan": "phpstan analyse --ansi"
+    },
+    "config": {
+        "platform": {
+            "php": "8.4"
+        }
+    }
+}

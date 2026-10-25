@@ -1,0 +1,10 @@
+services:
+  spinner-wheel-tdd-ts:
+    build: .
+    container_name: ipc26-spinner-wheel-ts
+    command: sh -c "npm install && tail -f /dev/null"
+    working_dir: /srv/workshop-ipc26-munich/tdd/spinner-wheel/ts
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/srv/workshop-ipc26-munich/tdd/spinner-wheel/ts:delegated
