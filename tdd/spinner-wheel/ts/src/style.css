@@ -509,7 +509,12 @@ footer span {
 .winner-caption {
   font-size: 13px;
   color: #7e8977;
-  margin: 0 0 28px;
+  margin: 0 0 8px;
+}
+.winner-next-round {
+  font-size: 11px;
+  color: #7e8977;
+  margin: 0 0 24px;
 }
 .share-section {
   border-top: 1px solid #e4e7db;

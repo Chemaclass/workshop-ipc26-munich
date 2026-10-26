@@ -12,6 +12,7 @@ export function createResultOverlay(root: HTMLElement) {
       <p class="eyebrow">THE WHEEL HAS SPOKEN</p>
       <h2 id="winner-heading" data-winner></h2>
       <p class="winner-caption">It's your turn in the spotlight.</p>
+      <p class="winner-next-round">This winner leaves the wheel on the next spin.</p>
       <div class="share-section">
         <label for="share-url">Share this moment</label>
         <p>Same names. Same result. Ready to open.</p>

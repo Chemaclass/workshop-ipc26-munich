@@ -70,7 +70,7 @@ export function mountSpinner(
               <span>Add your names above to get going.</span>
             </div>
             <ul class="participant-list" aria-label="Participants"></ul>
-            <div class="fairness-note"><span aria-hidden="true">◎</span><p>Every name has an equal chance.<br>On this spin, and the next.</p></div>
+            <div class="fairness-note"><span aria-hidden="true">◎</span><p>Every remaining name has an equal chance.<br>Winners leave before the next spin.</p></div>
           </aside>
         </div>
       </main>
@@ -171,8 +171,15 @@ export function mountSpinner(
     drawing = true;
     result = null;
     const selected = wheel.spin();
+    if (selected === null) {
+      drawing = false;
+      rotation = 0;
+      wheelGraphic.style.transform = '';
+      render('Everyone has had a turn. Add a name to start a new round.');
+      return;
+    }
     render('Choosing…');
-    const selectedIndex = wheel.names.indexOf(selected ?? '');
+    const selectedIndex = wheel.names.indexOf(selected);
     const positionInSegment = spinRandom * wheel.names.length - selectedIndex;
     // Reuse the sample's fractional part, leaving 6% clear at either border.
     const landingAngle =
@@ -193,16 +200,14 @@ export function mountSpinner(
     });
     const finish = () => {
       if (!wheelGraphic.isConnected) return;
-      result = selected === null ? null : `Selected: ${selected}`;
+      result = `Selected: ${selected}`;
       drawing = false;
       render();
-      if (selected !== null) {
-        overlay.show({
-          names: [...wheel.names],
-          chosen: selected,
-          rotation: rotation % 360,
-        });
-      }
+      overlay.show({
+        names: [...wheel.names],
+        chosen: selected,
+        rotation: rotation % 360,
+      });
     };
     void (animation?.finished ?? Promise.resolve()).then(finish, finish);
   });

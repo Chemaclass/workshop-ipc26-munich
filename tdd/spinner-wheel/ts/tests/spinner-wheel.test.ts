@@ -2,6 +2,26 @@ import { describe, expect, it } from 'vitest';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('SpinnerWheel', () => {
+  it('draws each participant once, then empties without consuming more randomness', () => {
+    let draws = 0;
+    const wheel = new SpinnerWheel(() => {
+      draws += 1;
+      return 0.99;
+    });
+    wheel.add('Anna');
+    wheel.add('Ben');
+    wheel.add('Clara');
+    expect(wheel.spin()).toBe('Clara');
+    expect(wheel.names).toEqual(['Anna', 'Ben', 'Clara']);
+    expect(wheel.spin()).toBe('Ben');
+    expect(wheel.names).toEqual(['Anna', 'Ben']);
+    expect(wheel.spin()).toBe('Anna');
+    expect(wheel.names).toEqual(['Anna']);
+    expect(wheel.spin()).toBeNull();
+    expect(wheel.names).toEqual([]);
+    expect(wheel.spin()).toBeNull();
+    expect(draws).toBe(3);
+  });
   it('gives equal intervals to all participants on the first draw', () => {
     const values = [0, 0.333333, 1 / 3, 0.666666, 2 / 3, 0.999999, 0.999999];
     const selections = values.map((value) => {
