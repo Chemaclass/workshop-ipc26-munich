@@ -46,3 +46,14 @@ test('shows an error when adding a duplicate name', async ({ page }) => {
   );
   await expect(page.getByRole('listitem')).toHaveCount(6);
 });
+
+test('removes a name from the team and the wheel', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Remove Ben' }).click();
+
+  await expect(page.getByRole('listitem').filter({ hasText: 'Ben' })).toHaveCount(0);
+  await expect(
+    page.getByRole('img', { name: 'Spinner wheel' }).getByText('Ben'),
+  ).toHaveCount(0);
+});
