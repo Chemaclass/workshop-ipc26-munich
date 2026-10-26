@@ -21,6 +21,21 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('shows and retains each draw result without an animation timer', async () => {
+    const values = [0.99, 0];
+    mountSpinner(root, () => values.shift() ?? 0);
+    addName('Anna');
+    addName('Ben');
+    button('spin')?.click();
+    await Promise.resolve();
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Ausgewählt: Ben');
+    await Promise.resolve();
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Ausgewählt: Ben');
+    button('spin')?.click();
+    await Promise.resolve();
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Ausgewählt: Anna');
+    expect(root.querySelectorAll('li')).toHaveLength(2);
+  });
   it('removes individual names and disables drawing after the last removal', () => {
     mountSpinner(root, () => 0);
     addName('Anna');

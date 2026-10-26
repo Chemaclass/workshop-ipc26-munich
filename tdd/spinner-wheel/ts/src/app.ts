@@ -2,6 +2,7 @@ import { SpinnerWheel } from './spinner-wheel';
 
 export function mountSpinner(root: HTMLElement, random: () => number): void {
   const wheel = new SpinnerWheel(random);
+  let result: string | null = null;
   root.innerHTML = `
     <h1>Spinner Wheel</h1>
     <form>
@@ -35,7 +36,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
       return item;
     }));
     spin.disabled = wheel.names.length === 0;
-    status.textContent = message ?? (wheel.names.length === 0 ? 'Füge zuerst einen Namen hinzu.' : '');
+    status.textContent = message ?? result ?? (wheel.names.length === 0 ? 'Füge zuerst einen Namen hinzu.' : '');
   }
 
   form.addEventListener('submit', (event) => {
@@ -44,5 +45,11 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     if (!message) input.value = '';
     render(message);
     input.focus();
+  });
+
+  spin.addEventListener('click', () => {
+    const selected = wheel.spin();
+    result = selected === null ? null : `Ausgewählt: ${selected}`;
+    render();
   });
 }
