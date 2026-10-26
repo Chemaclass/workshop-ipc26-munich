@@ -1,4 +1,5 @@
 import { Wheel } from 'spin-wheel';
+import { fromShareHash, toShareHash } from './share-link';
 import { type RandomSource, SpinnerWheel } from './spinner-wheel';
 import './styles.css';
 
@@ -24,6 +25,9 @@ const parseNames = (value: string): string[] =>
     .map((name) => name.trim())
     .filter((name) => name.length > 0);
 
+const shared = fromShareHash(location.hash);
+const initialNames = shared?.names ?? ['Ada', 'Bea', 'Cam'];
+
 const app = document.querySelector<HTMLDivElement>('#app');
 
 if (app) {
@@ -32,9 +36,7 @@ if (app) {
     <div class="layout">
       <div class="controls">
         <label for="names">Names (one per line)</label>
-        <textarea id="names" rows="8">Ada
-Bea
-Cam</textarea>
+        <textarea id="names" rows="8"></textarea>
         <button id="spin" type="button">Spin</button>
         <p id="message"></p>
       </div>
@@ -54,6 +56,8 @@ Cam</textarea>
     throw new Error('Missing UI elements');
   }
 
+  namesInput.value = initialNames.join('\n');
+
   let pendingPick: string | null = null;
 
   const showMessage = (text: string, isWarning: boolean) => {
@@ -62,7 +66,7 @@ Cam</textarea>
   };
 
   const visualWheel = new Wheel(wheelWrapper, {
-    items: parseNames(namesInput.value).map((label) => ({ label })),
+    items: initialNames.map((label) => ({ label })),
     radius: 0.84,
     itemLabelRadius: 0.93,
     itemLabelRadiusMax: 0.35,
@@ -91,6 +95,15 @@ Cam</textarea>
   const syncWheelItems = (names: string[]) => {
     visualWheel.items = names.map((label) => ({ label }));
   };
+
+  if (shared) {
+    const pick = shared.names[shared.index];
+    if (pick !== undefined) {
+      syncWheelItems(shared.names);
+      visualWheel.spinToItem(shared.index, 0, true, 0, 1);
+      showMessage(`Retro lead: ${pick}`, false);
+    }
+  }
 
   namesInput.addEventListener('blur', () => {
     const names = parseNames(namesInput.value);
@@ -123,6 +136,7 @@ Cam</textarea>
     }
 
     syncWheelItems(names);
+    history.replaceState(null, '', toShareHash(names, index));
     pendingPick = result.pick;
     showMessage('Spinning…', false);
     spinButton.disabled = true;
