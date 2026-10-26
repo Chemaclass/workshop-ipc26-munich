@@ -76,6 +76,14 @@ describe('Wheel', () => {
 
       expect(wheel.names).toEqual(['Gus', 'Hana']);
     });
+
+    it('saves the names after adding one', () => {
+      const store = new InMemoryNameStore(['Gus']);
+
+      Wheel.load(store).add('Hana');
+
+      expect(store.saved).toEqual(['Gus', 'Hana']);
+    });
   });
 });
 
