@@ -55,7 +55,15 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
     list.replaceChildren(
       ...wheel.names.map((name) => {
         const item = document.createElement('li');
-        item.textContent = name;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', `Remove ${name}`);
+        remove.addEventListener('click', () => {
+          wheel.remove(name);
+          render();
+        });
+        item.append(name, remove);
         return item;
       }),
     );
