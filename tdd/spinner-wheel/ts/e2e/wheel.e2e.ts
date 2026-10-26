@@ -34,3 +34,15 @@ test('adds a name to the team and the wheel', async ({ page }) => {
     page.getByRole('img', { name: 'Spinner wheel' }).getByText('Gus'),
   ).toBeVisible();
 });
+
+test('shows an error when adding a duplicate name', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByLabel('Name').fill('anna k.');
+  await page.getByRole('button', { name: 'Add' }).click();
+
+  await expect(page.getByRole('alert')).toHaveText(
+    'anna k. is already on the wheel. Add a last initial to tell them apart.',
+  );
+  await expect(page.getByRole('listitem')).toHaveCount(6);
+});
