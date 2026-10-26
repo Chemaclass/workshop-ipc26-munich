@@ -1,14 +1,15 @@
 import './style.css';
 import { LocalStorageNameStore } from './local-storage-name-store';
-import { SeededRandom } from './seeded-random';
-import { type SharedWheel, decodeShare } from './share-link';
+import { type SharedWheel, decodeShare, sharedStore } from './share-link';
 import { Wheel } from './wheel';
 import { mountBrokenLink, mountWheel } from './wheel-view';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
 function showSavedTeam(root: HTMLElement): void {
-  mountWheel(root, Wheel.load(new LocalStorageNameStore(localStorage), Math));
+  mountWheel(root, Wheel.load(new LocalStorageNameStore(localStorage)), {
+    newSeed: () => Math.floor(Math.random() * 2 ** 32),
+  });
 }
 
 function showShared(root: HTMLElement, hash: string): void {
@@ -22,8 +23,8 @@ function showShared(root: HTMLElement, hash: string): void {
     });
     return;
   }
-  mountWheel(root, new Wheel(shared.names), {
-    randomForSpin: () => new SeededRandom(shared.seed),
+  mountWheel(root, Wheel.load(sharedStore(shared)), {
+    newSeed: () => shared.seed,
     readOnly: true,
   });
 }

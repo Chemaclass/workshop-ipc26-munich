@@ -1,5 +1,7 @@
 import confetti from 'canvas-confetti';
-import type { RandomSource, Wheel } from './wheel';
+import { SeededRandom } from './seeded-random';
+import { type SharedWheel, encodeShare } from './share-link';
+import type { Wheel } from './wheel';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const CENTER = 140;
@@ -16,7 +18,7 @@ const COLORS = [
 const SPIN_MS = 3200;
 
 export interface WheelOptions {
-  randomForSpin?: () => RandomSource;
+  newSeed: () => number;
   readOnly?: boolean;
 }
 
@@ -32,7 +34,7 @@ const TEAM_FORM = `
 export function mountWheel(
   root: HTMLElement,
   wheel: Wheel,
-  options: WheelOptions = {},
+  options: WheelOptions,
 ): void {
   root.innerHTML = `
     <h1>Who leads the next retro?</h1>
@@ -46,6 +48,7 @@ export function mountWheel(
     <div class="controls">
       <button class="spin" type="button">Spin</button>
       <p class="result" role="status"></p>
+      <button class="copy-link" type="button" hidden>Copy link</button>
     </div>
     <section class="team">
       <h2>Team</h2>
@@ -55,8 +58,10 @@ export function mountWheel(
   `;
   const disc = query<SVGSVGElement>(root, '.wheel__disc');
   const result = query(root, '.result');
+  const copyLink = query<HTMLButtonElement>(root, '.copy-link');
   let rotation = 0;
   let spinning = false;
+  let lastSpin: SharedWheel | null = null;
 
   const segments = query(root, '.wheel__segments');
   const list = query(root, '.team__list');
@@ -109,13 +114,16 @@ export function mountWheel(
     if (spinning) {
       return;
     }
+    const skip = wheel.lastWinner ?? undefined;
+    const seed = options.newSeed();
     let picked: string;
     try {
-      picked = wheel.spin(options.randomForSpin?.());
+      picked = wheel.spin(new SeededRandom(seed));
     } catch (problem) {
       result.textContent = messageOf(problem);
       return;
     }
+    lastSpin = { names: [...wheel.names], seed, skip };
     rotation = rotationToShow(
       wheel.names.indexOf(picked),
       wheel.names.length,
@@ -127,12 +135,25 @@ export function mountWheel(
     setTimeout(() => {
       spinning = false;
       result.textContent = `${picked} leads the next retro`;
+      copyLink.hidden = false;
       confetti({
         particleCount: 150,
         spread: 80,
         disableForReducedMotion: true,
       });
     }, spinDuration());
+  });
+
+  copyLink.addEventListener('click', async () => {
+    if (lastSpin === null) {
+      return;
+    }
+    const link = `${location.origin}${location.pathname}#${encodeShare(lastSpin)}`;
+    await navigator.clipboard.writeText(link);
+    copyLink.textContent = 'Link copied';
+    setTimeout(() => {
+      copyLink.textContent = 'Copy link';
+    }, 1500);
   });
 }
 
