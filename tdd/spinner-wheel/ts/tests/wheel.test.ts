@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Wheel } from '../src/wheel';
+import { EXAMPLE_NAMES, type NameStore, Wheel } from '../src/wheel';
 
 describe('Wheel', () => {
   it('throws when spinning an empty wheel', () => {
@@ -63,4 +63,24 @@ describe('Wheel', () => {
     expect(() => wheel.remove('Dana')).toThrow('Dana is not on the wheel.');
     expect(wheel.names).toEqual(['Anna K.', 'Ben']);
   });
+
+  describe('with a name store', () => {
+    it('starts with example names when nothing is saved', () => {
+      const wheel = Wheel.load(new InMemoryNameStore());
+
+      expect(wheel.names).toEqual(EXAMPLE_NAMES);
+    });
+  });
 });
+
+class InMemoryNameStore implements NameStore {
+  constructor(public saved: string[] | null = null) {}
+
+  load(): string[] | null {
+    return this.saved;
+  }
+
+  save(names: readonly string[]): void {
+    this.saved = [...names];
+  }
+}
