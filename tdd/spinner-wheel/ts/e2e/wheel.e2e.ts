@@ -93,3 +93,16 @@ test('keeps the team after a reload', async ({ page }) => {
     'Gus',
   ]);
 });
+
+// {"names":["Anna K.","Ben","Chema"],"seed":42} as UTF-8 base64
+const SHARED = '#eyJuYW1lcyI6WyJBbm5hIEsuIiwiQmVuIiwiQ2hlbWEiXSwic2VlZCI6NDJ9';
+
+test('a shared link spins the same pick from its seed', async ({ page }) => {
+  await page.goto(`/${SHARED}`);
+
+  await page.getByRole('button', { name: 'Spin' }).click();
+
+  await expect(page.getByRole('status')).toHaveText('Ben leads the next retro', {
+    timeout: 10_000,
+  });
+});
