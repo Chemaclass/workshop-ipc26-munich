@@ -7,3 +7,6 @@
 /.agnostic-ai/packs/
 /agnostic-ai.local.yaml
 # <<< agnostic-ai (managed) <<<
+
+# The repo root ignores .claude/; this kata ships its generated Claude Code config.
+!/.claude/

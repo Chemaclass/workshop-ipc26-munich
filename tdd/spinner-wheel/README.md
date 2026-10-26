@@ -25,3 +25,12 @@ No Docker? `cd php && composer install && php -S localhost:8000 -t public`, or `
 ## Agent rules
 
 The rules your agent follows live in [`.agnostic-ai/AGNOSTIC_AI.md`](.agnostic-ai/AGNOSTIC_AI.md). [agnostic-ai](https://github.com/Chemaclass/agnostic-ai) generates `AGENTS.md` and `CLAUDE.md` from it. To change a rule, edit that file and run `agnostic-ai sync`.
+
+The agent works as your pair partner: one step at a time, asking before it tells. These help you steer it:
+
+- `tdd-cycle`: one red, green, refactor cycle. The agent picks it up when you ask for the next test.
+- `/requirement <text>`: start a new requirement from the slides with a test list you build together.
+- `/refactor`: one small cleanup on green.
+- `navigator`: an agent that reviews your latest diff by asking you questions.
+
+In Codex, run `$requirement` and `$refactor` instead.

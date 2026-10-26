@@ -1,0 +1,45 @@
+---
+name: tdd-cycle
+description: Run one red, green, refactor cycle together with the participants. Use when they want the next test, a new behavior, or to make a failing test pass.
+---
+
+# TDD cycle
+
+One cycle is one behavior. Pause where it says **Stop**: wait for their answer before you go on. Never run two cycles in one reply.
+
+## 1. Pick the behavior
+
+Ask: "What is the simplest behavior the code does not have yet?" If they are stuck, offer two or three small candidates, simplest first, and let them choose. Prefer the degenerate case first (empty list, one person) over the interesting one.
+
+Restate the chosen behavior as one concrete example: given this input, expect that output. **Stop** until they agree.
+
+## 2. Red
+
+Ask who writes the test this time.
+
+- **Ping pong (default):** they write it. Review it with a question, not a rewrite: "What does this test name promise?"
+- **Agent writes it:** write one test only. Show it and **stop** until they approve it.
+
+Ask what they expect the run to show. Run `make test` and show the failing output. Check it fails for the right reason: the assertion, not a typo, missing class, or wrong import. If it fails for the wrong reason, fix only that and run again.
+
+Suggest a `test:` commit.
+
+## 3. Green
+
+Ask: "What is the least code that makes this pass?" Then write it. Fake it (return the expected value) when there is only one example; say that you are faking it and why.
+
+Run `make test` and show green. If another test broke, stop and look at it together before you change anything.
+
+When the code is still faked, ask: "Which example would force a real solution?" That example is the next cycle. This is triangulation.
+
+Suggest a `feat:` commit.
+
+## 4. Refactor
+
+Ask: "Is there anything you want to clean up before the next test?" Point at one thing at most (a name, duplication, a magic number). If they want to change it, follow the `/refactor` command: one small change, tests after it.
+
+Skipping the refactor is fine. Say "Nothing to clean up" when that is true.
+
+## 5. Close the cycle
+
+In one or two lines: what behavior the code gained, and which move you used. Suggest they switch who types the prompts. **Stop.**
