@@ -5,14 +5,26 @@ export interface RandomSource {
 const alwaysFirst: RandomSource = { random: () => 0 };
 
 export class Wheel {
+  private readonly members: string[];
+
   constructor(
-    private readonly names: string[],
+    names: string[],
     private readonly random: RandomSource = alwaysFirst,
-  ) {}
+  ) {
+    this.members = [...names];
+  }
+
+  get names(): readonly string[] {
+    return this.members;
+  }
+
+  add(name: string): void {
+    this.members.push(name);
+  }
 
   spin(): string {
-    const index = Math.floor(this.random.random() * this.names.length);
-    const picked = this.names[index];
+    const index = Math.floor(this.random.random() * this.members.length);
+    const picked = this.members[index];
     if (picked === undefined) {
       throw new Error('Add someone before you spin.');
     }
