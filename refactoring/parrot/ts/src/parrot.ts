@@ -12,13 +12,6 @@ export class Parrot implements ParrotInterface {
 
   getSpeed(): number {
     switch (this.type) {
-      case ParrotType.European:
-        return this.getBaseSpeed();
-      case ParrotType.African:
-        return Math.max(
-          0,
-          this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
-        );
       case ParrotType.NorwegianBlue:
         return this.nailedState ? 0 : this.getBaseSpeedWith(this.voltage);
       default:
@@ -28,10 +21,6 @@ export class Parrot implements ParrotInterface {
 
   getCry(): string {
     switch (this.type) {
-      case ParrotType.European:
-        return 'Sqoork!';
-      case ParrotType.African:
-        return 'Sqaark!';
       case ParrotType.NorwegianBlue:
         return this.voltage > 0 ? 'Bzzzzzz' : '...';
       default:

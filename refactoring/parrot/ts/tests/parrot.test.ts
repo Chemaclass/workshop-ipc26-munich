@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vitest';
 import {Parrot} from '../src/parrot';
 import {ParrotType} from '../src/parrot-type';
 import {European} from "../src/parrots/european";
+import {African} from "../src/parrots/african";
 
 describe('Parrot', () => {
   it('speed of European parrot', () => {
@@ -9,15 +10,15 @@ describe('Parrot', () => {
   });
 
   it('speed of African parrot with one coconut', () => {
-    expect(new Parrot(ParrotType.African, 1, 0, false).getSpeed()).toBe(3.0);
+    expect(new African(1).getSpeed()).toBe(3.0);
   });
 
   it('speed of African parrot with two coconuts', () => {
-    expect(new Parrot(ParrotType.African, 2, 0, false).getSpeed()).toBe(0.0);
+    expect(new African( 2).getSpeed()).toBe(0.0);
   });
 
   it('speed of African parrot with no coconuts', () => {
-    expect(new Parrot(ParrotType.African, 0, 0, false).getSpeed()).toBe(12.0);
+    expect(new African(0).getSpeed()).toBe(12.0);
   });
 
   it('speed of nailed Norwegian Blue parrot', () => {
@@ -49,7 +50,7 @@ describe('Parrot', () => {
   });
 
   it('cry of African parrot', () => {
-    expect(new Parrot(ParrotType.African, 1, 0, false).getCry()).toBe(
+    expect(new African().getCry()).toBe(
       'Sqaark!',
     );
   });
