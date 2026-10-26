@@ -62,8 +62,8 @@ export class Wheel {
     this.store.save(this.members);
   }
 
-  spin(): string {
-    const index = Math.floor(this.random.random() * this.members.length);
+  spin(random: RandomSource = this.random): string {
+    const index = Math.floor(random.random() * this.members.length);
     const picked = this.members[index];
     if (picked === undefined) {
       throw new Error('Add someone before you spin.');
