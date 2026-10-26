@@ -18,16 +18,19 @@ export const EXAMPLE_NAMES: readonly string[] = [
 
 const alwaysFirst: RandomSource = { random: () => 0 };
 
+const nowhere: NameStore = { load: () => null, save: () => {} };
+
 export class Wheel {
   private readonly members: string[];
 
   static load(store: NameStore): Wheel {
-    return new Wheel(store.load() ?? [...EXAMPLE_NAMES]);
+    return new Wheel(store.load() ?? [...EXAMPLE_NAMES], alwaysFirst, store);
   }
 
   constructor(
     names: string[],
     private readonly random: RandomSource = alwaysFirst,
+    private readonly store: NameStore = nowhere,
   ) {
     this.members = [...names];
   }
@@ -47,6 +50,7 @@ export class Wheel {
       );
     }
     this.members.push(trimmed);
+    this.store.save(this.members);
   }
 
   remove(name: string): void {
