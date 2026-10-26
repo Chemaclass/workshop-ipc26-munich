@@ -16,10 +16,16 @@ export class Game {
   }
 
   makeGuess(guessedNumber: number) {
+    if (this.guesses >= 3) {
+      this.hint = `Sorry, the game is over.`
+      return;
+    }
     this.guess = guessedNumber;
     if (this.guess === this.answer) {
       this.won = 'won';
-    } else if (this.guess > this.answer){
+      return;
+    }
+    if (this.guess > this.answer) {
       this.hint = `it's lower!`;
     } else {
       this.hint = `it's higher!`;

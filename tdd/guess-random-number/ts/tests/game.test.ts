@@ -30,6 +30,8 @@ describe('Guessing Game', () => {
     game.makeGuess(2)
     expect(game.guesses).toBe(3);
     expect(game.won).toBe('lost');
+    game.makeGuess(5)
+    expect(game.won).toBe('lost');
   });
 
   it('should give the correct hint if the answer is higher or lower', () => {
