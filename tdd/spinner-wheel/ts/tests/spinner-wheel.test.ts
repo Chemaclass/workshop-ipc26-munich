@@ -2,6 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('SpinnerWheel', () => {
+  it('rejects duplicates regardless of case and surrounding whitespace', () => {
+    const wheel = new SpinnerWheel(() => 0);
+    wheel.add('Anna');
+    expect(wheel.add('Anna')).toBe('Dieser Name ist bereits vorhanden.');
+    expect(wheel.add(' ANNA ')).toBe('Dieser Name ist bereits vorhanden.');
+    expect(wheel.names).toEqual(['Anna']);
+  });
   it('trims surrounding whitespace while preserving the name', () => {
     const wheel = new SpinnerWheel(() => 0);
     wheel.add('  Anna Maria \t');
