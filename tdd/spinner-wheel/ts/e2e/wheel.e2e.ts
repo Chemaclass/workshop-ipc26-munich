@@ -22,3 +22,15 @@ test('spinning announces who leads the next retro', async ({ page }) => {
     { timeout: 10_000 },
   );
 });
+
+test('adds a name to the team and the wheel', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByLabel('Name').fill('Gus');
+  await page.getByRole('button', { name: 'Add' }).click();
+
+  await expect(page.getByRole('listitem').filter({ hasText: 'Gus' })).toBeVisible();
+  await expect(
+    page.getByRole('img', { name: 'Spinner wheel' }).getByText('Gus'),
+  ).toBeVisible();
+});
