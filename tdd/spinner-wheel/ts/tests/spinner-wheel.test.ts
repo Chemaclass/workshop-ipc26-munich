@@ -50,4 +50,22 @@ describe('SpinnerWheel', () => {
     expect(result.warning).toBeNull();
     expect(result.names).toEqual(['Ada', 'Bea']);
   });
+
+  it('does not pick the last winner again', () => {
+    const wheel = new SpinnerWheel(fixedRandom(0));
+    const result = wheel.spin(['Ada', 'Bea'], 'Ada');
+
+    expect(result.pick).toBe('Bea');
+    expect(result.warning).toBeNull();
+    expect(result.names).toEqual(['Ada', 'Bea']);
+  });
+
+  it('ignores a last winner who is not in the list', () => {
+    const wheel = new SpinnerWheel(fixedRandom(0));
+    const result = wheel.spin(['Ada', 'Bea', 'Cam'], 'Zoe');
+
+    expect(result.pick).toBe('Ada');
+    expect(result.warning).toBeNull();
+    expect(result.names).toEqual(['Ada', 'Bea', 'Cam']);
+  });
 });

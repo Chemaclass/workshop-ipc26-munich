@@ -31,6 +31,56 @@ const confettiColors = [
   '#c77dff',
 ];
 
+let audioContext: AudioContext | null = null;
+
+const celebrationAudio = (): AudioContext => {
+  audioContext ??= new AudioContext();
+  return audioContext;
+};
+
+const armCelebrationSound = () => {
+  const context = celebrationAudio();
+  if (context.state === 'suspended') {
+    void context.resume();
+  }
+};
+
+const playChime = (
+  context: AudioContext,
+  frequency: number,
+  when: number,
+  duration: number,
+) => {
+  const oscillator = context.createOscillator();
+  const gain = context.createGain();
+  oscillator.type = 'triangle';
+  oscillator.frequency.setValueAtTime(frequency, when);
+  gain.gain.setValueAtTime(0.0001, when);
+  gain.gain.exponentialRampToValueAtTime(0.12, when + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, when + duration);
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start(when);
+  oscillator.stop(when + duration);
+};
+
+const playCelebrationSound = () => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const context = celebrationAudio();
+  if (context.state === 'suspended') {
+    void context.resume();
+  }
+
+  const start = context.currentTime + 0.02;
+  const notes = [523.25, 659.25, 783.99, 1046.5];
+  for (const [index, frequency] of notes.entries()) {
+    playChime(context, frequency, start + index * 0.09, 0.42);
+  }
+};
+
 const celebratePick = () => {
   const defaults = {
     particleCount: 80,
@@ -52,6 +102,7 @@ const celebratePick = () => {
     ...defaults,
     origin: { x: 0.75, y: 0 },
   });
+  playCelebrationSound();
 };
 
 const parseNames = (value: string): string[] =>
@@ -150,7 +201,9 @@ if (app) {
 
   spinButton.addEventListener('click', () => {
     const names = parseNames(namesInput.value);
-    const result = domainWheel.spin(names);
+    const current = fromShareHash(location.hash);
+    const lastWinner = current?.names[current.index] ?? null;
+    const result = domainWheel.spin(names, lastWinner);
 
     if (result.warning) {
       pendingPick = null;
@@ -173,6 +226,7 @@ if (app) {
 
     syncWheelItems(names);
     history.replaceState(null, '', toShareHash(names, index));
+    armCelebrationSound();
     pendingPick = result.pick;
     showMessage('Spinning…', false);
     spinButton.disabled = true;

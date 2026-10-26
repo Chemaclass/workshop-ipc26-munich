@@ -11,7 +11,7 @@ export type RandomSource = {
 export class SpinnerWheel {
   constructor(private readonly random: RandomSource) {}
 
-  spin(names: string[]): SpinResult {
+  spin(names: string[], lastWinner: string | null = null): SpinResult {
     if (names.length < 2) {
       return {
         pick: null,
@@ -28,10 +28,14 @@ export class SpinnerWheel {
       };
     }
 
-    const index = this.random.next() % names.length;
+    const pool =
+      lastWinner !== null && names.includes(lastWinner)
+        ? names.filter((name) => name !== lastWinner)
+        : names;
+    const index = this.random.next() % pool.length;
 
     return {
-      pick: names[index] ?? null,
+      pick: pool[index] ?? null,
       warning: null,
       names,
     };
