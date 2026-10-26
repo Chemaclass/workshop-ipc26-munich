@@ -1,3 +1,5 @@
+import type { NameStore } from './wheel';
+
 export interface SharedWheel {
   names: string[];
   seed: number;
@@ -7,6 +9,15 @@ export interface SharedWheel {
 export function encodeShare(shared: SharedWheel): string {
   const bytes = new TextEncoder().encode(JSON.stringify(shared));
   return btoa(String.fromCharCode(...bytes));
+}
+
+export function sharedStore(shared: SharedWheel): NameStore {
+  return {
+    load: () => shared.names,
+    save: () => {},
+    loadLastWinner: () => shared.skip ?? null,
+    saveLastWinner: () => {},
+  };
 }
 
 export function decodeShare(text: string): SharedWheel {
