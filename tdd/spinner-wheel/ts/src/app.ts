@@ -30,6 +30,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
       remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" /></svg>';
       remove.addEventListener('click', () => {
         wheel.remove(name);
+        result = null;
         render();
       });
       item.append(remove);
@@ -42,7 +43,10 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     const message = wheel.add(input.value);
-    if (!message) input.value = '';
+    if (!message) {
+      input.value = '';
+      result = null;
+    }
     render(message);
     input.focus();
   });
