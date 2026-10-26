@@ -4,10 +4,10 @@ description: Test random picks through an injected random source, never the real
 alwaysApply: true
 ---
 
-Picking a person is random, and a test cannot assert a random result. Treat the random source as a collaborator:
+A test cannot assert a random result, so treat the random source as a collaborator:
 
-- Pass it in, through the constructor or an argument. Do not call the language's random function inside the domain code.
-- In tests, replace it with a fake that returns a fixed value, so each test knows who gets picked.
+- Pass it in through the constructor or an argument. Domain code never calls the language's random function.
+- In tests, use a fake that returns a fixed value, so each test knows who gets picked.
 - Create the real random source only at the edge: `public/index.php` in PHP, `src/main.ts` in TypeScript.
 
-Before you write the first random pick, ask the participants how they want to inject it. Remind them of the collaborators from the Guess the Random Number kata, and let them choose the shape.
+Before the first random pick, remind them of the collaborators from the Guess the Random Number kata and ask how they want to inject it.
