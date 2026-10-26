@@ -19,12 +19,6 @@ const AFRICAN_PARROT_LOAD_FACTOR = 9
 
 abstract class BaseParrot {
   protected baseSpeed = 12
-  constructor(
-    protected numberOfCoconuts: number,
-    protected voltage: number,
-    protected isNailed: boolean,
-  ) { }
-
   abstract getSpeed(): number;
   abstract getCry(): string;
 }
@@ -36,11 +30,11 @@ export class Parrot {
     isNailed: boolean) {
     switch (type) {
       case ParrotType.African:
-        return new AfricanParrot(numberOfCoconuts, voltage, isNailed)
+        return new AfricanParrot(numberOfCoconuts)
       case ParrotType.European:
-        return new EuropeanParrot(numberOfCoconuts, voltage, isNailed)
+        return new EuropeanParrot()
       case ParrotType.NorwegianBlue:
-        return new NorwegianBlueParrot(numberOfCoconuts, voltage, isNailed)
+        return new NorwegianBlueParrot(voltage, isNailed)
       default:
         throw new Error('Should be unreachable');
     }
@@ -48,12 +42,8 @@ export class Parrot {
 }
 
 export class EuropeanParrot extends BaseParrot {
-  constructor(
-    numberOfCoconuts: number,
-    voltage: number,
-    isNailed: boolean,
-  ) {
-    super(numberOfCoconuts, voltage, isNailed)
+  constructor() {
+    super()
   }
 
   getSpeed() {
@@ -66,12 +56,12 @@ export class EuropeanParrot extends BaseParrot {
 }
 
 export class AfricanParrot extends BaseParrot {
+  private numberOfCoconuts: number
   constructor(
-    numberOfCoconuts: number,
-    voltage: number,
-    isNailed: boolean,
+    numberOfCoconuts: number
   ) {
-    super(numberOfCoconuts, voltage, isNailed)
+    super()
+    this.numberOfCoconuts = numberOfCoconuts
   }
 
   getSpeed() {
@@ -87,12 +77,15 @@ export class AfricanParrot extends BaseParrot {
 }
 
 export class NorwegianBlueParrot extends BaseParrot {
+  private voltage: number
+  private isNailed: boolean
   constructor(
-    numberOfCoconuts: number,
     voltage: number,
     isNailed: boolean,
   ) {
-    super(numberOfCoconuts, voltage, isNailed)
+    super()
+    this.voltage = voltage
+    this.isNailed = isNailed
   }
 
   getSpeed() {
