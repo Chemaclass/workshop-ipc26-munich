@@ -121,3 +121,63 @@ h1 {
   margin: 0;
   font-size: 1.1rem;
 }
+
+.team {
+  padding: 1rem 1.25rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.team h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.team__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.team__form label {
+  width: 100%;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.team__form input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.team button {
+  padding: 8px 14px;
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.team__list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team__list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}

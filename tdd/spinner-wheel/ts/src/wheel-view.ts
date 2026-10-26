@@ -28,13 +28,44 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
       <button class="spin" type="button">Spin</button>
       <p class="result" role="status"></p>
     </div>
+    <section class="team">
+      <h2>Team</h2>
+      <form class="team__form">
+        <label for="team-name">Name</label>
+        <input id="team-name" name="name" autocomplete="off" placeholder="Anna K." />
+        <button type="submit">Add</button>
+      </form>
+      <ul class="team__list"></ul>
+    </section>
   `;
   const disc = query<SVGSVGElement>(root, '.wheel__disc');
   const result = query(root, '.result');
   let rotation = 0;
   let spinning = false;
 
-  drawSegments(query(root, '.wheel__segments'), wheel.names);
+  const segments = query(root, '.wheel__segments');
+  const list = query(root, '.team__list');
+  const form = query<HTMLFormElement>(root, '.team__form');
+  const input = query<HTMLInputElement>(root, '#team-name');
+
+  const render = () => {
+    drawSegments(segments, wheel.names);
+    list.replaceChildren(
+      ...wheel.names.map((name) => {
+        const item = document.createElement('li');
+        item.textContent = name;
+        return item;
+      }),
+    );
+  };
+  render();
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    wheel.add(input.value);
+    input.value = '';
+    render();
+  });
 
   query(root, '.spin').addEventListener('click', () => {
     if (spinning) {
