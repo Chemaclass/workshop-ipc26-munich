@@ -5,6 +5,8 @@ export interface RandomSource {
 export interface NameStore {
   load(): string[] | null;
   save(names: readonly string[]): void;
+  loadLastWinner(): string | null;
+  saveLastWinner(name: string): void;
 }
 
 export const EXAMPLE_NAMES: readonly string[] = [
@@ -18,7 +20,12 @@ export const EXAMPLE_NAMES: readonly string[] = [
 
 const alwaysFirst: RandomSource = { random: () => 0 };
 
-const nowhere: NameStore = { load: () => null, save: () => {} };
+const nowhere: NameStore = {
+  load: () => null,
+  save: () => {},
+  loadLastWinner: () => null,
+  saveLastWinner: () => {},
+};
 
 export class Wheel {
   private readonly members: string[];
@@ -63,8 +70,11 @@ export class Wheel {
   }
 
   spin(random: RandomSource = this.random): string {
-    const index = Math.floor(random.random() * this.members.length);
-    const picked = this.members[index];
+    const lastWinner = this.store.loadLastWinner();
+    const candidates = this.members.filter((name) => name !== lastWinner);
+    const pool = candidates.length > 0 ? candidates : this.members;
+    const index = Math.floor(random.random() * pool.length);
+    const picked = pool[index];
     if (picked === undefined) {
       throw new Error('Add someone before you spin.');
     }

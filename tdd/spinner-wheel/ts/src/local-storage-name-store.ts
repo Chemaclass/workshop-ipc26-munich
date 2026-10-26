@@ -13,4 +13,10 @@ export class LocalStorageNameStore implements NameStore {
   save(names: readonly string[]): void {
     this.storage.setItem(KEY, JSON.stringify(names));
   }
+
+  loadLastWinner(): string | null {
+    return null;
+  }
+
+  saveLastWinner(_name: string): void {}
 }
