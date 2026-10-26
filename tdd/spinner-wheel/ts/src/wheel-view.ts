@@ -1,4 +1,4 @@
-import type { Wheel } from './wheel';
+import type { RandomSource, Wheel } from './wheel';
 
 const SVG = 'http://www.w3.org/2000/svg';
 const CENTER = 140;
@@ -14,7 +14,15 @@ const COLORS = [
 ] as const;
 const SPIN_MS = 3200;
 
-export function mountWheel(root: HTMLElement, wheel: Wheel): void {
+export interface WheelOptions {
+  randomForSpin?: () => RandomSource;
+}
+
+export function mountWheel(
+  root: HTMLElement,
+  wheel: Wheel,
+  options: WheelOptions = {},
+): void {
   root.innerHTML = `
     <h1>Who leads the next retro?</h1>
     <div class="wheel">
@@ -91,7 +99,7 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
     }
     let picked: string;
     try {
-      picked = wheel.spin();
+      picked = wheel.spin(options.randomForSpin?.());
     } catch (problem) {
       result.textContent = messageOf(problem);
       return;
