@@ -35,3 +35,7 @@ watch: ## Run tests in watch mode (requires 'make up' first).
 
 serve: ## Serve the app at http://localhost:5173 (requires 'make up' first).
 	docker exec -it $(CONTAINER) npm run dev
+
+.PHONY: e2e
+e2e: ## Run the browser tests with Playwright.
+	docker compose run --rm $(SERVICE)-e2e

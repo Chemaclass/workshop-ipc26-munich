@@ -8,3 +8,16 @@ services:
       - "5173:5173"
     volumes:
       - .:/srv/workshop-ipc26-munich/tdd/spinner-wheel/ts:delegated
+
+  spinner-wheel-tdd-ts-e2e:
+    image: mcr.microsoft.com/playwright:v1.49.1-noble
+    profiles: ["e2e"]
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    command: sh -c "npm install --no-audit --no-fund && npx playwright test"
+    working_dir: /srv/workshop-ipc26-munich/tdd/spinner-wheel/ts
+    volumes:
+      - .:/srv/workshop-ipc26-munich/tdd/spinner-wheel/ts:delegated
+    tmpfs:
+      - /srv/workshop-ipc26-munich/tdd/spinner-wheel/ts/node_modules:exec,uid=${HOST_UID:-1000},gid=${HOST_GID:-1000},size=1g
+    environment:
+      HOME: /tmp
