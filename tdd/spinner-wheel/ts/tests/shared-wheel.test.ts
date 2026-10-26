@@ -3,6 +3,30 @@ import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('shared wheel state', () => {
+  it('preserves full angle precision and names containing the compact separator', () => {
+    const cases = [
+      { rotation: 0, chosen: 'A.B' },
+      { rotation: 198.75000000000003, chosen: 'Ben' },
+      { rotation: 359.99999999999994, chosen: 'A.B' },
+      { rotation: 0.1, chosen: 'Clara' },
+    ];
+    for (const example of cases) {
+      const state = { names: ['A.B', 'Ben', 'Clara'], ...example };
+      const url = new URL('https://wheel.example/');
+      url.hash = encodeSharedWheel(state);
+      expect(url.hash).toMatch(/^#r=/);
+      expect(decodeSharedWheel(url.hash)).toEqual(state);
+    }
+  });
+  it('still restores previously generated compact links', () => {
+    expect(
+      decodeSharedWheel('#w=W1siQW5uYSIsIkJlbiIsIkNsYXJhIl0sMSwxOTguNzVd'),
+    ).toEqual({
+      names: ['Anna', 'Ben', 'Clara'],
+      chosen: 'Ben',
+      rotation: 198.75,
+    });
+  });
   it('reduces the three-name share payload to fewer than 25 characters', () => {
     const state = {
       names: ['Anna', 'Ben', 'Clara'],
