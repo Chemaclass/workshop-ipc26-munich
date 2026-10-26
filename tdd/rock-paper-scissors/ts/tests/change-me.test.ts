@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { Rock, Scissors } from '../src/change-me';
+import { Scissors } from '../src/scissors';
+import { Rock } from '../src/rock';
 
 describe('Rock paper scissors', () => {
   it('Rock beats scissors', () => {
