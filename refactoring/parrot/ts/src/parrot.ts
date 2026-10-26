@@ -1,5 +1,4 @@
 import { ParrotType } from './parrot-type';
-
 export class Parrot {
   constructor(
     private readonly type: number,
@@ -45,7 +44,21 @@ export class Parrot {
     return 9.0;
   }
 
-  private getBaseSpeed(): number {
+  protected getBaseSpeed(): number {
     return 12.0;
+  }
+}
+
+export class European extends Parrot {
+  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
+    super(ParrotType.European, numberOfCoconuts, voltage, isNailed);
+  }
+
+  getSpeed(): number {
+    return this.getBaseSpeed();
+  }
+
+  getCry(): string {
+    return 'Sqoork!';
   }
 }
