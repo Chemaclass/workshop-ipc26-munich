@@ -3,6 +3,25 @@ import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('shared wheel state', () => {
+  it('ignores damaged short links and invalid winner references', () => {
+    const invalidPayloads = [
+      [['Anna', 'Ben'], '1', 90],
+      [['Anna', 'Ben'], 0.5, 90],
+      [['Anna', 'Ben'], 3, 90],
+      [['Anna', 'Ben'], -1, 90],
+      [['Anna', 'Ben'], 1, 90, 'extra'],
+    ];
+    for (const payload of invalidPayloads) {
+      const token = btoa(JSON.stringify(payload))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
+      expect(decodeSharedWheel(`#w=${token}`)).toBeNull();
+    }
+    for (const hash of ['#w=', '#w=%%%', '#w=e30', '#w=bnVsbA', '#w=_w']) {
+      expect(decodeSharedWheel(hash)).toBeNull();
+    }
+  });
   it('creates a compact URL-safe link less than half the old payload size', () => {
     const state = {
       names: ['Anna', 'Ben', 'Clara'],

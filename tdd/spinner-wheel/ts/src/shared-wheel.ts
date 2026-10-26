@@ -34,9 +34,18 @@ export function decodeSharedWheel(hash: string): SharedWheel | null {
       const bytes = Uint8Array.from(binary, (character) =>
         character.charCodeAt(0),
       );
-      const [names, chosenIndex, rotation] = JSON.parse(
+      const payload = JSON.parse(
         new TextDecoder('utf-8', { fatal: true }).decode(bytes),
       );
+      if (!Array.isArray(payload) || payload.length !== 3) return null;
+      const [names, chosenIndex, rotation] = payload;
+      if (
+        !Array.isArray(names) ||
+        !Number.isInteger(chosenIndex) ||
+        chosenIndex < 0 ||
+        chosenIndex >= names.length
+      )
+        return null;
       data = { version: 1, names, chosen: names[chosenIndex], rotation };
     } else {
       data = JSON.parse(decodeURIComponent(hash.slice(7)));
