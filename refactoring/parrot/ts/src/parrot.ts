@@ -16,16 +16,7 @@ export class Parrot {
   }
 
   getCry(): string {
-    switch (this.type) {
-      case ParrotType.European:
-        return new EuropeanParrot().getCry();
-      case ParrotType.African:
-        return new AfricanParrot(this.numberOfCoconuts).getCry();
-      case ParrotType.NorwegianBlue:
-        return new NorwegianBlueParrot(this.voltage, this.isNailed).getCry();
-      default:
-        throw new Error('Should be unreachable');
-    }
+    return this.createKind().getCry();
   }
 
   private createKind(): ParrotKind {
