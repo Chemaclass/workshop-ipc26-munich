@@ -19,15 +19,16 @@ export class Wheel {
   }
 
   add(name: string): void {
-    if (name.trim() === '') {
+    const trimmed = name.trim();
+    if (trimmed === '') {
       throw new Error('Enter a name first.');
     }
-    if (this.members.includes(name)) {
+    if (this.has(trimmed)) {
       throw new Error(
-        `${name} is already on the wheel. Add a last initial to tell them apart.`,
+        `${trimmed} is already on the wheel. Add a last initial to tell them apart.`,
       );
     }
-    this.members.push(name);
+    this.members.push(trimmed);
   }
 
   spin(): string {
@@ -37,5 +38,10 @@ export class Wheel {
       throw new Error('Add someone before you spin.');
     }
     return picked;
+  }
+
+  private has(name: string): boolean {
+    const wanted = name.toLowerCase();
+    return this.members.some((member) => member.toLowerCase() === wanted);
   }
 }
