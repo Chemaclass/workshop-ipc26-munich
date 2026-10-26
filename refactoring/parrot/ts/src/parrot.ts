@@ -12,16 +12,7 @@ export class Parrot {
   ) {}
 
   getSpeed(): number {
-    switch (this.type) {
-      case ParrotType.European:
-        return new EuropeanParrot().getSpeed();
-      case ParrotType.African:
-        return new AfricanParrot(this.numberOfCoconuts).getSpeed();
-      case ParrotType.NorwegianBlue:
-        return new NorwegianBlueParrot(this.voltage, this.isNailed).getSpeed();
-      default:
-        throw new Error('Should be unreachable');
-    }
+    return this.createKind().getSpeed();
   }
 
   getCry(): string {
@@ -32,6 +23,19 @@ export class Parrot {
         return new AfricanParrot(this.numberOfCoconuts).getCry();
       case ParrotType.NorwegianBlue:
         return new NorwegianBlueParrot(this.voltage, this.isNailed).getCry();
+      default:
+        throw new Error('Should be unreachable');
+    }
+  }
+
+  private createKind(): ParrotKind {
+    switch (this.type) {
+      case ParrotType.European:
+        return new EuropeanParrot();
+      case ParrotType.African:
+        return new AfricanParrot(this.numberOfCoconuts);
+      case ParrotType.NorwegianBlue:
+        return new NorwegianBlueParrot(this.voltage, this.isNailed);
       default:
         throw new Error('Should be unreachable');
     }
