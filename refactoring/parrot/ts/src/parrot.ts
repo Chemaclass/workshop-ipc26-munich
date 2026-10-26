@@ -1,5 +1,20 @@
 import { ParrotType } from './parrot-type';
 
+// abstract class BaseParrot {
+//   private loadFactor = 9
+//   private baseSpeed = 12
+//   constructor(
+//     private readonly type: number,
+//     private readonly numberOfCoconuts: number,
+//     private readonly voltage: number,
+//     private readonly isNailed: boolean,
+//   ) {}
+
+//   abstract getSpeed(): number
+
+//   abstract getCry(): string
+// }
+
 export class Parrot {
   constructor(
     private readonly type: number,
@@ -18,7 +33,7 @@ export class Parrot {
           this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
         );
       case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
+        return this.isNailed ? 0 : Math.min(24.0, this.voltage * this.getBaseSpeed());
       default:
         throw new Error('Should be unreachable');
     }
@@ -35,10 +50,6 @@ export class Parrot {
       default:
         throw new Error('Should be unreachable');
     }
-  }
-
-  private getBaseSpeedWith(voltage: number): number {
-    return Math.min(24.0, voltage * this.getBaseSpeed());
   }
 
   private getLoadFactor(): number {
