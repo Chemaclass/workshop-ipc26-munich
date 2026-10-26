@@ -112,6 +112,20 @@ describe('Wheel', () => {
 
       expect(Wheel.load(store, { random: () => 0 }).spin()).toBe('Hana');
     });
+
+    it('picks the previous winner when nobody else is on the wheel', () => {
+      const store = new InMemoryNameStore(['Gus'], 'Gus');
+
+      expect(Wheel.load(store).spin()).toBe('Gus');
+    });
+
+    it('remembers the winner for the next spin', () => {
+      const store = new InMemoryNameStore(['Gus', 'Hana']);
+
+      Wheel.load(store, { random: () => 0.5 }).spin();
+
+      expect(store.lastWinner).toBe('Hana');
+    });
   });
 });
 
