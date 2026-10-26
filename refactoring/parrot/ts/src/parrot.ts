@@ -20,7 +20,6 @@ const AFRICAN_PARROT_LOAD_FACTOR = 9
 abstract class BaseParrot {
   protected baseSpeed = 12
   constructor(
-    protected type: number,
     protected numberOfCoconuts: number,
     protected voltage: number,
     protected isNailed: boolean,
@@ -54,7 +53,7 @@ export class EuropeanParrot extends BaseParrot {
     voltage: number,
     isNailed: boolean,
   ) {
-    super(ParrotType.European, numberOfCoconuts, voltage, isNailed)
+    super(numberOfCoconuts, voltage, isNailed)
   }
 
   getSpeed() {
@@ -72,7 +71,7 @@ export class AfricanParrot extends BaseParrot {
     voltage: number,
     isNailed: boolean,
   ) {
-    super(ParrotType.African, numberOfCoconuts, voltage, isNailed)
+    super(numberOfCoconuts, voltage, isNailed)
   }
 
   getSpeed() {
@@ -93,7 +92,7 @@ export class NorwegianBlueParrot extends BaseParrot {
     voltage: number,
     isNailed: boolean,
   ) {
-    super(ParrotType.NorwegianBlue, numberOfCoconuts, voltage, isNailed)
+    super(numberOfCoconuts, voltage, isNailed)
   }
 
   getSpeed() {
