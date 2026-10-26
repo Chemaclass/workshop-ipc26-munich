@@ -23,8 +23,8 @@ const nowhere: NameStore = { load: () => null, save: () => {} };
 export class Wheel {
   private readonly members: string[];
 
-  static load(store: NameStore): Wheel {
-    return new Wheel(store.load() ?? [...EXAMPLE_NAMES], alwaysFirst, store);
+  static load(store: NameStore, random: RandomSource = alwaysFirst): Wheel {
+    return new Wheel(store.load() ?? [...EXAMPLE_NAMES], random, store);
   }
 
   constructor(
