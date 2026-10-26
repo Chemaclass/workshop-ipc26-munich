@@ -13,6 +13,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     </form>
     <ul aria-label="Teilnehmer"></ul>
     <button type="button" data-action="spin" disabled>Drehen</button>
+    <p data-result hidden></p>
     <p role="status">Füge zuerst einen Namen hinzu.</p>
   `;
   const form = root.querySelector('form') as HTMLFormElement;
@@ -20,29 +21,42 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   const list = root.querySelector('ul') as HTMLUListElement;
   const spin = root.querySelector('[data-action="spin"]') as HTMLButtonElement;
   const status = root.querySelector('[role="status"]') as HTMLParagraphElement;
+  const retainedResult = root.querySelector(
+    '[data-result]',
+  ) as HTMLParagraphElement;
 
   function render(message: string | null = null) {
-    list.replaceChildren(...wheel.names.map((name) => {
-      const item = document.createElement('li');
-      item.textContent = name;
-      const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.setAttribute('aria-label', `${name} entfernen`);
-      remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" /></svg>';
-      remove.addEventListener('click', () => {
-        if (drawing) return;
-        wheel.remove(name);
-        result = null;
-        render();
-      });
-      item.append(remove);
-      return item;
-    }));
-    for (const control of root.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button')) {
+    retainedResult.textContent = message && result ? result : '';
+    retainedResult.hidden = !retainedResult.textContent;
+    list.replaceChildren(
+      ...wheel.names.map((name) => {
+        const item = document.createElement('li');
+        item.textContent = name;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.setAttribute('aria-label', `${name} entfernen`);
+        remove.innerHTML =
+          '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" /></svg>';
+        remove.addEventListener('click', () => {
+          if (drawing) return;
+          wheel.remove(name);
+          result = null;
+          render();
+        });
+        item.append(remove);
+        return item;
+      }),
+    );
+    for (const control of root.querySelectorAll<
+      HTMLInputElement | HTMLButtonElement
+    >('input, button')) {
       control.disabled = drawing;
     }
     spin.disabled = drawing || wheel.names.length === 0;
-    status.textContent = message ?? result ?? (wheel.names.length === 0 ? 'Füge zuerst einen Namen hinzu.' : '');
+    status.textContent =
+      message ??
+      result ??
+      (wheel.names.length === 0 ? 'Füge zuerst einen Namen hinzu.' : '');
   }
 
   form.addEventListener('submit', (event) => {

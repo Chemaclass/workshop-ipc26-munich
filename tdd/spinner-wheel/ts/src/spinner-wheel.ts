@@ -14,7 +14,11 @@ export class SpinnerWheel {
 
   add(name: string): string | null {
     if (!name.trim()) return 'Bitte gib einen Namen ein.';
-    if (this.names.some((existing) => existing.toLowerCase() === name.trim().toLowerCase())) {
+    if (
+      this.names.some(
+        (existing) => existing.toLowerCase() === name.trim().toLowerCase(),
+      )
+    ) {
       return 'Dieser Name ist bereits vorhanden.';
     }
     this.names.push(name.trim());

@@ -4,10 +4,7 @@
   "private": true,
   "type": "module",
   "license": "MIT",
-  "keywords": [
-    "typescript",
-    "scaffolding"
-  ],
+  "keywords": ["typescript", "scaffolding"],
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "test": "vitest run",

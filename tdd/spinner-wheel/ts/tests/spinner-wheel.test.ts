@@ -9,7 +9,13 @@ describe('SpinnerWheel', () => {
     wheel.add('Ben');
     wheel.add('Clara');
     expect(Array.from({ length: 7 }, () => wheel.spin())).toEqual([
-      'Anna', 'Anna', 'Ben', 'Ben', 'Clara', 'Clara', 'Clara',
+      'Anna',
+      'Anna',
+      'Ben',
+      'Ben',
+      'Clara',
+      'Clara',
+      'Clara',
     ]);
     expect(wheel.names).toEqual(['Anna', 'Ben', 'Clara']);
   });
