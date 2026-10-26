@@ -21,3 +21,7 @@ No Docker? `cd php && composer install && php -S localhost:8000 -t public`, or `
 1. Follow the stages on the slides, one at a time.
 2. Write each test before the code.
 3. Commit after every green test.
+
+## Agent rules
+
+The rules your agent follows live in [`.agnostic-ai/AGNOSTIC_AI.md`](.agnostic-ai/AGNOSTIC_AI.md). [agnostic-ai](https://github.com/Chemaclass/agnostic-ai) generates `AGENTS.md` and `CLAUDE.md` from it. To change a rule, edit that file and run `agnostic-ai sync`.
