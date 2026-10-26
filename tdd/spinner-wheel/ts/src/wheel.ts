@@ -19,6 +19,9 @@ export class Wheel {
   }
 
   add(name: string): void {
+    if (name.trim() === '') {
+      throw new Error('Enter a name first.');
+    }
     this.members.push(name);
   }
 
