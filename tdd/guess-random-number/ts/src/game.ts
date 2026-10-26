@@ -15,6 +15,10 @@ export class Game {
 
   makeGuess(guessedNumber: number) {
     this.guess = guessedNumber;
+    if (this.guess === this.answer) {
+      this.won = 'won';
+    }
     this.guesses++;
+    if (this.guesses >= 3) this.won = 'lost'
   }
 }
