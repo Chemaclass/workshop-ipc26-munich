@@ -84,6 +84,14 @@ describe('Wheel', () => {
 
       expect(store.saved).toEqual(['Gus', 'Hana']);
     });
+
+    it('saves the names after removing one', () => {
+      const store = new InMemoryNameStore(['Gus', 'Hana']);
+
+      Wheel.load(store).remove('Gus');
+
+      expect(store.saved).toEqual(['Hana']);
+    });
   });
 });
 
