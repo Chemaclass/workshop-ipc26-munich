@@ -15,7 +15,10 @@ import { ParrotType } from './parrot-type';
 //   abstract getCry(): string
 // }
 
+const AFRICAN_PARROT_LOAD_FACTOR = 9
+
 export class Parrot {
+  private baseSpeed = 12
   constructor(
     private readonly type: number,
     private readonly numberOfCoconuts: number,
@@ -26,14 +29,14 @@ export class Parrot {
   getSpeed(): number {
     switch (this.type) {
       case ParrotType.European:
-        return this.getBaseSpeed();
+        return this.baseSpeed;
       case ParrotType.African:
         return Math.max(
           0,
-          this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
+          this.baseSpeed - AFRICAN_PARROT_LOAD_FACTOR * this.numberOfCoconuts,
         );
       case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : Math.min(24.0, this.voltage * this.getBaseSpeed());
+        return this.isNailed ? 0 : Math.min(24.0, this.voltage * this.baseSpeed);
       default:
         throw new Error('Should be unreachable');
     }
@@ -50,13 +53,5 @@ export class Parrot {
       default:
         throw new Error('Should be unreachable');
     }
-  }
-
-  private getLoadFactor(): number {
-    return 9.0;
-  }
-
-  private getBaseSpeed(): number {
-    return 12.0;
   }
 }
