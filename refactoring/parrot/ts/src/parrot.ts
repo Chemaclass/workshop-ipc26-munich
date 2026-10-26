@@ -1,5 +1,8 @@
 import { ParrotType } from './parrot-type';
 
+const BASE_SPEED = 12.0;
+const LOAD_FACTOR = 9.0;
+
 export class Parrot {
   constructor(
     private readonly type: number,
@@ -11,12 +14,9 @@ export class Parrot {
   getSpeed(): number {
     switch (this.type) {
       case ParrotType.European:
-        return this.getBaseSpeed();
+        return BASE_SPEED;
       case ParrotType.African:
-        return Math.max(
-          0,
-          this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
-        );
+        return Math.max(0, BASE_SPEED - LOAD_FACTOR * this.numberOfCoconuts);
       case ParrotType.NorwegianBlue:
         return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
       default:
@@ -38,14 +38,6 @@ export class Parrot {
   }
 
   private getBaseSpeedWith(voltage: number): number {
-    return Math.min(24.0, voltage * this.getBaseSpeed());
-  }
-
-  private getLoadFactor(): number {
-    return 9.0;
-  }
-
-  private getBaseSpeed(): number {
-    return 12.0;
+    return Math.min(24.0, voltage * BASE_SPEED);
   }
 }
