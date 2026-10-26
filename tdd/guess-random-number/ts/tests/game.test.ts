@@ -31,4 +31,12 @@ describe('Guessing Game', () => {
     expect(game.guesses).toBe(3);
     expect(game.won).toBe('lost');
   });
+
+  it('should give the correct hint if the answer is higher or lower', () => {
+    const game = new Game()
+    game.makeGuess(2)
+    expect(game.hint).toBe(`it's higher!`)
+    game.makeGuess(9)
+    expect(game.hint).toBe(`it's lower!`)
+  });
 });
