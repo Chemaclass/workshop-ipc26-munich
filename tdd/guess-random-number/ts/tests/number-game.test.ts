@@ -16,11 +16,12 @@ describe('Number Guessing Game', () => {
   })
 
   it('Game should only allow 3 tries', () => {
-    const game = NumberGameTestingService.getNumberGameWithSetResultNumber(4)
+    const testNumber = 4
+    const game = NumberGameTestingService.getNumberGameWithSetResultNumber(testNumber)
     game.init()
     game.guess(1)
     game.guess(1)
-    game.guess(4)
-    expect(game.guess(4)).not.toBe('You win!');
+    game.guess(2)
+    expect(game.guess(3)).toBe(`You lose! The number was ${testNumber}`);
   })
 });
