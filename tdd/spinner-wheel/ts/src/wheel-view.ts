@@ -1,3 +1,4 @@
+import confetti from 'canvas-confetti';
 import type { RandomSource, Wheel } from './wheel';
 
 const SVG = 'http://www.w3.org/2000/svg';
@@ -126,6 +127,7 @@ export function mountWheel(
     setTimeout(() => {
       spinning = false;
       result.textContent = `${picked} leads the next retro`;
+      confetti({ particleCount: 150, spread: 80, disableForReducedMotion: true });
     }, spinDuration());
   });
 }

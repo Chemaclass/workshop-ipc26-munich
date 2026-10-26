@@ -14,9 +14,13 @@
     "stan": "tsc --noEmit",
     "e2e": "playwright test"
   },
+  "dependencies": {
+    "canvas-confetti": "1.9.3"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@playwright/test": "1.49.1",
+    "@types/canvas-confetti": "1.6.4",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8",
     "vite": "^5.4.11"
