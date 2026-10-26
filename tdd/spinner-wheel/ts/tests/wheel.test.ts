@@ -48,4 +48,12 @@ describe('Wheel', () => {
     );
     expect(wheel.names).toEqual(['Anna K.']);
   });
+
+  it('takes a removed name off the wheel', () => {
+    const wheel = new Wheel(['Anna K.', 'Ben', 'Chema']);
+
+    wheel.remove('Ben');
+
+    expect(wheel.names).toEqual(['Anna K.', 'Chema']);
+  });
 });
