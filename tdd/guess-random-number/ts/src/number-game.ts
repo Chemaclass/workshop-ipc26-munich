@@ -14,16 +14,16 @@ export class NumberGame {
     this.numberGenerator = generator
   }
 
-  guess(number: number): GuessingResponses {
+  guess(guessedNumber: number): GuessingResponses {
     if(this.storedValue === undefined) {
       throw new Error('number not initialized')
     }
-    if(this.attempts >= this.maxAttempts) {
+    this.attempts++
+    if((this.attempts === this.maxAttempts && guessedNumber !== this.storedValue) || this.attempts > this.maxAttempts) {
       return {message: 'You lose!', correctNumber: this.storedValue}
     }
-    this.attempts++
-    if (number < this.storedValue) return 'Lower';
-    if (number > this.storedValue) return 'Higher'
+    if (guessedNumber < this.storedValue) return 'Higher';
+    if (guessedNumber > this.storedValue) return 'Lower'
     return 'You win!';
   }
 }

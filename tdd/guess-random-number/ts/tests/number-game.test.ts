@@ -25,16 +25,16 @@ describe('Number Guessing Game', () => {
     expect(game.guess(4)).toBe('You win!');
   })
 
-  it('Should return higher if guess is higher than the number', () => {
+  it('Should return Lower if guess is higher than the number', () => {
     const game = NumberGameTestingService.getNumberGameWithSetResultNumber(6)
     game.init()
-    expect(game.guess(9)).toBe('Higher');
+    expect(game.guess(9)).toBe('Lower');
   })
 
-  it('should return lower if guess is lower than the number', () => {
+  it('should return Higher if guess is lower than the number', () => {
     const game = NumberGameTestingService.getNumberGameWithSetResultNumber(4)
     game.init()
-    expect(game.guess(1)).toBe('Lower');
+    expect(game.guess(1)).toBe('Higher');
   });
 
 });
