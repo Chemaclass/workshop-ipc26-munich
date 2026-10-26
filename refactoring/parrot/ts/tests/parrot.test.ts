@@ -1,8 +1,8 @@
 import {describe, expect, it} from 'vitest';
 import {Parrot} from '../src/parrot';
-import {ParrotType} from '../src/parrot-type';
 import {European} from "../src/parrots/european";
 import {African} from "../src/parrots/african";
+import {NorwegianBlue} from "../src/parrots/norwegianBlue";
 
 describe('Parrot', () => {
   it('speed of European parrot', () => {
@@ -22,19 +22,19 @@ describe('Parrot', () => {
   });
 
   it('speed of nailed Norwegian Blue parrot', () => {
-    expect(new Parrot(ParrotType.NorwegianBlue, 0, 1.5, true).getSpeed()).toBe(
+    expect(new NorwegianBlue(1.5, true).getSpeed()).toBe(
       0.0,
     );
   });
 
   it('speed of not-nailed Norwegian Blue parrot', () => {
-    expect(new Parrot(ParrotType.NorwegianBlue, 0, 1.5, false).getSpeed()).toBe(
+    expect(new NorwegianBlue(1.5, false).getSpeed()).toBe(
       18.0,
     );
   });
 
   it('speed of not-nailed Norwegian Blue parrot at high voltage', () => {
-    expect(new Parrot(ParrotType.NorwegianBlue, 0, 4, false).getSpeed()).toBe(
+    expect(new NorwegianBlue(4, false).getSpeed()).toBe(
       24.0,
     );
   });
@@ -56,13 +56,13 @@ describe('Parrot', () => {
   });
 
   it('cry of Norwegian Blue at high voltage', () => {
-    expect(new Parrot(ParrotType.NorwegianBlue, 0, 4, false).getCry()).toBe(
+    expect(new NorwegianBlue(4, false).getCry()).toBe(
       'Bzzzzzz',
     );
   });
 
   it('cry of Norwegian Blue with no voltage', () => {
-    expect(new Parrot(ParrotType.NorwegianBlue, 0, 0, false).getCry()).toBe(
+    expect(new NorwegianBlue(0, false).getCry()).toBe(
       '...',
     );
   });
