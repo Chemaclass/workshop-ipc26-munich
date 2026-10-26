@@ -1,8 +1,10 @@
+import './style.css';
+import { LocalStorageNameStore } from './local-storage-name-store';
+import { Wheel } from './wheel';
+import { mountWheel } from './wheel-view';
+
 const app = document.querySelector<HTMLDivElement>('#app');
 
 if (app) {
-  app.innerHTML = `
-    <h1>Spinner Wheel</h1>
-    <p>Your wheel goes here. Start from a failing test in <code>tests/</code>.</p>
-  `;
+  mountWheel(app, Wheel.load(new LocalStorageNameStore(localStorage), Math));
 }

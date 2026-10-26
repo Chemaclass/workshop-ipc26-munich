@@ -1,0 +1,86 @@
+:root {
+  --surface: #f6f5f1;
+  --card: #ffffff;
+  --text: #1f1e1c;
+  --muted: #6b6a65;
+  --border: #d3d1c7;
+  --danger: #a32d2d;
+  --success-bg: #eaf3de;
+  --success: #27500a;
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--surface);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #1c1c1a;
+    --card: #2c2c2a;
+    --text: #f1efe8;
+    --muted: #b4b2a9;
+    --border: #5f5e5a;
+    --danger: #f09595;
+    --success-bg: #27500a;
+    --success: #eaf3de;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+}
+
+#app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+h1 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.wheel {
+  position: relative;
+  width: min(100%, 320px);
+  margin: 0 auto;
+  padding-top: 12px;
+}
+
+.wheel__disc {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px var(--card), 0 0 0 9px var(--border);
+}
+
+.wheel__disc text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.wheel__hub {
+  fill: var(--card);
+  stroke: var(--border);
+}
+
+.wheel__pointer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: translateX(-50%);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 28px solid var(--text);
+  z-index: 1;
+}
