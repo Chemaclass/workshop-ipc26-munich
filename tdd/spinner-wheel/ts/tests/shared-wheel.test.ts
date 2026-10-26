@@ -2,6 +2,15 @@ import { describe, expect, it } from 'vitest';
 import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
 
 describe('shared wheel state', () => {
+  it('still opens an existing version-one link with its original names, winner and angle', () => {
+    const oldLink =
+      '#wheel=%7B%22version%22%3A1%2C%22names%22%3A%5B%22Anna%22%2C%22Ben%22%2C%22Clara%22%5D%2C%22chosen%22%3A%22Ben%22%2C%22rotation%22%3A198.75%7D';
+    expect(decodeSharedWheel(oldLink)).toEqual({
+      names: ['Anna', 'Ben', 'Clara'],
+      chosen: 'Ben',
+      rotation: 198.75,
+    });
+  });
   it('ignores malformed or inconsistent shared states instead of restoring a different result', () => {
     const valid = {
       version: 1,
