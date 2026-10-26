@@ -24,7 +24,7 @@ export class Parrot {
   }
 }
 
-export class EuropeanParrot extends BaseParrot {
+class EuropeanParrot extends BaseParrot {
   constructor() {
     super()
   }
@@ -38,7 +38,7 @@ export class EuropeanParrot extends BaseParrot {
   }
 }
 
-export class AfricanParrot extends BaseParrot {
+class AfricanParrot extends BaseParrot {
   private readonly loadFactor = 9
   constructor(
     private numberOfCoconuts: number
@@ -58,7 +58,7 @@ export class AfricanParrot extends BaseParrot {
   }
 }
 
-export class NorwegianBlueParrot extends BaseParrot {
+class NorwegianBlueParrot extends BaseParrot {
   constructor(
     private voltage: number,
     private isNailed: boolean,
