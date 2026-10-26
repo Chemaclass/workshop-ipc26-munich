@@ -49,7 +49,10 @@ export function renderWheel(
     label.setAttribute('fill', '#27332e');
     label.setAttribute('font-size', names.length > 12 ? '12' : '17');
     label.setAttribute('font-weight', '600');
-    label.textContent = name;
+    label.textContent = name.length > 18 ? `${name.slice(0, 17)}…` : name;
+    const title = document.createElementNS(svgNamespace, 'title');
+    title.textContent = name;
+    segment.append(title);
     svg.append(label);
   }
 }
