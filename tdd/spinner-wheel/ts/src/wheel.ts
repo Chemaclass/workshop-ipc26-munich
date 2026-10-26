@@ -22,6 +22,11 @@ export class Wheel {
     if (name.trim() === '') {
       throw new Error('Enter a name first.');
     }
+    if (this.members.includes(name)) {
+      throw new Error(
+        `${name} is already on the wheel. Add a last initial to tell them apart.`,
+      );
+    }
     this.members.push(name);
   }
 
