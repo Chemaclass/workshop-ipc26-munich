@@ -27,8 +27,8 @@ describe('SpinnerWheel', () => {
   it('rejects duplicates regardless of case and surrounding whitespace', () => {
     const wheel = new SpinnerWheel(() => 0);
     wheel.add('Anna');
-    expect(wheel.add('Anna')).toBe('Dieser Name ist bereits vorhanden.');
-    expect(wheel.add(' ANNA ')).toBe('Dieser Name ist bereits vorhanden.');
+    expect(wheel.add('Anna')).toBe('This name is already on the wheel.');
+    expect(wheel.add(' ANNA ')).toBe('This name is already on the wheel.');
     expect(wheel.names).toEqual(['Anna']);
   });
   it('trims surrounding whitespace while preserving the name', () => {
@@ -38,8 +38,8 @@ describe('SpinnerWheel', () => {
   });
   it('rejects empty and whitespace-only names with a message', () => {
     const wheel = new SpinnerWheel(() => 0);
-    expect(wheel.add('')).toBe('Bitte gib einen Namen ein.');
-    expect(wheel.add(' \t ')).toBe('Bitte gib einen Namen ein.');
+    expect(wheel.add('')).toBe('Please enter a name.');
+    expect(wheel.add(' \t ')).toBe('Please enter a name.');
     expect(wheel.names).toEqual([]);
   });
   it('starts with an empty participant list', () => {

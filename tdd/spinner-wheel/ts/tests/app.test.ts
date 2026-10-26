@@ -44,7 +44,7 @@ describe('Spinner app', () => {
     expect(button('spin')?.disabled).toBe(true);
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Wird ausgewählt…',
+      'Choosing…',
     );
     const firstFrames = (animate.mock.calls[0] as unknown as [Keyframe[]])[0];
     const firstAngle = Number(
@@ -59,7 +59,7 @@ describe('Spinner app', () => {
     await Promise.resolve();
     expect(button('spin')?.disabled).toBe(false);
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Ben',
+      'Selected: Ben',
     );
     button('spin')?.click();
     const secondFrames = (animate.mock.calls[1] as unknown as [Keyframe[]])[0];
@@ -74,7 +74,7 @@ describe('Spinner app', () => {
     finish();
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Clara',
+      'Selected: Clara',
     );
   });
   it('renders one distinctly colored wheel segment per participant and updates after removal', () => {
@@ -94,9 +94,7 @@ describe('Spinner app', () => {
         (label) => label.textContent,
       ),
     ).toEqual(['Anna', 'Ben', 'Clara']);
-    root
-      .querySelector<HTMLButtonElement>('[aria-label="Ben entfernen"]')
-      ?.click();
+    root.querySelector<HTMLButtonElement>('[aria-label="Remove Ben"]')?.click();
     expect(root.querySelectorAll('[data-segment]')).toHaveLength(2);
     expect(
       Array.from(
@@ -111,24 +109,24 @@ describe('Spinner app', () => {
     button('spin')?.click();
     await Promise.resolve();
     addName(' ANNA ');
-    expect(root.textContent).toContain('Dieser Name ist bereits vorhanden.');
-    expect(root.textContent).toContain('Ausgewählt: Anna');
+    expect(root.textContent).toContain('This name is already on the wheel.');
+    expect(root.textContent).toContain('Selected: Anna');
     addName('  ');
-    expect(root.textContent).toContain('Bitte gib einen Namen ein.');
-    expect(root.textContent).toContain('Ausgewählt: Anna');
+    expect(root.textContent).toContain('Please enter a name.');
+    expect(root.textContent).toContain('Selected: Anna');
   });
   it('starts empty again when the app is initialized after a reload', async () => {
     mountSpinner(root, () => 0);
     addName('Anna');
     button('spin')?.click();
     await Promise.resolve();
-    expect(root.textContent).toContain('Ausgewählt: Anna');
+    expect(root.textContent).toContain('Selected: Anna');
     mountSpinner(root, () => 0);
     expect(root.querySelectorAll('li')).toHaveLength(0);
     expect(root.querySelector('input')?.value).toBe('');
     expect(button('spin')?.disabled).toBe(true);
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Füge zuerst einen Namen hinzu.',
+      'Add a name to get started.',
     );
   });
   it('locks draws and participant changes until the current draw completes', async () => {
@@ -140,7 +138,7 @@ describe('Spinner app', () => {
     addName('Anna');
     addName('Ben');
     const removeAnna = root.querySelector<HTMLButtonElement>(
-      '[aria-label="Anna entfernen"]',
+      '[aria-label="Remove Anna"]',
     );
     button('spin')?.click();
     expect(
@@ -157,7 +155,7 @@ describe('Spinner app', () => {
     await Promise.resolve();
     expect(draws).toBe(1);
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Ben',
+      'Selected: Ben',
     );
     expect(
       Array.from(
@@ -179,9 +177,7 @@ describe('Spinner app', () => {
     expect(root.querySelector('[role="status"]')?.textContent).toBe('');
     button('spin')?.click();
     await Promise.resolve();
-    root
-      .querySelector<HTMLButtonElement>('[aria-label="Ben entfernen"]')
-      ?.click();
+    root.querySelector<HTMLButtonElement>('[aria-label="Remove Ben"]')?.click();
     expect(root.querySelector('[role="status"]')?.textContent).toBe('');
   });
   it('shows and retains each draw result without an animation timer', async () => {
@@ -192,16 +188,16 @@ describe('Spinner app', () => {
     button('spin')?.click();
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Ben',
+      'Selected: Ben',
     );
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Ben',
+      'Selected: Ben',
     );
     button('spin')?.click();
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Ausgewählt: Anna',
+      'Selected: Anna',
     );
     expect(root.querySelectorAll('li')).toHaveLength(2);
   });
@@ -210,15 +206,13 @@ describe('Spinner app', () => {
     addName('Anna');
     addName('Ben');
     root
-      .querySelector<HTMLButtonElement>('[aria-label="Anna entfernen"]')
+      .querySelector<HTMLButtonElement>('[aria-label="Remove Anna"]')
       ?.click();
     expect(root.querySelector('ul')?.textContent).toBe('Ben');
-    root
-      .querySelector<HTMLButtonElement>('[aria-label="Ben entfernen"]')
-      ?.click();
+    root.querySelector<HTMLButtonElement>('[aria-label="Remove Ben"]')?.click();
     expect(root.querySelectorAll('li')).toHaveLength(0);
     expect(button('spin')?.disabled).toBe(true);
-    expect(root.textContent).toContain('Füge zuerst einen Namen hinzu.');
+    expect(root.textContent).toContain('Add a name to get started.');
   });
   it('adds names through the form and displays validation feedback', () => {
     mountSpinner(root, () => 0);
@@ -228,17 +222,17 @@ describe('Spinner app', () => {
     expect(button('spin')?.disabled).toBe(false);
     addName(' ANNA ');
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Dieser Name ist bereits vorhanden.',
+      'This name is already on the wheel.',
     );
     addName('  ');
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
-      'Bitte gib einen Namen ein.',
+      'Please enter a name.',
     );
     expect(root.querySelectorAll('li')).toHaveLength(2);
   });
   it('disables spinning an empty list and explains how to start', () => {
     mountSpinner(root, () => 0);
     expect(button('spin')?.disabled).toBe(true);
-    expect(root.textContent).toContain('Füge zuerst einen Namen hinzu.');
+    expect(root.textContent).toContain('Add a name to get started.');
   });
 });
