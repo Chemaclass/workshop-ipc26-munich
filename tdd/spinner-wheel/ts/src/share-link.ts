@@ -4,9 +4,9 @@ export interface SharedWheel {
 }
 
 export function encodeShare(shared: SharedWheel): string {
-  return JSON.stringify(shared);
+  return btoa(JSON.stringify(shared));
 }
 
 export function decodeShare(text: string): SharedWheel {
-  return JSON.parse(text);
+  return JSON.parse(atob(text));
 }
