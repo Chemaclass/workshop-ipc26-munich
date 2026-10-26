@@ -3,7 +3,8 @@ export class SpinnerWheel {
   constructor(private readonly random: () => number) {}
 
   spin(): string | null {
-    return this.names[0] ?? null;
+    if (this.names.length === 0) return null;
+    return this.names[Math.floor(this.random() * this.names.length)] ?? null;
   }
 
   add(name: string): string | null {
