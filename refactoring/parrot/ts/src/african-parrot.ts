@@ -2,6 +2,10 @@ import { ParrotParent } from './parrot-parent';
 
 export class AfricanParrot extends ParrotParent {
 
+    private readonly loadFactor = 9.0;
+
+    private readonly minSpeed = 0;
+
     constructor(
         private readonly numberOfCoconuts: number,
     ) {
@@ -10,7 +14,11 @@ export class AfricanParrot extends ParrotParent {
 
 
     getSpeed(): number {
-        return Math.max(0, this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts);
+        return Math.max(this.minSpeed, this.getBaseSpeed() - this.coconutSlowdown());
+    }
+
+    private coconutSlowdown() {
+        return this.loadFactor * this.numberOfCoconuts;
     }
 
     getCry(): string {
@@ -19,7 +27,5 @@ export class AfricanParrot extends ParrotParent {
 
     }
 
-    private getLoadFactor(): number {
-        return 9.0;
-    }
+    
 }
