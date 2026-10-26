@@ -6,6 +6,8 @@ export class RockPaperScissorsGame {
             return true;
         } else if (playerOneOption == 'paper' && playerTwoOption == 'rock') {
             return true;
+        } else if (playerOneOption == 'scissors' && playerTwoOption == 'paper') {
+            return true;
         } else {
             return false;
         }
