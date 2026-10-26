@@ -5,7 +5,7 @@ describe('Number Guessing Game', () => {
   it('should guess Lower', () => {
     const game = NumberGameTestingService.getNumberGameWithSetResultNumber(4)
     game.init()
-    expect(game.guess(3)).toBe('LOWER');
+    expect(game.guess(3)).toBe('Lower');
   });
 
   it('Number remains constant', () => {
