@@ -14,7 +14,7 @@ export class Parrot {
   getSpeed(): number {
     switch (this.type) {
       case ParrotType.European:
-        return BASE_SPEED;
+        return new EuropeanParrot().getSpeed();
       case ParrotType.African:
         return Math.max(0, BASE_SPEED - LOAD_FACTOR * this.numberOfCoconuts);
       case ParrotType.NorwegianBlue:
@@ -27,7 +27,7 @@ export class Parrot {
   getCry(): string {
     switch (this.type) {
       case ParrotType.European:
-        return 'Sqoork!';
+        return new EuropeanParrot().getCry();
       case ParrotType.African:
         return 'Sqaark!';
       case ParrotType.NorwegianBlue:
@@ -39,5 +39,15 @@ export class Parrot {
 
   private getBaseSpeedWith(voltage: number): number {
     return Math.min(24.0, voltage * BASE_SPEED);
+  }
+}
+
+class EuropeanParrot {
+  getSpeed(): number {
+    return BASE_SPEED;
+  }
+
+  getCry(): string {
+    return 'Sqoork!';
   }
 }
