@@ -15,7 +15,6 @@ describe('Number Guessing Game', () => {
     game.init()
     game.guess(1)
     game.guess(1)
-    game.guess(2)
     expect(game.guess(3)).toStrictEqual({message:"You lose!", correctNumber: testNumber});
   })
 

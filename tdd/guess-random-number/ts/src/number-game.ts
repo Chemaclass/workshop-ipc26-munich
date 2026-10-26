@@ -2,7 +2,7 @@ type GuessingResponses = 'Lower' | 'Higher' | 'You win!' | {message: 'You lose!'
 
 export class NumberGame {
   private storedValue: number | undefined;
-  private numberGenerator = () => Math.ceil((Math.random() * 10))
+  private numberGenerator = () => Math.floor((Math.random() * 10)) + 1
   private attempts = 0
   private maxAttempts = 3
 
