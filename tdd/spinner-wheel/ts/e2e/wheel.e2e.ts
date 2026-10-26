@@ -106,3 +106,19 @@ test('a shared link spins the same pick from its seed', async ({ page }) => {
     timeout: 10_000,
   });
 });
+
+test('a shared link shows its team read-only', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Name').fill('Gus');
+  await page.getByRole('button', { name: 'Add' }).click();
+
+  await page.goto(`/${SHARED}`);
+
+  await expect(page.getByText('Shared wheel, read-only')).toBeVisible();
+  await expect(page.getByRole('listitem')).toHaveText(['Anna K.', 'Ben', 'Chema']);
+  await expect(page.getByLabel('Name')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /^Remove/ })).toHaveCount(0);
+
+  await page.goto('/');
+  await expect(page.getByRole('listitem').filter({ hasText: 'Gus' })).toBeVisible();
+});
