@@ -1,11 +1,12 @@
 import { ParrotType } from './parrot-type';
+
 export class Parrot {
   constructor(
     private readonly type: number,
-    private readonly numberOfCoconuts: number,
+    protected readonly numberOfCoconuts: number,
     private readonly voltage: number,
     private readonly isNailed: boolean,
-  ) {}
+  ) { }
 
   getSpeed(): number {
     switch (this.type) {
@@ -40,7 +41,7 @@ export class Parrot {
     return Math.min(24.0, voltage * this.getBaseSpeed());
   }
 
-  private getLoadFactor(): number {
+  protected getLoadFactor(): number {
     return 9.0;
   }
 
@@ -60,5 +61,22 @@ export class European extends Parrot {
 
   getCry(): string {
     return 'Sqoork!';
+  }
+}
+
+export class African extends Parrot {
+  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
+    super(ParrotType.European, numberOfCoconuts, voltage, isNailed);
+  }
+
+  getSpeed(): number {
+    return Math.max(
+      0,
+      this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
+    );
+  }
+
+  getCry(): string {
+    return 'Sqaark!';
   }
 }
