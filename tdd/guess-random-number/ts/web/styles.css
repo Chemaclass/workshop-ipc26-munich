@@ -1,0 +1,490 @@
+:root {
+  color-scheme: light;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  color: #20231f;
+  background: #f7f6f2;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #20231f;
+  --muted: #8b8e87;
+  --green: #344d3d;
+  --lime: #c9f27a;
+  --line: #ecebe5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: radial-gradient(
+    ellipse at 50% 47%,
+    #fff 0,
+    rgb(255 255 255 / 0%) 48%
+  ), #f7f6f2;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid #93c84b;
+  outline-offset: 3px;
+}
+
+.page-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 32px 22px;
+}
+
+.topbar,
+.page-footer {
+  display: flex;
+  width: min(100%, 1100px);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--lime);
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.round-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #656a61;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #7bae50;
+  box-shadow: 0 0 0 3px #e7f0dc;
+}
+
+.game-card {
+  position: relative;
+  width: min(100%, 500px);
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid rgb(41 49 38 / 6%);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgb(40 48 35 / 8%), 0 3px 10px rgb(40 48 35 / 3%);
+  animation: arrive 500ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+  padding: 46px 52px 34px;
+}
+
+.eyebrow {
+  margin: 0 0 17px;
+  color: #718367;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+h1 {
+  margin: 0;
+  font-family: inherit;
+  font-size: clamp(36px, 8vw, 48px);
+  font-weight: 800;
+  letter-spacing: -2.7px;
+  line-height: 1.1;
+}
+
+.title-dot {
+  color: #a1c75a;
+}
+
+.intro {
+  margin: 15px 0 30px;
+  color: #777a73;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.intro strong {
+  color: #424a3d;
+  font-weight: 700;
+}
+
+.attempts {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 23px;
+  padding: 0 14px;
+  border: 1px solid #eeefe9;
+  border-radius: 11px;
+  background: #fafbf8;
+}
+
+.attempt-label {
+  margin-right: auto;
+  color: #777a73;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.attempt-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.attempt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e6e8e1;
+  transition: background 200ms ease, transform 200ms ease;
+}
+
+.attempt-dot.is-available {
+  background: #a6c875;
+}
+
+.attempts.is-finished .attempt-dot {
+  background: #e2a078;
+}
+
+.attempt-count {
+  min-width: 37px;
+  color: #70756a;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+}
+
+.input-label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.guess-row {
+  display: flex;
+  gap: 9px;
+}
+
+#guess-input {
+  width: 100%;
+  min-width: 0;
+  height: 54px;
+  padding: 0 16px;
+  border: 1px solid #e7e9e2;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+  font-family: Manrope, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+#guess-input::placeholder {
+  color: #b9bcb5;
+  font-weight: 500;
+}
+
+#guess-input:focus {
+  border-color: #9ab976;
+  box-shadow: 0 0 0 3px rgb(154 185 118 / 17%);
+  outline: 0;
+}
+
+#guess-input:disabled {
+  background: #f7f8f5;
+}
+
+.guess-button {
+  display: inline-flex;
+  min-width: 120px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--green);
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.guess-button:hover {
+  transform: translateY(-1px);
+  background: #263d2e;
+}
+
+.guess-button:active {
+  transform: translateY(1px);
+}
+
+.button-arrow {
+  color: var(--lime);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.input-help {
+  margin: 8px 0 0;
+  color: #a0a29c;
+  font-size: 10px;
+}
+
+.feedback {
+  display: flex;
+  min-height: 49px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: #f5f7f1;
+  color: #5d6955;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.feedback-icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  place-items: center;
+  border-radius: 8px;
+  background: #e7eedf;
+  color: #648148;
+  font-size: 13px;
+}
+
+.feedback.is-hint {
+  background: #f2f6ec;
+  color: #4f6442;
+}
+
+.feedback.is-success {
+  background: #eff7df;
+  color: #3f642e;
+}
+
+.feedback.is-success .feedback-icon {
+  background: #dceebc;
+}
+
+.feedback.is-warning {
+  background: #fbf3e9;
+  color: #91613c;
+}
+
+.feedback.is-warning .feedback-icon {
+  background: #f5e5d2;
+  color: #a86d3e;
+}
+
+.game-over {
+  display: flex;
+  justify-content: center;
+  padding-top: 17px;
+}
+
+.play-again {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 17px;
+  border: 1px solid #e5e9de;
+  border-radius: 10px;
+  background: #fff;
+  color: #42563a;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.play-again:hover {
+  border-color: #c8d6b9;
+  background: #f7f9f3;
+}
+
+.play-again span {
+  font-size: 17px;
+}
+
+.card-footer {
+  display: flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-top: 1px solid #f0f0eb;
+  color: #a2a49d;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+
+.card-footer span:nth-child(2) {
+  color: #afc987;
+  font-size: 11px;
+}
+
+.sparkle {
+  position: absolute;
+  color: #d7e9b5;
+  pointer-events: none;
+}
+
+.sparkle-one {
+  top: 48px;
+  right: 49px;
+  font-size: 26px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.sparkle-two {
+  top: 99px;
+  right: 29px;
+  color: #f0d19e;
+  font-size: 16px;
+  animation: float 4s 800ms ease-in-out infinite;
+}
+
+.page-footer {
+  justify-content: center;
+  gap: 8px;
+  color: #a0a29b;
+  font-size: 10px;
+}
+
+.footer-heart {
+  color: #d39877;
+  font-size: 9px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-5px) rotate(9deg);
+  }
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    padding: 19px 16px 17px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .round-label {
+    padding-top: 8px;
+    font-size: 10px;
+  }
+
+  .game-card {
+    margin: auto 0;
+    border-radius: 19px;
+  }
+
+  .card-content {
+    padding: 36px 25px 27px;
+  }
+
+  .sparkle-one {
+    top: 37px;
+    right: 28px;
+  }
+
+  .sparkle-two {
+    top: 82px;
+    right: 16px;
+  }
+
+  .guess-button {
+    min-width: 99px;
+  }
+
+  .page-footer {
+    font-size: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

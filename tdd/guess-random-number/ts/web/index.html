@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f6f2" />
+    <title>Number Club — Guess the number</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/game.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Number Club home">
+          <span class="brand-mark" aria-hidden="true">?</span>
+          <span>number club</span>
+        </a>
+        <span class="round-label"><span class="live-dot"></span> A tiny brain break</span>
+      </header>
+
+      <section class="game-card" aria-labelledby="game-title">
+        <div class="sparkle sparkle-one" aria-hidden="true">✳</div>
+        <div class="sparkle sparkle-two" aria-hidden="true">✦</div>
+        <div class="card-content">
+          <p class="eyebrow">THE GUESSING GAME</p>
+          <h1 id="game-title">A number is<br />on my mind<span class="title-dot">.</span></h1>
+          <p class="intro">Can you find it? I’m thinking of a number from <strong>1 to 100</strong>.</p>
+
+          <div class="attempts" aria-label="3 guesses remaining">
+            <span class="attempt-label">YOUR GUESSES</span>
+            <div class="attempt-dots" aria-hidden="true">
+              <span class="attempt-dot is-available"></span>
+              <span class="attempt-dot is-available"></span>
+              <span class="attempt-dot is-available"></span>
+            </div>
+            <span class="attempt-count">3 left</span>
+          </div>
+
+          <form id="guess-form" novalidate>
+            <label class="input-label" for="guess-input">What’s your guess?</label>
+            <div class="guess-row">
+              <input
+                id="guess-input"
+                name="guess"
+                type="number"
+                min="1"
+                max="100"
+                step="1"
+                inputmode="numeric"
+                placeholder="e.g. 42"
+                autocomplete="off"
+                aria-describedby="guess-help feedback"
+                required
+              />
+              <button class="guess-button" type="submit">
+                <span>Guess</span>
+                <span class="button-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="input-help" id="guess-help">A whole number between 1 and 100</p>
+          </form>
+
+          <div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true">
+            <span class="feedback-icon" aria-hidden="true">✦</span>
+            <span class="feedback-text">Make your first guess. You’ve got this!</span>
+          </div>
+
+          <div class="game-over" id="game-over" hidden>
+            <button class="play-again" id="play-again" type="button">
+              <span aria-hidden="true">↻</span> Play again
+            </button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span>TRUST YOUR GUT</span>
+          <span aria-hidden="true">✳</span>
+          <span>HAVE A LITTLE FUN</span>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <span>Made for curious minds</span>
+        <span class="footer-heart" aria-hidden="true">♥</span>
+        <span>One number. Three chances.</span>
+      </footer>
+    </main>
+  </body>
+</html>
