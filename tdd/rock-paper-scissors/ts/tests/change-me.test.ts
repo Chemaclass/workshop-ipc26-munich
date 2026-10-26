@@ -12,7 +12,11 @@ describe('Rock paper scissors', () => {
     expect(new Scissors().beats(new Rock())).toBe(false);
   });
 
-    it('Paper beats Rock', () => {
+  it('Paper beats Rock', () => {
     expect(new Paper().beats(new Rock())).toBe(true);
+  });
+
+  it('Rock loses to paper', () => {
+    expect(new Rock().beats(new Paper())).toBe(false);
   });
 });
