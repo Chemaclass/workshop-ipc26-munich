@@ -25,11 +25,19 @@ describe('Random number', () => {
     expect(game.guess(9)).toBe("lower");
   });
 
-  it('has 3 attempts', () => {
+  it('fails after 3 attempts', () => {
     const randomNumberGenerator = new MockRandomNumberGenerator(5);
     const game = new Game(randomNumberGenerator)
     expect(game.guess(1)).toBe("higher");
     expect(game.guess(1)).toBe("higher");
     expect(game.guess(1)).toBe("You lose! The number was 5");
+  })
+
+    it('wins after 3 attempts', () => {
+    const randomNumberGenerator = new MockRandomNumberGenerator(5);
+    const game = new Game(randomNumberGenerator)
+    expect(game.guess(1)).toBe("higher");
+    expect(game.guess(1)).toBe("higher");
+    expect(game.guess(5)).toBe("you win");
   })
 });
