@@ -1,4 +1,3 @@
-import { Parrot } from './parrot';
 import { ParrotParent } from './parrot-parent';
 
 export class NorwegianBlueParrot extends ParrotParent {

@@ -1,4 +1,3 @@
-import { ParrotType } from './parrot-type';
 
 export abstract class ParrotParent {
 
