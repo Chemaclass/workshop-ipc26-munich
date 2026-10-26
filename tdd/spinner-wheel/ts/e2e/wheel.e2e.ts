@@ -57,3 +57,14 @@ test('removes a name from the team and the wheel', async ({ page }) => {
     page.getByRole('img', { name: 'Spinner wheel' }).getByText('Ben'),
   ).toHaveCount(0);
 });
+
+test('asks for someone when spinning an empty wheel', async ({ page }) => {
+  await page.goto('/');
+  for (const name of ['Anna K.', 'Ben', 'Chema', 'Dana', 'Emil', 'Fatma']) {
+    await page.getByRole('button', { name: `Remove ${name}` }).click();
+  }
+
+  await page.getByRole('button', { name: 'Spin' }).click();
+
+  await expect(page.getByRole('status')).toHaveText('Add someone before you spin.');
+});
