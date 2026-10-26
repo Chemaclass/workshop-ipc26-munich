@@ -7,4 +7,10 @@ describe('share link', () => {
 
     expect(decodeShare(encodeShare(shared))).toEqual(shared);
   });
+
+  it('encodes the JSON as base64', () => {
+    expect(encodeShare({ names: ['Ben'], seed: 42 })).toBe(
+      'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6NDJ9',
+    );
+  });
 });
