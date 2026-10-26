@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { ChangeMe } from '../src/change-me';
+import { Rock, Scissors } from '../src/change-me';
 
-describe('ChangeMe', () => {
-  it('changes me', () => {
-    expect(new ChangeMe().changeMe()).toBe(true);
+describe('Rock paper scissors', () => {
+  it('Rock beats scissors', () => {
+    expect(new Rock().beats(new Scissors())).toBe(true);
   });
 });
