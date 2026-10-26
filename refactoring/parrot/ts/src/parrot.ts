@@ -1,12 +1,14 @@
-import { ParrotType } from './parrot-type';
+import {ParrotType} from './parrot-type';
+import {type ParrotInterface} from "./parrot-interface";
 
-export class Parrot {
+export class Parrot implements ParrotInterface {
   constructor(
-    private readonly type: number,
-    private readonly numberOfCoconuts: number,
-    private readonly voltage: number,
-    private readonly isNailed: boolean,
-  ) {}
+    readonly type: number = 0,
+    readonly numberOfCoconuts: number = 0,
+    readonly voltage: number = 0,
+    readonly nailedState: boolean = false,
+  ) {
+  }
 
   getSpeed(): number {
     switch (this.type) {
@@ -18,7 +20,7 @@ export class Parrot {
           this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
         );
       case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
+        return this.nailedState ? 0 : this.getBaseSpeedWith(this.voltage);
       default:
         throw new Error('Should be unreachable');
     }
@@ -37,15 +39,19 @@ export class Parrot {
     }
   }
 
-  private getBaseSpeedWith(voltage: number): number {
+  protected getBaseSpeedWith(voltage: number): number {
     return Math.min(24.0, voltage * this.getBaseSpeed());
   }
 
-  private getLoadFactor(): number {
+  protected getLoadFactor(): number {
     return 9.0;
   }
 
-  private getBaseSpeed(): number {
+  protected getBaseSpeed(): number {
     return 12.0;
+  }
+
+  protected isNailed(): boolean {
+    return this.nailedState;
   }
 }

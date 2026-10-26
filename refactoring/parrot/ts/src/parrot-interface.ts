@@ -1,7 +1,7 @@
 export interface ParrotInterface {
-  id: number;
+  type: number;
   name?: string;
   numberOfCoconuts?: number;
   voltage?: number;
-  isNailed?: boolean
+  nailedState?: boolean
 }

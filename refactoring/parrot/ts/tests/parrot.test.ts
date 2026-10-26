@@ -1,10 +1,11 @@
-import { describe, expect, it } from 'vitest';
-import { Parrot } from '../src/parrot';
-import { ParrotType } from '../src/parrot-type';
+import {describe, expect, it} from 'vitest';
+import {Parrot} from '../src/parrot';
+import {ParrotType} from '../src/parrot-type';
+import {European} from "../src/parrots/european";
 
 describe('Parrot', () => {
   it('speed of European parrot', () => {
-    expect(new Parrot(ParrotType.European, 0, 0, false).getSpeed()).toBe(12.0);
+    expect(new European().getSpeed()).toBe(12.0);
   });
 
   it('speed of African parrot with one coconut', () => {
@@ -44,9 +45,7 @@ describe('Parrot', () => {
   });
 
   it('cry of European parrot', () => {
-    expect(new Parrot(ParrotType.European, 0, 0, false).getCry()).toBe(
-      'Sqoork!',
-    );
+    expect(new European().getCry()).toBe('Sqoork!');
   });
 
   it('cry of African parrot', () => {
