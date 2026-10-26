@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { RockPaperScissorsGame } from '../src/rock-paper-scissors';
+import { RockPaperScissorsGame, type RockPaperScissorsOption } from '../src/rock-paper-scissors';
 
 describe('ChangeMe', () => {
   it('player 1 rock beats player 2 scissor', () => {
@@ -31,5 +31,13 @@ describe('ChangeMe', () => {
   it('player 1 paper losses against player 2 scissors', () => {
     const game = new RockPaperScissorsGame()
     expect(game.play('paper', 'scissors')).toBe(false)
+  })
+
+  it('same choices result in a draw', () => {
+    const choices: RockPaperScissorsOption[] = ['rock', 'paper', 'scissors']
+    const game = new RockPaperScissorsGame()
+    for(const choice of choices) {
+      expect(game.play(choice, choice)).toBeUndefined()
+    }
   })
 });
