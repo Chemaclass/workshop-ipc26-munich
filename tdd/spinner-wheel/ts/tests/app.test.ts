@@ -21,6 +21,18 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('starts empty again when the app is initialized after a reload', async () => {
+    mountSpinner(root, () => 0);
+    addName('Anna');
+    button('spin')?.click();
+    await Promise.resolve();
+    expect(root.textContent).toContain('Ausgewählt: Anna');
+    mountSpinner(root, () => 0);
+    expect(root.querySelectorAll('li')).toHaveLength(0);
+    expect(root.querySelector('input')?.value).toBe('');
+    expect(button('spin')?.disabled).toBe(true);
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Füge zuerst einen Namen hinzu.');
+  });
   it('locks draws and participant changes until the current draw completes', async () => {
     let draws = 0;
     mountSpinner(root, () => { draws += 1; return 0.99; });
