@@ -1,22 +1,5 @@
 import { ParrotType } from './parrot-type';
 
-// abstract class BaseParrot {
-//   private loadFactor = 9
-//   private baseSpeed = 12
-//   constructor(
-//     private readonly type: number,
-//     private readonly numberOfCoconuts: number,
-//     private readonly voltage: number,
-//     private readonly isNailed: boolean,
-//   ) {}
-
-//   abstract getSpeed(): number
-
-//   abstract getCry(): string
-// }
-
-const AFRICAN_PARROT_LOAD_FACTOR = 9
-
 abstract class BaseParrot {
   protected baseSpeed = 12
   abstract getSpeed(): number;
@@ -56,6 +39,7 @@ export class EuropeanParrot extends BaseParrot {
 }
 
 export class AfricanParrot extends BaseParrot {
+  private readonly loadFactor = 9
   private numberOfCoconuts: number
   constructor(
     numberOfCoconuts: number
@@ -67,7 +51,7 @@ export class AfricanParrot extends BaseParrot {
   getSpeed() {
     return Math.max(
       0,
-      this.baseSpeed - AFRICAN_PARROT_LOAD_FACTOR * this.numberOfCoconuts,
+      this.baseSpeed - this.loadFactor * this.numberOfCoconuts,
     );
   }
 
