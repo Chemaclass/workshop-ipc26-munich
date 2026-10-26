@@ -12,7 +12,7 @@ export function mountSpinner(
   const wheel = new SpinnerWheel(() => {
     spinRandom = random();
     return spinRandom;
-  });
+  }, initialState?.chosen ?? null);
   let result: string | null = null;
   let drawing = false;
   let rotation = 0;

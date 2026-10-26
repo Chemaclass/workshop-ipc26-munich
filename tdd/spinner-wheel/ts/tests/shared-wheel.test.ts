@@ -1,7 +1,25 @@
 import { describe, expect, it } from 'vitest';
 import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
+import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('shared wheel state', () => {
+  it('restores an old winner without drawing and removes them when play continues', () => {
+    const saved = decodeSharedWheel(
+      '#wheel=%7B%22version%22%3A1%2C%22names%22%3A%5B%22Anna%22%2C%22Ben%22%2C%22Clara%22%5D%2C%22chosen%22%3A%22Ben%22%2C%22rotation%22%3A198.75%7D',
+    );
+    if (!saved) throw new Error('Existing shared link must remain readable');
+    let draws = 0;
+    const wheel = new SpinnerWheel(() => {
+      draws += 1;
+      return 0.4;
+    }, saved.chosen);
+    for (const name of saved.names) wheel.add(name);
+    expect(draws).toBe(0);
+    expect(wheel.names).toEqual(['Anna', 'Ben', 'Clara']);
+    expect(wheel.spin()).toBe('Anna');
+    expect(wheel.names).toEqual(['Anna', 'Clara']);
+    expect(draws).toBe(1);
+  });
   it('still opens an existing version-one link with its original names, winner and angle', () => {
     const oldLink =
       '#wheel=%7B%22version%22%3A1%2C%22names%22%3A%5B%22Anna%22%2C%22Ben%22%2C%22Clara%22%5D%2C%22chosen%22%3A%22Ben%22%2C%22rotation%22%3A198.75%7D';

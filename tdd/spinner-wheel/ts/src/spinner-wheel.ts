@@ -1,7 +1,9 @@
 export class SpinnerWheel {
   readonly names: string[] = [];
-  private previousWinner: string | null = null;
-  constructor(private readonly random: () => number) {}
+  constructor(
+    private readonly random: () => number,
+    private previousWinner: string | null = null,
+  ) {}
 
   remove(name: string): void {
     const index = this.names.indexOf(name);
