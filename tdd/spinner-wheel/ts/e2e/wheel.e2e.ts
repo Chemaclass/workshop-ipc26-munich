@@ -18,7 +18,7 @@ test('spinning announces who leads the next retro', async ({ page }) => {
   await page.getByRole('button', { name: 'Spin' }).click();
 
   await expect(page.getByRole('status')).toHaveText(
-    'Dana leads the next retro',
+    'Emil leads the next retro',
     { timeout: 10_000 },
   );
 });
@@ -160,13 +160,13 @@ test('never picks the previous winner, and links leave that alone', async ({
   };
 
   await page.goto('/');
-  await spinAndExpect('Dana');
+  await spinAndExpect('Emil');
 
   await page.goto(`/${SHARED}`);
   await spinAndExpect('Ben');
 
   await page.goto('/');
-  await spinAndExpect('Chema');
+  await spinAndExpect('Fatma');
 });
 
 test('celebrates the result with confetti', async ({ page }) => {
