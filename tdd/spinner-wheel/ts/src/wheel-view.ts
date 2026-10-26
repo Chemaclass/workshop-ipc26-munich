@@ -127,7 +127,11 @@ export function mountWheel(
     setTimeout(() => {
       spinning = false;
       result.textContent = `${picked} leads the next retro`;
-      confetti({ particleCount: 150, spread: 80, disableForReducedMotion: true });
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        disableForReducedMotion: true,
+      });
     }, spinDuration());
   });
 }

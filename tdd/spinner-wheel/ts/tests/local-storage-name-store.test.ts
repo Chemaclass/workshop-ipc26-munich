@@ -15,7 +15,9 @@ describe('LocalStorageNameStore', () => {
   });
 
   it('has no last winner when nobody has won yet', () => {
-    expect(new LocalStorageNameStore(new FakeStorage()).loadLastWinner()).toBeNull();
+    expect(
+      new LocalStorageNameStore(new FakeStorage()).loadLastWinner(),
+    ).toBeNull();
   });
 
   it('loads the last winner after a reload', () => {

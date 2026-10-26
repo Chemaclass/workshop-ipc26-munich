@@ -102,9 +102,12 @@ test('a shared link spins the same pick from its seed', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Spin' }).click();
 
-  await expect(page.getByRole('status')).toHaveText('Ben leads the next retro', {
-    timeout: 10_000,
-  });
+  await expect(page.getByRole('status')).toHaveText(
+    'Ben leads the next retro',
+    {
+      timeout: 10_000,
+    },
+  );
 });
 
 test('a shared link shows its team read-only', async ({ page }) => {
@@ -115,15 +118,23 @@ test('a shared link shows its team read-only', async ({ page }) => {
   await page.goto(`/${SHARED}`);
 
   await expect(page.getByText('Shared wheel, read-only')).toBeVisible();
-  await expect(page.getByRole('listitem')).toHaveText(['Anna K.', 'Ben', 'Chema']);
+  await expect(page.getByRole('listitem')).toHaveText([
+    'Anna K.',
+    'Ben',
+    'Chema',
+  ]);
   await expect(page.getByLabel('Name')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /^Remove/ })).toHaveCount(0);
 
   await page.goto('/');
-  await expect(page.getByRole('listitem').filter({ hasText: 'Gus' })).toBeVisible();
+  await expect(
+    page.getByRole('listitem').filter({ hasText: 'Gus' }),
+  ).toBeVisible();
 });
 
-test('a broken link offers to continue with the saved team', async ({ page }) => {
+test('a broken link offers to continue with the saved team', async ({
+  page,
+}) => {
   await page.goto('/#not-a-wheel');
 
   await expect(page.getByRole('alert')).toHaveText('This link is broken.');

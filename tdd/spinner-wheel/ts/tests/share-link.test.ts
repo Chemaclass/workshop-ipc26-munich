@@ -17,7 +17,9 @@ describe('share link', () => {
   it('encodes umlauts as UTF-8', () => {
     const shared = { names: ['Jörg'], seed: 7 };
 
-    expect(encodeShare(shared)).toBe('eyJuYW1lcyI6WyJKw7ZyZyJdLCJzZWVkIjo3fQ==');
+    expect(encodeShare(shared)).toBe(
+      'eyJuYW1lcyI6WyJKw7ZyZyJdLCJzZWVkIjo3fQ==',
+    );
     expect(decodeShare(encodeShare(shared))).toEqual(shared);
   });
 
