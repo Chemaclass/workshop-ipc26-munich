@@ -1,3 +1,3 @@
 export abstract class Item {
-    abstract beats(other: Item): boolean;
+    abstract beats(other: Item): string;
 }
