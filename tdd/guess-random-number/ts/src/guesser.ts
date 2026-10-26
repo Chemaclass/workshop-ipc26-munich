@@ -18,9 +18,9 @@ export class RandomGenerator implements IGenerator {
 export class Guesser {
   private randomNumber: number;
   private attempts: number = 0;
-  private maxAttempts: number = 3;
+  ;
 
-  constructor(private randomGenerator: { generate(): number }) {
+  constructor(private randomGenerator: { generate(): number },private maxAttempts: number = 3) {
     this.randomNumber = randomGenerator.generate();
   }
 
