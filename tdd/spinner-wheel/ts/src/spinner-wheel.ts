@@ -1,5 +1,6 @@
 export class SpinnerWheel {
   readonly names: string[] = [];
+  private previousWinner: string | null = null;
   constructor(private readonly random: () => number) {}
 
   remove(name: string): void {
@@ -8,8 +9,12 @@ export class SpinnerWheel {
   }
 
   spin(): string | null {
+    if (this.previousWinner !== null) this.remove(this.previousWinner);
+    this.previousWinner = null;
     if (this.names.length === 0) return null;
-    return this.names[Math.floor(this.random() * this.names.length)] ?? null;
+    this.previousWinner =
+      this.names[Math.floor(this.random() * this.names.length)] ?? null;
+    return this.previousWinner;
   }
 
   add(name: string): string | null {

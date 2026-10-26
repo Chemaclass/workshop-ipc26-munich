@@ -2,13 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('SpinnerWheel', () => {
-  it('gives equal intervals to all participants and allows repeated winners', () => {
+  it('gives equal intervals to all participants on the first draw', () => {
     const values = [0, 0.333333, 1 / 3, 0.666666, 2 / 3, 0.999999, 0.999999];
-    const wheel = new SpinnerWheel(() => values.shift() ?? 0);
-    wheel.add('Anna');
-    wheel.add('Ben');
-    wheel.add('Clara');
-    expect(Array.from({ length: 7 }, () => wheel.spin())).toEqual([
+    const selections = values.map((value) => {
+      const wheel = new SpinnerWheel(() => value);
+      wheel.add('Anna');
+      wheel.add('Ben');
+      wheel.add('Clara');
+      return wheel.spin();
+    });
+    expect(selections).toEqual([
       'Anna',
       'Anna',
       'Ben',
@@ -17,7 +20,16 @@ describe('SpinnerWheel', () => {
       'Clara',
       'Clara',
     ]);
+  });
+  it('keeps the winner visible and removes them only when the next draw starts', () => {
+    const wheel = new SpinnerWheel(() => 0);
+    wheel.add('Anna');
+    wheel.add('Ben');
+    wheel.add('Clara');
+    expect(wheel.spin()).toBe('Anna');
     expect(wheel.names).toEqual(['Anna', 'Ben', 'Clara']);
+    expect(wheel.spin()).toBe('Ben');
+    expect(wheel.names).toEqual(['Ben', 'Clara']);
   });
   it('always selects the sole participant', () => {
     const wheel = new SpinnerWheel(() => 0.99);

@@ -178,7 +178,9 @@ describe('Spinner app', () => {
     button('spin')?.click();
     await Promise.resolve();
     root.querySelector<HTMLButtonElement>('[aria-label="Remove Ben"]')?.click();
-    expect(root.querySelector('[role="status"]')?.textContent).toBe('');
+    expect(root.querySelector('[role="status"]')?.textContent).toBe(
+      'Add a name to get started.',
+    );
   });
   it('shows and retains each draw result without an animation timer', async () => {
     const values = [0.99, 0];
@@ -199,7 +201,7 @@ describe('Spinner app', () => {
     expect(root.querySelector('[role="status"]')?.textContent).toBe(
       'Selected: Anna',
     );
-    expect(root.querySelectorAll('li')).toHaveLength(2);
+    expect(root.querySelectorAll('li')).toHaveLength(1);
   });
   it('removes individual names and disables drawing after the last removal', () => {
     mountSpinner(root, () => 0);

@@ -170,8 +170,8 @@ export function mountSpinner(
     if (drawing || wheel.names.length === 0) return;
     drawing = true;
     result = null;
-    render('Choosing…');
     const selected = wheel.spin();
+    render('Choosing…');
     const selectedIndex = wheel.names.indexOf(selected ?? '');
     const positionInSegment = spinRandom * wheel.names.length - selectedIndex;
     // Reuse the sample's fractional part, leaving 6% clear at either border.
