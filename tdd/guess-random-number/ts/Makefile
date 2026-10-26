@@ -19,7 +19,7 @@ down: ## Stop container.
 	docker-compose down
 
 test: ## Run the tests.
-	docker-compose run --rm $(SERVICE) npm test
+	docker-compose run --rm guess-number-tdd-ts npm test
 
 stan: ## Run type checking.
 	docker-compose run --rm $(SERVICE) npm run stan

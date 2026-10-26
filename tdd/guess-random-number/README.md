@@ -23,6 +23,16 @@ make down    # stop
 
 Prefer no Docker? `cd php && composer install && composer test`, or `cd ts && npm install && npm test`.
 
+### Play from the TypeScript CLI
+
+From the TypeScript project folder, run:
+
+```bash
+npm start
+```
+
+The CLI accepts whole-number guesses from 1 to 100, reports whether the answer is higher or lower, and stops when you win, lose, or close input.
+
 ---
 
 ## About This Kata

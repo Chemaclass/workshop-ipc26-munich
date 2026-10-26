@@ -6,6 +6,8 @@
   "license": "MIT",
   "keywords": ["typescript", "scaffolding"],
   "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "start": "npm run build && node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "check-cs": "biome check .",
