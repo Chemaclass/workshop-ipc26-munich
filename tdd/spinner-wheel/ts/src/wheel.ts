@@ -21,8 +21,8 @@ const alwaysFirst: RandomSource = { random: () => 0 };
 export class Wheel {
   private readonly members: string[];
 
-  static load(_store: NameStore): Wheel {
-    return new Wheel([...EXAMPLE_NAMES]);
+  static load(store: NameStore): Wheel {
+    return new Wheel(store.load() ?? [...EXAMPLE_NAMES]);
   }
 
   constructor(
