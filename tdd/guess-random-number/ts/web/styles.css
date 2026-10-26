@@ -22,10 +22,10 @@ body {
   min-height: 100vh;
   margin: 0;
   background: radial-gradient(
-    ellipse at 50% 47%,
-    #fff 0,
-    rgb(255 255 255 / 0%) 48%
-  ), #f7f6f2;
+      ellipse at 50% 47%,
+      #fff 0,
+      rgb(255 255 255 / 0%) 48%
+    ), #f7f6f2;
 }
 
 button,
