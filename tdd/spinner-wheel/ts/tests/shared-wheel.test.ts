@@ -3,6 +3,16 @@ import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('shared wheel state', () => {
+  it('reduces the three-name share payload to fewer than 25 characters', () => {
+    const state = {
+      names: ['Anna', 'Ben', 'Clara'],
+      chosen: 'Ben',
+      rotation: 198.75,
+    };
+    const hash = encodeSharedWheel(state);
+    expect(hash.length).toBeLessThan(25);
+    expect(decodeSharedWheel(hash)).toEqual(state);
+  });
   it('ignores damaged short links and invalid winner references', () => {
     const invalidPayloads = [
       [['Anna', 'Ben'], '1', 90],
@@ -30,7 +40,7 @@ describe('shared wheel state', () => {
     };
     const oldHash = `#wheel=${encodeURIComponent(JSON.stringify({ version: 1, ...state }))}`;
     const shortHash = encodeSharedWheel(state);
-    expect(shortHash).toMatch(/^#w=[A-Za-z0-9_-]+$/);
+    expect(shortHash).toMatch(/^#(?:w|r)=[A-Za-z0-9_.%~-]+$/);
     expect(shortHash.length).toBeLessThan(oldHash.length / 2);
     expect(decodeSharedWheel(shortHash)).toEqual(state);
   });
