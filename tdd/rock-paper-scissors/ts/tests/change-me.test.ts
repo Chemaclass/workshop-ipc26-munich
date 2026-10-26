@@ -22,4 +22,14 @@ describe('ChangeMe', () => {
     const game = new RockPaperScissorsGame()
     expect(game.play('rock', 'paper')).toBe(false)
   })
+
+  it('player 1 scissors beats player 2 paper', () => {
+    const game = new RockPaperScissorsGame()
+    expect(game.play('scissors', 'paper')).toBe(true)
+  })
+
+  it('player 1 paper losses against player 2 scissors', () => {
+    const game = new RockPaperScissorsGame()
+    expect(game.play('paper', 'scissors')).toBe(false)
+  })
 });
