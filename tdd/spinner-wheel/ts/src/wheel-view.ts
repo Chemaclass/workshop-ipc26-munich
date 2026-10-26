@@ -96,7 +96,11 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
       result.textContent = messageOf(problem);
       return;
     }
-    rotation = rotationToShow(wheel.names.indexOf(picked), wheel.names.length, rotation);
+    rotation = rotationToShow(
+      wheel.names.indexOf(picked),
+      wheel.names.length,
+      rotation,
+    );
     spinning = true;
     result.textContent = 'Spinning…';
     disc.style.transform = `rotate(${rotation}deg)`;
@@ -139,10 +143,17 @@ function drawSegments(group: Element, names: readonly string[]): void {
     label.textContent = name;
     group.append(label);
   });
-  group.append(svg('circle', { cx: CENTER, cy: CENTER, r: 18, class: 'wheel__hub' }));
+  group.append(
+    svg('circle', { cx: CENTER, cy: CENTER, r: 18, class: 'wheel__hub' }),
+  );
 }
 
-function segment(start: number, slice: number, fill: string, whole: boolean): SVGElement {
+function segment(
+  start: number,
+  slice: number,
+  fill: string,
+  whole: boolean,
+): SVGElement {
   if (whole) {
     return svg('circle', { cx: CENTER, cy: CENTER, r: RADIUS, fill });
   }
@@ -157,10 +168,16 @@ function segment(start: number, slice: number, fill: string, whole: boolean): SV
 
 function pointAt(degrees: number): [number, number] {
   const radians = ((degrees - 90) * Math.PI) / 180;
-  return [CENTER + RADIUS * Math.cos(radians), CENTER + RADIUS * Math.sin(radians)];
+  return [
+    CENTER + RADIUS * Math.cos(radians),
+    CENTER + RADIUS * Math.sin(radians),
+  ];
 }
 
-function svg(tag: string, attributes: Record<string, string | number>): SVGElement {
+function svg(
+  tag: string,
+  attributes: Record<string, string | number>,
+): SVGElement {
   const element = document.createElementNS(SVG, tag);
   for (const [key, value] of Object.entries(attributes)) {
     element.setAttribute(key, String(value));

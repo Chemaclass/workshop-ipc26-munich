@@ -29,7 +29,9 @@ test('adds a name to the team and the wheel', async ({ page }) => {
   await page.getByLabel('Name').fill('Gus');
   await page.getByRole('button', { name: 'Add' }).click();
 
-  await expect(page.getByRole('listitem').filter({ hasText: 'Gus' })).toBeVisible();
+  await expect(
+    page.getByRole('listitem').filter({ hasText: 'Gus' }),
+  ).toBeVisible();
   await expect(
     page.getByRole('img', { name: 'Spinner wheel' }).getByText('Gus'),
   ).toBeVisible();
@@ -52,7 +54,9 @@ test('removes a name from the team and the wheel', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Remove Ben' }).click();
 
-  await expect(page.getByRole('listitem').filter({ hasText: 'Ben' })).toHaveCount(0);
+  await expect(
+    page.getByRole('listitem').filter({ hasText: 'Ben' }),
+  ).toHaveCount(0);
   await expect(
     page.getByRole('img', { name: 'Spinner wheel' }).getByText('Ben'),
   ).toHaveCount(0);
@@ -66,7 +70,9 @@ test('asks for someone when spinning an empty wheel', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Spin' }).click();
 
-  await expect(page.getByRole('status')).toHaveText('Add someone before you spin.');
+  await expect(page.getByRole('status')).toHaveText(
+    'Add someone before you spin.',
+  );
 });
 
 test('keeps the team after a reload', async ({ page }) => {
