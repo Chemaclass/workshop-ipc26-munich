@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ChangeMe } from '../src/change-me';
+import { Game } from '../src/game';
 
 describe('Guessing Game', () => {
   it('guesses the number correctly', () => {
