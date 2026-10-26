@@ -157,3 +157,14 @@ test('never picks the previous winner, and links leave that alone', async ({
   await page.goto('/');
   await spinAndExpect('Chema');
 });
+
+test('celebrates the result with confetti', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Spin' }).click();
+
+  await expect(page.getByRole('status')).toContainText('leads the next retro', {
+    timeout: 10_000,
+  });
+  await expect(page.locator('canvas')).toHaveCount(1);
+});
