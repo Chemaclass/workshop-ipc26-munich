@@ -23,6 +23,15 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     list.replaceChildren(...wheel.names.map((name) => {
       const item = document.createElement('li');
       item.textContent = name;
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.setAttribute('aria-label', `${name} entfernen`);
+      remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" /></svg>';
+      remove.addEventListener('click', () => {
+        wheel.remove(name);
+        render();
+      });
+      item.append(remove);
       return item;
     }));
     spin.disabled = wheel.names.length === 0;

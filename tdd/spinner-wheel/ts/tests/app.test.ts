@@ -21,6 +21,17 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('removes individual names and disables drawing after the last removal', () => {
+    mountSpinner(root, () => 0);
+    addName('Anna');
+    addName('Ben');
+    root.querySelector<HTMLButtonElement>('[aria-label="Anna entfernen"]')?.click();
+    expect(root.querySelector('ul')?.textContent).toBe('Ben');
+    root.querySelector<HTMLButtonElement>('[aria-label="Ben entfernen"]')?.click();
+    expect(root.querySelectorAll('li')).toHaveLength(0);
+    expect(button('spin')?.disabled).toBe(true);
+    expect(root.textContent).toContain('Füge zuerst einen Namen hinzu.');
+  });
   it('adds names through the form and displays validation feedback', () => {
     mountSpinner(root, () => 0);
     addName('  Anna  ');
