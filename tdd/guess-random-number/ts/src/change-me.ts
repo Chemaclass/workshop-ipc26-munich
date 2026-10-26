@@ -10,5 +10,7 @@ export class Game {
 
   guess(guess: number): string {
     if (this.randomNumber === guess) return "you win";
+    if (this.randomNumber > guess) return 'higher';
+    return 'lower'
   }
 }
