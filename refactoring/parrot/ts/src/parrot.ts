@@ -16,7 +16,7 @@ export class Parrot {
       case ParrotType.European:
         return new EuropeanParrot().getSpeed();
       case ParrotType.African:
-        return Math.max(0, BASE_SPEED - LOAD_FACTOR * this.numberOfCoconuts);
+        return new AfricanParrot(this.numberOfCoconuts).getSpeed();
       case ParrotType.NorwegianBlue:
         return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
       default:
@@ -29,7 +29,7 @@ export class Parrot {
       case ParrotType.European:
         return new EuropeanParrot().getCry();
       case ParrotType.African:
-        return 'Sqaark!';
+        return new AfricanParrot(this.numberOfCoconuts).getCry();
       case ParrotType.NorwegianBlue:
         return this.voltage > 0 ? 'Bzzzzzz' : '...';
       default:
@@ -49,5 +49,17 @@ class EuropeanParrot {
 
   getCry(): string {
     return 'Sqoork!';
+  }
+}
+
+class AfricanParrot {
+  constructor(private readonly numberOfCoconuts: number) {}
+
+  getSpeed(): number {
+    return Math.max(0, BASE_SPEED - LOAD_FACTOR * this.numberOfCoconuts);
+  }
+
+  getCry(): string {
+    return 'Sqaark!';
   }
 }
