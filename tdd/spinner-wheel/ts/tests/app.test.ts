@@ -21,6 +21,26 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('locks draws and participant changes until the current draw completes', async () => {
+    let draws = 0;
+    mountSpinner(root, () => { draws += 1; return 0.99; });
+    addName('Anna');
+    addName('Ben');
+    const removeAnna = root.querySelector<HTMLButtonElement>('[aria-label="Anna entfernen"]');
+    button('spin')?.click();
+    expect(Array.from(root.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button')).every((control) => control.disabled)).toBe(true);
+    button('spin')?.dispatchEvent(new Event('click'));
+    removeAnna?.dispatchEvent(new Event('click'));
+    addName('Clara');
+    expect(root.querySelector('ul')?.textContent).toBe('AnnaBen');
+    await Promise.resolve();
+    expect(draws).toBe(1);
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Ausgewählt: Ben');
+    expect(Array.from(root.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button')).every((control) => !control.disabled)).toBe(true);
+    button('spin')?.click();
+    await Promise.resolve();
+    expect(draws).toBe(2);
+  });
   it('clears the previous result when participants are added or removed', async () => {
     mountSpinner(root, () => 0);
     addName('Anna');

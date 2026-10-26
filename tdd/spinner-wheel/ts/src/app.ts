@@ -3,6 +3,7 @@ import { SpinnerWheel } from './spinner-wheel';
 export function mountSpinner(root: HTMLElement, random: () => number): void {
   const wheel = new SpinnerWheel(random);
   let result: string | null = null;
+  let drawing = false;
   root.innerHTML = `
     <h1>Spinner Wheel</h1>
     <form>
@@ -29,6 +30,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
       remove.setAttribute('aria-label', `${name} entfernen`);
       remove.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" /></svg>';
       remove.addEventListener('click', () => {
+        if (drawing) return;
         wheel.remove(name);
         result = null;
         render();
@@ -36,12 +38,16 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
       item.append(remove);
       return item;
     }));
-    spin.disabled = wheel.names.length === 0;
+    for (const control of root.querySelectorAll<HTMLInputElement | HTMLButtonElement>('input, button')) {
+      control.disabled = drawing;
+    }
+    spin.disabled = drawing || wheel.names.length === 0;
     status.textContent = message ?? result ?? (wheel.names.length === 0 ? 'Füge zuerst einen Namen hinzu.' : '');
   }
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (drawing) return;
     const message = wheel.add(input.value);
     if (!message) {
       input.value = '';
@@ -52,8 +58,15 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   });
 
   spin.addEventListener('click', () => {
-    const selected = wheel.spin();
-    result = selected === null ? null : `Ausgewählt: ${selected}`;
-    render();
+    if (drawing || wheel.names.length === 0) return;
+    drawing = true;
+    result = null;
+    render('Wird ausgewählt…');
+    void Promise.resolve().then(() => {
+      const selected = wheel.spin();
+      result = selected === null ? null : `Ausgewählt: ${selected}`;
+      drawing = false;
+      render();
+    });
   });
 }
