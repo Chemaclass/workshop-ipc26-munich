@@ -6,7 +6,7 @@ builtins: []
 # Default tools. Pick your own in agnostic-ai.local.yaml (git-ignored), for example: targets: [gemini]
 targets:
   - claude
-  - codex
+  - grok
 
 # Set to error to fail sync when a target cannot represent a spec.
 on-unsupported: warn
