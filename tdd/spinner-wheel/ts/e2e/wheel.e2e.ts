@@ -68,3 +68,22 @@ test('asks for someone when spinning an empty wheel', async ({ page }) => {
 
   await expect(page.getByRole('status')).toHaveText('Add someone before you spin.');
 });
+
+test('keeps the team after a reload', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Name').fill('Gus');
+  await page.getByRole('button', { name: 'Add' }).click();
+  await page.getByRole('button', { name: 'Remove Ben' }).click();
+
+  await page.reload();
+
+  await expect(page.getByRole('listitem')).toHaveCount(6);
+  await expect(page.getByRole('listitem')).toContainText([
+    'Anna K.',
+    'Chema',
+    'Dana',
+    'Emil',
+    'Fatma',
+    'Gus',
+  ]);
+});
