@@ -130,6 +130,22 @@ export function mountWheel(
   });
 }
 
+export function mountBrokenLink(
+  root: HTMLElement,
+  problem: unknown,
+  onContinue: () => void,
+): void {
+  root.innerHTML = `
+    <h1>Who leads the next retro?</h1>
+    <div class="broken">
+      <p class="broken__message" role="alert"></p>
+      <button class="spin" type="button">Continue</button>
+    </div>
+  `;
+  query(root, '.broken__message').textContent = messageOf(problem);
+  query(root, '.spin').addEventListener('click', onContinue);
+}
+
 function messageOf(problem: unknown): string {
   return problem instanceof Error ? problem.message : String(problem);
 }
