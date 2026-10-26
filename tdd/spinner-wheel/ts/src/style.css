@@ -188,3 +188,9 @@ h1 {
   font-size: 0.85rem;
   color: var(--danger);
 }
+
+.team__note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}

@@ -12,7 +12,10 @@ if (app && hash !== '') {
   const shared = decodeShare(hash);
   mountWheel(app, new Wheel(shared.names), {
     randomForSpin: () => new SeededRandom(shared.seed),
+    readOnly: true,
   });
 } else if (app) {
   mountWheel(app, Wheel.load(new LocalStorageNameStore(localStorage), Math));
 }
+
+window.addEventListener('hashchange', () => location.reload());

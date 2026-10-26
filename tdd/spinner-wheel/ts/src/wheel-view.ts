@@ -16,7 +16,17 @@ const SPIN_MS = 3200;
 
 export interface WheelOptions {
   randomForSpin?: () => RandomSource;
+  readOnly?: boolean;
 }
+
+const TEAM_FORM = `
+  <form class="team__form">
+    <label for="team-name">Name</label>
+    <input id="team-name" name="name" autocomplete="off" placeholder="Anna K." />
+    <button type="submit">Add</button>
+  </form>
+  <p class="team__error" role="alert"></p>
+`;
 
 export function mountWheel(
   root: HTMLElement,
@@ -38,12 +48,7 @@ export function mountWheel(
     </div>
     <section class="team">
       <h2>Team</h2>
-      <form class="team__form">
-        <label for="team-name">Name</label>
-        <input id="team-name" name="name" autocomplete="off" placeholder="Anna K." />
-        <button type="submit">Add</button>
-      </form>
-      <p class="team__error" role="alert"></p>
+      ${options.readOnly ? '<p class="team__note">Shared wheel, read-only</p>' : TEAM_FORM}
       <ul class="team__list"></ul>
     </section>
   `;
@@ -54,15 +59,16 @@ export function mountWheel(
 
   const segments = query(root, '.wheel__segments');
   const list = query(root, '.team__list');
-  const form = query<HTMLFormElement>(root, '.team__form');
-  const input = query<HTMLInputElement>(root, '#team-name');
-  const error = query(root, '.team__error');
 
   const render = () => {
     drawSegments(segments, wheel.names);
     list.replaceChildren(
       ...wheel.names.map((name) => {
         const item = document.createElement('li');
+        item.append(name);
+        if (options.readOnly) {
+          return item;
+        }
         const remove = document.createElement('button');
         remove.type = 'button';
         remove.textContent = '×';
@@ -71,27 +77,32 @@ export function mountWheel(
           wheel.remove(name);
           render();
         });
-        item.append(name, remove);
+        item.append(remove);
         return item;
       }),
     );
   };
   render();
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    try {
-      wheel.add(input.value);
-    } catch (problem) {
-      error.textContent = messageOf(problem);
-      return;
-    }
-    input.value = '';
-    render();
-  });
-  input.addEventListener('input', () => {
-    error.textContent = '';
-  });
+  if (!options.readOnly) {
+    const form = query<HTMLFormElement>(root, '.team__form');
+    const input = query<HTMLInputElement>(root, '#team-name');
+    const error = query(root, '.team__error');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      try {
+        wheel.add(input.value);
+      } catch (problem) {
+        error.textContent = messageOf(problem);
+        return;
+      }
+      input.value = '';
+      render();
+    });
+    input.addEventListener('input', () => {
+      error.textContent = '';
+    });
+  }
 
   query(root, '.spin').addEventListener('click', () => {
     if (spinning) {
