@@ -30,4 +30,13 @@ describe('Wheel', () => {
     expect(() => wheel.add(blank)).toThrow('Enter a name first.');
     expect(wheel.names).toEqual(['Anna K.']);
   });
+
+  it('rejects a name that is already on the wheel', () => {
+    const wheel = new Wheel(['Anna K.']);
+
+    expect(() => wheel.add('Anna K.')).toThrow(
+      'Anna K. is already on the wheel. Add a last initial to tell them apart.',
+    );
+    expect(wheel.names).toEqual(['Anna K.']);
+  });
 });
