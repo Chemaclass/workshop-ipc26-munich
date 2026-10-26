@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { ChangeMe } from '../src/change-me';
 
-describe('ChangeMe', () => {
+describe('Number Guessing Game', () => {
   it('changes me', () => {
-    expect(new ChangeMe().changeMe()).toBe(true);
+    const fakeNumberGenerator = (): number => 10;
+    expect(new NewNumberGame(fakeNumberGenerator).guess(5)).toBe('LOWER');
   });
 });
