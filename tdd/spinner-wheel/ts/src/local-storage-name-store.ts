@@ -1,6 +1,7 @@
 import type { NameStore } from './wheel';
 
 const KEY = 'spinner-wheel.names';
+const LAST_WINNER_KEY = 'spinner-wheel.last-winner';
 
 export class LocalStorageNameStore implements NameStore {
   constructor(private readonly storage: Pick<Storage, 'getItem' | 'setItem'>) {}
@@ -15,8 +16,10 @@ export class LocalStorageNameStore implements NameStore {
   }
 
   loadLastWinner(): string | null {
-    return null;
+    return this.storage.getItem(LAST_WINNER_KEY);
   }
 
-  saveLastWinner(_name: string): void {}
+  saveLastWinner(name: string): void {
+    this.storage.setItem(LAST_WINNER_KEY, name);
+  }
 }
