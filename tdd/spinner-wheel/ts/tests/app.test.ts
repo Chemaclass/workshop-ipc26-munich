@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mountSpinner } from '../src/app';
 
 let root: HTMLDivElement;
@@ -25,6 +25,52 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('spins to the chosen segment and keeps controls locked until the animation finishes', async () => {
+    const values = [0.5, 0.99];
+    mountSpinner(root, () => values.shift() ?? 0);
+    addName('Anna');
+    addName('Ben');
+    addName('Clara');
+    let finish = () => {};
+    const animate = vi.fn(() => ({
+      finished: new Promise<void>((resolve) => {
+        finish = resolve;
+      }),
+    }));
+    const graphic = root.querySelector('[data-wheel]') as SVGSVGElement;
+    Object.defineProperty(graphic, 'animate', { value: animate });
+    button('spin')?.click();
+    expect(animate).toHaveBeenCalledOnce();
+    expect(button('spin')?.disabled).toBe(true);
+    await Promise.resolve();
+    expect(root.querySelector('[role="status"]')?.textContent).toBe(
+      'Wird ausgewählt…',
+    );
+    const firstFrames = (animate.mock.calls[0] as unknown as [Keyframe[]])[0];
+    const firstAngle = Number(
+      String(firstFrames[1]?.transform).match(/rotate\(([\d.]+)deg\)/)?.[1],
+    );
+    expect(firstAngle).toBeGreaterThanOrEqual(360 * 5);
+    expect((firstAngle + 180) % 360).toBeCloseTo(0);
+    finish();
+    await Promise.resolve();
+    expect(button('spin')?.disabled).toBe(false);
+    expect(root.querySelector('[role="status"]')?.textContent).toBe(
+      'Ausgewählt: Ben',
+    );
+    button('spin')?.click();
+    const secondFrames = (animate.mock.calls[1] as unknown as [Keyframe[]])[0];
+    const secondAngle = Number(
+      String(secondFrames[1]?.transform).match(/rotate\(([\d.]+)deg\)/)?.[1],
+    );
+    expect(secondAngle - firstAngle).toBeGreaterThanOrEqual(360 * 5);
+    expect((secondAngle + 300) % 360).toBeCloseTo(0);
+    finish();
+    await Promise.resolve();
+    expect(root.querySelector('[role="status"]')?.textContent).toBe(
+      'Ausgewählt: Clara',
+    );
+  });
   it('renders one distinctly colored wheel segment per participant and updates after removal', () => {
     mountSpinner(root, () => 0);
     addName('Anna');

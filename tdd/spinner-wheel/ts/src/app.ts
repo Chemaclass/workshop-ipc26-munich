@@ -5,6 +5,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   const wheel = new SpinnerWheel(random);
   let result: string | null = null;
   let drawing = false;
+  let rotation = 0;
   root.innerHTML = `
     <h1>Spinner Wheel</h1>
     <svg data-wheel viewBox="0 0 500 500" role="img" aria-label="Glücksrad"></svg>
@@ -45,6 +46,8 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
           if (drawing) return;
           wheel.remove(name);
           result = null;
+          rotation = 0;
+          wheelGraphic.style.transform = '';
           render();
         });
         item.append(remove);
@@ -70,6 +73,8 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     if (!message) {
       input.value = '';
       result = null;
+      rotation = 0;
+      wheelGraphic.style.transform = '';
     }
     render(message);
     input.focus();
@@ -80,12 +85,26 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     drawing = true;
     result = null;
     render('Wird ausgewählt…');
-    void Promise.resolve().then(() => {
-      const selected = wheel.spin();
+    const selected = wheel.spin();
+    const selectedIndex = wheel.names.indexOf(selected ?? '');
+    const centerAngle = ((selectedIndex + 0.5) * 360) / wheel.names.length;
+    const previousRotation = rotation;
+    rotation += 360 * 5 + ((360 - centerAngle - (rotation % 360) + 360) % 360);
+    const frames = [
+      { transform: `rotate(${previousRotation}deg)` },
+      { transform: `rotate(${rotation}deg)` },
+    ];
+    wheelGraphic.style.transform = `rotate(${rotation}deg)`;
+    const animation = wheelGraphic.animate?.(frames, {
+      duration: 4200,
+      easing: 'cubic-bezier(0.12, 0.8, 0.18, 1)',
+    });
+    const finish = () => {
       result = selected === null ? null : `Ausgewählt: ${selected}`;
       drawing = false;
       render();
-    });
+    };
+    void (animation?.finished ?? Promise.resolve()).then(finish, finish);
   });
   render();
 }
