@@ -78,6 +78,7 @@ export class Wheel {
     if (picked === undefined) {
       throw new Error('Add someone before you spin.');
     }
+    this.store.saveLastWinner(picked);
     return picked;
   }
 
