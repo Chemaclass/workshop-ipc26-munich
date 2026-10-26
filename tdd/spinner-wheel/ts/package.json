@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "license": "MIT",
-  "keywords": ["typescript", "scaffolding"],
+  "keywords": [
+    "typescript",
+    "scaffolding"
+  ],
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "test": "vitest run",
@@ -15,8 +18,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@types/jsdom": "^30.0.0",
+    "jsdom": "^29.1.1",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
   }
 }
