@@ -36,15 +36,4 @@ export class Parrot {
     return this.actualClass!.getCry();
   }
 
-  private getBaseSpeedWith(voltage: number): number {
-    return Math.min(24.0, voltage * this.getBaseSpeed());
-  }
-
-  private getLoadFactor(): number {
-    return 9.0;
-  }
-
-  private getBaseSpeed(): number {
-    return 12.0;
-  }
 }

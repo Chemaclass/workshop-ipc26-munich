@@ -4,9 +4,9 @@ export class ParrotParent {
 
     constructor(
     private readonly type: number,
-    private readonly numberOfCoconuts: number,
-    private readonly voltage: number,
-    private readonly isNailed: boolean,
+    protected readonly numberOfCoconuts: number,
+    protected readonly voltage: number,
+    protected readonly isNailed: boolean,
   ) {}
 
     getSpeed(): number {
@@ -25,8 +25,6 @@ export class ParrotParent {
 
   getCry(): string {
     switch (this.type) {
-      case ParrotType.African:
-        return 'Sqaark!';
       case ParrotType.NorwegianBlue:
         return this.voltage > 0 ? 'Bzzzzzz' : '...';
       default:

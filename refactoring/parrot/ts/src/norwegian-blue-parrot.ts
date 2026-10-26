@@ -11,4 +11,11 @@ export class NorwegianBlueParrot extends ParrotParent {
     ) {
         super(type, numberOfCoconuts, voltage, isNailed);
     }
+
+    getSpeed(): number {
+        return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
+    }
+
+    getCry(): string {
+          return this.voltage > 0 ? 'Bzzzzzz' : '...';}
 }
