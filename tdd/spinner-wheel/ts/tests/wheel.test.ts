@@ -15,4 +15,12 @@ describe('Wheel', () => {
 
     expect(new Wheel(['Anna K.', 'Ben'], random).spin()).toBe('Ben');
   });
+
+  it('puts an added name on the wheel', () => {
+    const wheel = new Wheel(['Anna K.']);
+
+    wheel.add('Ben');
+
+    expect(wheel.names).toEqual(['Anna K.', 'Ben']);
+  });
 });
