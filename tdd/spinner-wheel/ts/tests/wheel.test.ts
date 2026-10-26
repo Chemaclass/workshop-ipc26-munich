@@ -106,11 +106,20 @@ describe('Wheel', () => {
 
       expect(wheel.spin()).toBe('Hana');
     });
+
+    it('never picks the previous winner', () => {
+      const store = new InMemoryNameStore(['Gus', 'Hana'], 'Gus');
+
+      expect(Wheel.load(store, { random: () => 0 }).spin()).toBe('Hana');
+    });
   });
 });
 
 class InMemoryNameStore implements NameStore {
-  constructor(public saved: string[] | null = null) {}
+  constructor(
+    public saved: string[] | null = null,
+    public lastWinner: string | null = null,
+  ) {}
 
   load(): string[] | null {
     return this.saved;
@@ -118,5 +127,13 @@ class InMemoryNameStore implements NameStore {
 
   save(names: readonly string[]): void {
     this.saved = [...names];
+  }
+
+  loadLastWinner(): string | null {
+    return this.lastWinner;
+  }
+
+  saveLastWinner(name: string): void {
+    this.lastWinner = name;
   }
 }
