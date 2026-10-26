@@ -16,7 +16,7 @@ describe('Number Guessing Game', () => {
     game.guess(1)
     game.guess(1)
     game.guess(2)
-    expect(game.guess(3)).toBe(`You lose! The number was ${testNumber}`);
+    expect(game.guess(3)).toStrictEqual({message:"You lose!", correctNumber: testNumber});
   })
 
   it('Player wins if guess is correct', () => {

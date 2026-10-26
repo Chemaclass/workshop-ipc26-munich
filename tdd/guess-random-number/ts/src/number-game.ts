@@ -1,3 +1,5 @@
+type GuessingResponses = 'Lower' | 'Higher' | 'You win!' | {message: 'You lose!', correctNumber: number}
+
 export class NumberGame {
   private storedValue: number | undefined;
   private numberGenerator = () => Math.ceil((Math.random() * 10))
@@ -12,12 +14,12 @@ export class NumberGame {
     this.numberGenerator = generator
   }
 
-  guess(number: number): string {
+  guess(number: number): GuessingResponses {
     if(this.storedValue === undefined) {
       throw new Error('number not initialized')
     }
     if(this.attempts >= this.maxAttempts) {
-      return `You lose! The number was ${this.storedValue}`
+      return {message: 'You lose!', correctNumber: this.storedValue}
     }
     this.attempts++
     if (number < this.storedValue) return 'Lower';
