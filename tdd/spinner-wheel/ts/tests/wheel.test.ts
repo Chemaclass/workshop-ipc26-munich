@@ -92,6 +92,13 @@ describe('Wheel', () => {
 
       expect(store.saved).toEqual(['Hana']);
     });
+
+    it('lets the random source pick from the loaded names', () => {
+      const random = { random: () => 0.5 };
+      const wheel = Wheel.load(new InMemoryNameStore(['Gus', 'Hana']), random);
+
+      expect(wheel.spin()).toBe('Hana');
+    });
   });
 });
 
