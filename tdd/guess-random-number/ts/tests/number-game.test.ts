@@ -14,4 +14,13 @@ describe('Number Guessing Game', () => {
     expect(game.guess(7)).not.toBe('You win!');
     expect(game.guess(4)).toBe('You win!');
   })
+
+  it('Game should only allow 3 tries', () => {
+    const game = NumberGameTestingService.getNumberGameWithSetResultNumber(4)
+    game.init()
+    game.guess(1)
+    game.guess(1)
+    game.guess(4)
+    expect(game.guess(4)).not.toBe('You win!');
+  })
 });
