@@ -1,24 +1,33 @@
 
 export enum GuessResult {
-  Success = 'success',
+  Success = 'you win',
   Higher = 'higher',
   Lower = 'lower',
   Fail = 'fail',
 }
+export interface IGenerator {
+  generate(): number;
+}
+export class RandomGenerator implements IGenerator {
+
+  generate(): number {
+    return Math.floor(Math.random() * 10) + 1;
+  }}
 
 export class Guesser {
-  constructor(private random: { generate(): number }) {}
+  private randomNumber: number;
+  constructor(private randomGenerator: { generate(): number }) {
+    this.randomNumber = randomGenerator.generate();
+  }
 
   guess(guess: number): GuessResult {
-    switch(guess){
-      case 5:
-        return GuessResult.Success;
-      case 4:
-        return GuessResult.Higher;
-      case 9:
-        return GuessResult.Lower;
-      default:
-        return GuessResult.Fail;
+    if (guess === this.randomNumber) {
+      return GuessResult.Success;
+    } else if (guess < this.randomNumber) {
+      return GuessResult.Higher;
+    } else {
+      return GuessResult.Lower;
     }
+
   }
 }
