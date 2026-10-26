@@ -27,19 +27,7 @@ abstract class BaseParrot {
   ) { }
 
   abstract getSpeed(): number;
-
-  getCry(): string {
-    switch (this.type) {
-      case ParrotType.European:
-        return 'Sqoork!';
-      case ParrotType.African:
-        return 'Sqaark!';
-      case ParrotType.NorwegianBlue:
-        return this.voltage > 0 ? 'Bzzzzzz' : '...';
-      default:
-        throw new Error('Should be unreachable');
-    }
-  }
+  abstract getCry(): string;
 }
 
 export class Parrot {
@@ -72,6 +60,10 @@ export class EuropeanParrot extends BaseParrot {
   getSpeed() {
     return this.baseSpeed;
   }
+
+  getCry() {
+    return 'Sqoork!';
+  }
 }
 
 export class AfricanParrot extends BaseParrot {
@@ -89,6 +81,10 @@ export class AfricanParrot extends BaseParrot {
       this.baseSpeed - AFRICAN_PARROT_LOAD_FACTOR * this.numberOfCoconuts,
     );
   }
+
+  getCry() {
+    return 'Sqaark!';
+  }
 }
 
 export class NorwegianBlueParrot extends BaseParrot {
@@ -102,6 +98,10 @@ export class NorwegianBlueParrot extends BaseParrot {
 
   getSpeed() {
     return this.isNailed ? 0 : Math.min(24.0, this.voltage * this.baseSpeed);
+  }
+
+  getCry() {
+    return this.voltage > 0 ? 'Bzzzzzz' : '...';
   }
 }
 
