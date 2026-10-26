@@ -14,19 +14,19 @@ export class Parrot {
     voltage: number,
     isNailed: boolean,
   ) {
+    this.behavior = this.getParrotBehavior(type, numberOfCoconuts, voltage, isNailed);
+  }
+
+  private getParrotBehavior(type: number, numberOfCoconuts: number, voltage: number, isNailed: boolean): ParrotBehavior {
     switch (type) {
       case ParrotType.European:
-        this.behavior = new European();
-        break;
+        return new European();
       case ParrotType.African:
-        this.behavior = new African(numberOfCoconuts);
-        break;
+        return new African(numberOfCoconuts);
       case ParrotType.NorwegianBlue:
-        this.behavior = new NorwegianBlue(voltage, isNailed);
-        break;
-      default:
-        throw new Error('Should be unreachable');
+        return new NorwegianBlue(voltage, isNailed);
     }
+    throw new Error('Should be unreachable');
   }
 
   getSpeed(): number {
