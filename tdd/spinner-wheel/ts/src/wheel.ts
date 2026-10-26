@@ -32,7 +32,11 @@ export class Wheel {
   }
 
   remove(name: string): void {
-    this.members.splice(this.members.indexOf(name), 1);
+    const index = this.members.indexOf(name);
+    if (index === -1) {
+      throw new Error(`${name} is not on the wheel.`);
+    }
+    this.members.splice(index, 1);
   }
 
   spin(): string {
