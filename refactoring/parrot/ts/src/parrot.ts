@@ -1,41 +1,46 @@
 import { ParrotType } from './parrot-type';
 
+interface ParrotBehavior {
+  getSpeed(): number;
+  getCry(): string;
+}
+
 export class Parrot {
+  private readonly behavior: ParrotBehavior;
+
   constructor(
-    private readonly type: number,
-    protected readonly numberOfCoconuts: number,
-    protected readonly voltage: number,
-    protected readonly isNailed: boolean,
-  ) { }
+    type: number,
+    numberOfCoconuts: number,
+    voltage: number,
+    isNailed: boolean,
+  ) {
+    switch (type) {
+      case ParrotType.European:
+        this.behavior = new European();
+        break;
+      case ParrotType.African:
+        this.behavior = new African(numberOfCoconuts);
+        break;
+      case ParrotType.NorwegianBlue:
+        this.behavior = new NorwegianBlue(voltage, isNailed);
+        break;
+      default:
+        throw new Error('Should be unreachable');
+    }
+  }
 
   getSpeed(): number {
-    throw new Error('implement me');
+    return this.behavior.getSpeed();
   }
 
   getCry(): string {
-    throw new Error('implement me');
-  }
-
-  protected getBaseSpeedWith(voltage: number): number {
-    return Math.min(24.0, voltage * this.getBaseSpeed());
-  }
-
-  protected getLoadFactor(): number {
-    return 9.0;
-  }
-
-  protected getBaseSpeed(): number {
-    return 12.0;
+    return this.behavior.getCry();
   }
 }
 
-export class European extends Parrot {
-  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
-    super(ParrotType.European, numberOfCoconuts, voltage, isNailed);
-  }
-
+export class European implements ParrotBehavior {
   getSpeed(): number {
-    return this.getBaseSpeed();
+    return 12.0;
   }
 
   getCry(): string {
@@ -43,15 +48,13 @@ export class European extends Parrot {
   }
 }
 
-export class African extends Parrot {
-  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
-    super(ParrotType.African, numberOfCoconuts, voltage, isNailed);
-  }
+export class African implements ParrotBehavior {
+  constructor(private readonly numberOfCoconuts: number) {}
 
   getSpeed(): number {
     return Math.max(
       0,
-      this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
+      12.0 - 9.0 * this.numberOfCoconuts,
     );
   }
 
@@ -60,13 +63,11 @@ export class African extends Parrot {
   }
 }
 
-export class NorwegianBlue extends Parrot {
-  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
-    super(ParrotType.NorwegianBlue, numberOfCoconuts, voltage, isNailed);
-  }
+export class NorwegianBlue implements ParrotBehavior {
+  constructor(private readonly voltage: number, private readonly isNailed: boolean) {}
 
   getSpeed(): number {
-    return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
+    return this.isNailed ? 0 : Math.min(24.0, this.voltage * 12.0);
   }
 
   getCry(): string {
