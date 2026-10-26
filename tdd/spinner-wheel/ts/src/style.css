@@ -430,14 +430,22 @@ footer span {
 }
 
 .result-dialog {
-  width: min(440px, calc(100% - 36px));
-  max-height: calc(100svh - 40px);
-  margin: auto;
-  padding: 0;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 20px 18px;
   border: 0;
   background: transparent;
   color: #2c3d35;
-  overflow: visible;
+  overflow: hidden;
+}
+.result-dialog[open] {
+  display: grid;
+  place-items: center;
 }
 .result-dialog:not([open]) {
   display: none;
@@ -448,6 +456,7 @@ footer span {
 }
 .result-card {
   position: relative;
+  width: min(440px, 100%);
   z-index: 1;
   padding: 34px 30px 25px;
   max-height: calc(100svh - 40px);
@@ -568,8 +577,9 @@ footer span {
   background: #e3eadb;
 }
 .fireworks {
-  position: fixed;
+  position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   overflow: hidden;
 }
@@ -578,27 +588,29 @@ footer span {
 }
 .firework-burst span {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--spark-color);
-  box-shadow: 0 0 9px var(--spark-color);
+  box-shadow: 0 0 8px 1px var(--spark-color), 0 0 18px var(--spark-color);
   opacity: 0;
-  animation: firework-spark 1.8s ease-out var(--delay) 2 both;
+  animation: firework-spark 3.6s ease-out var(--delay) infinite both;
 }
 @keyframes firework-spark {
   0% {
     transform: translate(0, 0) scale(0.3);
     opacity: 0;
   }
-  10% {
+  8% {
     opacity: 1;
   }
-  65% {
-    opacity: 0.9;
+  45% {
+    transform: translate(var(--dx), var(--dy)) scale(0.8);
+    opacity: 1;
   }
+  72%,
   100% {
-    transform: translate(var(--dx), var(--dy)) scale(0);
+    transform: translate(var(--dx), var(--fall-y)) scale(0);
     opacity: 0;
   }
 }

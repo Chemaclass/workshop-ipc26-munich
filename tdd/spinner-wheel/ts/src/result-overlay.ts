@@ -64,30 +64,42 @@ export function createResultOverlay(root: HTMLElement) {
       input.value = url.href;
       link.href = url.href;
       feedback.textContent = '';
+      if (!dialog.open) {
+        if (dialog.showModal) dialog.showModal();
+        else dialog.setAttribute('open', '');
+      }
       fireworks.replaceChildren();
-      for (let burst = 0; burst < 4; burst += 1) {
+      const origins = [
+        [12, 25],
+        [87, 24],
+        [20, 72],
+        [81, 76],
+        [48, 12],
+        [52, 88],
+      ];
+      for (const [burst, origin] of origins.entries()) {
         const group = document.createElement('div');
         group.className = 'firework-burst';
-        group.style.left = `${[18, 82, 28, 76][burst]}%`;
-        group.style.top = `${[30, 25, 74, 72][burst]}%`;
-        for (let ray = 0; ray < 18; ray += 1) {
+        group.style.left = `${origin[0]}%`;
+        group.style.top = `${origin[1]}%`;
+        for (let ray = 0; ray < 24; ray += 1) {
           const spark = document.createElement('span');
-          const angle = (ray / 18) * Math.PI * 2;
-          const distance = 75 + (ray % 3) * 22;
+          const angle = (ray / 24) * Math.PI * 2;
+          const distance = 95 + (ray % 3) * 25;
           spark.style.setProperty('--dx', `${Math.cos(angle) * distance}px`);
           spark.style.setProperty('--dy', `${Math.sin(angle) * distance}px`);
-          spark.style.setProperty('--delay', `${burst * 0.35}s`);
+          spark.style.setProperty(
+            '--fall-y',
+            `${Math.sin(angle) * distance + 45}px`,
+          );
+          spark.style.setProperty('--delay', `${burst * 0.45}s`);
           spark.style.setProperty(
             '--spark-color',
-            ['#d1ad67', '#9fb699', '#c48f7e', '#abb8ca'][ray % 4] ?? '#d1ad67',
+            ['#f2c56e', '#b7ddb1', '#f1a994', '#afc9f0'][ray % 4] ?? '#f2c56e',
           );
           group.append(spark);
         }
         fireworks.append(group);
-      }
-      if (!dialog.open) {
-        if (dialog.showModal) dialog.showModal();
-        else dialog.setAttribute('open', '');
       }
     },
   };
