@@ -30,4 +30,14 @@ describe('Guesser', () => {
     expect(guesser.guess(2)).toBe(GuessResult.Higher);
     expect(guesser.guess(7)).toBe(GuessResult.Success);
   });
+  
+  it('lose after 3 wrong attempts', () => {
+    const random = new TestGenerator(5);
+    const guesser = new Guesser(random);
+    expect(guesser.guess(8)).toBe(GuessResult.Lower);
+    expect(guesser.guess(2)).toBe(GuessResult.Higher);
+    expect(guesser.guess(7)).toBe(GuessResult.Fail);
+
+
+  });
 });

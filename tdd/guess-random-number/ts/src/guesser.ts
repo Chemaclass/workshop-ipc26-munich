@@ -12,22 +12,36 @@ export class RandomGenerator implements IGenerator {
 
   generate(): number {
     return Math.floor(Math.random() * 10) + 1;
-  }}
+  }
+}
 
 export class Guesser {
   private randomNumber: number;
+  private attempts: number = 0;
+  private maxAttempts: number = 3;
+
   constructor(private randomGenerator: { generate(): number }) {
     this.randomNumber = randomGenerator.generate();
   }
 
   guess(guess: number): GuessResult {
+    this.attempts++;
+
     if (guess === this.randomNumber) {
       return GuessResult.Success;
-    } else if (guess < this.randomNumber) {
-      return GuessResult.Higher;
-    } else {
-      return GuessResult.Lower;
     }
+
+    if (this.attempts >= this.maxAttempts) {
+      return GuessResult.Fail;
+    }
+
+    if (guess < this.randomNumber) {
+      return GuessResult.Higher;
+
+    }
+
+    return GuessResult.Lower;
+
 
   }
 }
