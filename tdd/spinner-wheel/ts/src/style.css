@@ -60,6 +60,13 @@ h1 {
   height: auto;
   border-radius: 50%;
   box-shadow: 0 0 0 8px var(--card), 0 0 0 9px var(--border);
+  transition: transform 3.2s cubic-bezier(0.12, 0.7, 0.18, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel__disc {
+    transition: none;
+  }
 }
 
 .wheel__disc text {
@@ -83,4 +90,34 @@ h1 {
   border-right: 12px solid transparent;
   border-top: 28px solid var(--text);
   z-index: 1;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.spin {
+  min-width: 180px;
+  padding: 10px 24px;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--card);
+  background: var(--text);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.spin:active {
+  transform: scale(0.98);
+}
+
+.result {
+  min-height: 1.5em;
+  margin: 0;
+  font-size: 1.1rem;
 }

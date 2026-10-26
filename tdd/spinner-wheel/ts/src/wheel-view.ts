@@ -12,6 +12,7 @@ const COLORS = [
   ['#85B7EB', '#042C53'],
   ['#97C459', '#173404'],
 ] as const;
+const SPIN_MS = 3200;
 
 export function mountWheel(root: HTMLElement, wheel: Wheel): void {
   root.innerHTML = `
@@ -23,8 +24,43 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
       </svg>
       <div class="wheel__pointer" aria-hidden="true"></div>
     </div>
+    <div class="controls">
+      <button class="spin" type="button">Spin</button>
+      <p class="result" role="status"></p>
+    </div>
   `;
+  const disc = query<SVGSVGElement>(root, '.wheel__disc');
+  const result = query(root, '.result');
+  let rotation = 0;
+  let spinning = false;
+
   drawSegments(query(root, '.wheel__segments'), wheel.names);
+
+  query(root, '.spin').addEventListener('click', () => {
+    if (spinning) {
+      return;
+    }
+    const picked = wheel.spin();
+    rotation = rotationToShow(wheel.names.indexOf(picked), wheel.names.length, rotation);
+    spinning = true;
+    result.textContent = 'Spinning…';
+    disc.style.transform = `rotate(${rotation}deg)`;
+    setTimeout(() => {
+      spinning = false;
+      result.textContent = `${picked} leads the next retro`;
+    }, spinDuration());
+  });
+}
+
+function rotationToShow(index: number, count: number, current: number): number {
+  const slice = 360 / count;
+  const middle = index * slice + slice / 2;
+  const turn = (((360 - middle - current) % 360) + 360) % 360;
+  return current + 5 * 360 + turn;
+}
+
+function spinDuration(): number {
+  return matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : SPIN_MS;
 }
 
 function drawSegments(group: Element, names: readonly string[]): void {
