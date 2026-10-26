@@ -21,6 +21,18 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('adds names through the form and displays validation feedback', () => {
+    mountSpinner(root, () => 0);
+    addName('  Anna  ');
+    addName('Ben');
+    expect(root.querySelector('ul')?.textContent).toBe('AnnaBen');
+    expect(button('spin')?.disabled).toBe(false);
+    addName(' ANNA ');
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Dieser Name ist bereits vorhanden.');
+    addName('  ');
+    expect(root.querySelector('[role="status"]')?.textContent).toBe('Bitte gib einen Namen ein.');
+    expect(root.querySelectorAll('li')).toHaveLength(2);
+  });
   it('disables spinning an empty list and explains how to start', () => {
     mountSpinner(root, () => 0);
     expect(button('spin')?.disabled).toBe(true);
