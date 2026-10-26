@@ -133,3 +133,27 @@ test('a broken link offers to continue with the saved team', async ({ page }) =>
   await expect(page.getByRole('listitem')).toHaveCount(6);
   await expect(page.getByLabel('Name')).toBeVisible();
 });
+
+test('never picks the previous winner, and links leave that alone', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Math.random = () => 0.5;
+  });
+  const spinAndExpect = async (winner: string) => {
+    await page.getByRole('button', { name: 'Spin' }).click();
+    await expect(page.getByRole('status')).toHaveText(
+      `${winner} leads the next retro`,
+      { timeout: 10_000 },
+    );
+  };
+
+  await page.goto('/');
+  await spinAndExpect('Dana');
+
+  await page.goto(`/${SHARED}`);
+  await spinAndExpect('Ben');
+
+  await page.goto('/');
+  await spinAndExpect('Chema');
+});
