@@ -11,7 +11,7 @@ export interface IGenerator {
 export class RandomGenerator implements IGenerator {
 
   generate(): number {
-    return Math.floor(Math.random() * 10) + 1;
+    return Math.floor(Math.random() * 100) + 1;
   }
 }
 

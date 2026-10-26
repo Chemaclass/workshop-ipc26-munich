@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Guesser, GuessResult, type IGenerator } from '../src/guesser';
+import { Guesser, GuessResult, RandomGenerator, type IGenerator } from '../src/guesser';
 
 export class TestGenerator implements IGenerator {
   constructor(private number: number) { }
@@ -40,4 +40,19 @@ describe('Guesser', () => {
 
 
   });
+  
+  it('Check that the range of numbers is 1-100', () => {
+    let flag = false;
+    for (let i = 0; i < 1000; i++) {
+      const random = new RandomGenerator();
+      const number = random.generate();
+      if (number < 1 || number > 100) {
+        flag = true;
+        break;
+      }
+    }
+    expect(flag).toBe(false);
+  });
+  
+  
 });
