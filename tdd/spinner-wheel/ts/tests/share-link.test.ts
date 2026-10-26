@@ -20,4 +20,15 @@ describe('share link', () => {
     expect(encodeShare(shared)).toBe('eyJuYW1lcyI6WyJKw7ZyZyJdLCJzZWVkIjo3fQ==');
     expect(decodeShare(encodeShare(shared))).toEqual(shared);
   });
+
+  it.each([
+    ['not base64', '%%%'],
+    ['not JSON', 'aGVsbG8='],
+    ['no seed', 'eyJuYW1lcyI6WyJCZW4iXX0='],
+    ['names not a list', 'eyJuYW1lcyI6IkJlbiIsInNlZWQiOjF9'],
+    ['a name not text', 'eyJuYW1lcyI6WzFdLCJzZWVkIjoxfQ=='],
+    ['seed not a number', 'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6IngifQ=='],
+  ])('rejects a broken link: %s', (_, text) => {
+    expect(() => decodeShare(text)).toThrow('This link is broken.');
+  });
 });
