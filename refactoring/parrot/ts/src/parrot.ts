@@ -38,7 +38,12 @@ export class Parrot {
   }
 }
 
-class EuropeanParrot {
+interface ParrotKind {
+  getSpeed(): number;
+  getCry(): string;
+}
+
+class EuropeanParrot implements ParrotKind {
   getSpeed(): number {
     return BASE_SPEED;
   }
@@ -48,7 +53,7 @@ class EuropeanParrot {
   }
 }
 
-class AfricanParrot {
+class AfricanParrot implements ParrotKind {
   constructor(private readonly numberOfCoconuts: number) {}
 
   getSpeed(): number {
@@ -60,7 +65,7 @@ class AfricanParrot {
   }
 }
 
-class NorwegianBlueParrot {
+class NorwegianBlueParrot implements ParrotKind {
   constructor(
     private readonly voltage: number,
     private readonly isNailed: boolean,
