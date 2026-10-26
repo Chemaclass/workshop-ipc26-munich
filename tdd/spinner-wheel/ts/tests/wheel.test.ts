@@ -23,4 +23,11 @@ describe('Wheel', () => {
 
     expect(wheel.names).toEqual(['Anna K.', 'Ben']);
   });
+
+  it.each(['', '   '])('rejects the blank name "%s"', (blank) => {
+    const wheel = new Wheel(['Anna K.']);
+
+    expect(() => wheel.add(blank)).toThrow('Enter a name first.');
+    expect(wheel.names).toEqual(['Anna K.']);
+  });
 });
