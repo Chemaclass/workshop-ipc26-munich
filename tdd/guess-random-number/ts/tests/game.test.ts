@@ -13,4 +13,12 @@ describe('Guessing Game', () => {
     game.guess = 2
     expect(game.guess).not.toBe(game.answer);
   })
+
+  it("incrementing guessing number", ()=>{
+    const game = new Game()
+    expect(game.guesses).toBe(0);
+    game.guess = 2;
+    expect(game.guess).not.toBe(game.answer);
+    expect(game.guess).toBe((1));
+  })
 });
