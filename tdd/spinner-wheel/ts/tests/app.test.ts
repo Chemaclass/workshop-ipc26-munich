@@ -25,6 +25,34 @@ function addName(name: string) {
 }
 
 describe('Spinner app', () => {
+  it('renders one distinctly colored wheel segment per participant and updates after removal', () => {
+    mountSpinner(root, () => 0);
+    addName('Anna');
+    addName('Ben');
+    addName('Clara');
+    const segments = root.querySelectorAll('[data-segment]');
+    expect(segments).toHaveLength(3);
+    expect(
+      new Set(Array.from(segments, (segment) => segment.getAttribute('fill')))
+        .size,
+    ).toBe(3);
+    expect(
+      Array.from(
+        root.querySelectorAll('[data-wheel-label]'),
+        (label) => label.textContent,
+      ),
+    ).toEqual(['Anna', 'Ben', 'Clara']);
+    root
+      .querySelector<HTMLButtonElement>('[aria-label="Ben entfernen"]')
+      ?.click();
+    expect(root.querySelectorAll('[data-segment]')).toHaveLength(2);
+    expect(
+      Array.from(
+        root.querySelectorAll('[data-wheel-label]'),
+        (label) => label.textContent,
+      ),
+    ).toEqual(['Anna', 'Clara']);
+  });
   it('keeps the draw result visible when an invalid entry leaves the list unchanged', async () => {
     mountSpinner(root, () => 0);
     addName('Anna');

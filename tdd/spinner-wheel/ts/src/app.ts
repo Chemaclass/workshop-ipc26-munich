@@ -1,4 +1,5 @@
 import { SpinnerWheel } from './spinner-wheel';
+import { renderWheel } from './wheel-view';
 
 export function mountSpinner(root: HTMLElement, random: () => number): void {
   const wheel = new SpinnerWheel(random);
@@ -6,6 +7,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   let drawing = false;
   root.innerHTML = `
     <h1>Spinner Wheel</h1>
+    <svg data-wheel viewBox="0 0 500 500" role="img" aria-label="Glücksrad"></svg>
     <form>
       <label for="name">Name</label>
       <input id="name" autocomplete="off" />
@@ -17,6 +19,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     <p role="status">Füge zuerst einen Namen hinzu.</p>
   `;
   const form = root.querySelector('form') as HTMLFormElement;
+  const wheelGraphic = root.querySelector('[data-wheel]') as SVGSVGElement;
   const input = root.querySelector('input') as HTMLInputElement;
   const list = root.querySelector('ul') as HTMLUListElement;
   const spin = root.querySelector('[data-action="spin"]') as HTMLButtonElement;
@@ -26,6 +29,7 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
   ) as HTMLParagraphElement;
 
   function render(message: string | null = null) {
+    renderWheel(wheelGraphic, wheel.names);
     retainedResult.textContent = message && result ? result : '';
     retainedResult.hidden = !retainedResult.textContent;
     list.replaceChildren(
@@ -83,4 +87,5 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
       render();
     });
   });
+  render();
 }
