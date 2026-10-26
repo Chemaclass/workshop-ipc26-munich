@@ -14,14 +14,14 @@ export class Parrot {
   ) {
     switch (type) {
       case ParrotType.European:
-        this.actualClass = new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
+        this.actualClass = new EuropeanParrot();
         
         break;
        case ParrotType.African:
-        this.actualClass = new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
+        this.actualClass = new AfricanParrot(numberOfCoconuts);
         break;
       case ParrotType.NorwegianBlue:
-        this.actualClass = new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
+        this.actualClass = new NorwegianBlueParrot(voltage, isNailed);
         break;
       default:
         throw new Error('Should be unreachable');

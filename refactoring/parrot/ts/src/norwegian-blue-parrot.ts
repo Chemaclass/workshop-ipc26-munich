@@ -4,12 +4,10 @@ import { ParrotParent } from './parrot-parent';
 export class NorwegianBlueParrot extends ParrotParent {
 
     constructor(
-         type: number,
-         numberOfCoconuts: number,
-         voltage: number,
-         isNailed: boolean,
+        private readonly voltage: number,
+        private readonly isNailed: boolean,
     ) {
-        super(type, numberOfCoconuts, voltage, isNailed);
+        super();
     }
 
     getSpeed(): number {
@@ -17,5 +15,10 @@ export class NorwegianBlueParrot extends ParrotParent {
     }
 
     getCry(): string {
-          return this.voltage > 0 ? 'Bzzzzzz' : '...';}
+        return this.voltage > 0 ? 'Bzzzzzz' : '...';
+    }
+
+    protected getBaseSpeedWith(voltage: number): number {
+        return Math.min(24.0, voltage * this.getBaseSpeed());
+    }
 }
