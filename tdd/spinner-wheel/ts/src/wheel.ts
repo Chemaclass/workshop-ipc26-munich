@@ -1,11 +1,21 @@
+export interface RandomSource {
+  random(): number;
+}
+
+const alwaysFirst: RandomSource = { random: () => 0 };
+
 export class Wheel {
-  constructor(private readonly names: string[]) {}
+  constructor(
+    private readonly names: string[],
+    private readonly random: RandomSource = alwaysFirst,
+  ) {}
 
   spin(): string {
-    const [first] = this.names;
-    if (first === undefined) {
+    const index = Math.floor(this.random.random() * this.names.length);
+    const picked = this.names[index];
+    if (picked === undefined) {
       throw new Error('Add someone before you spin.');
     }
-    return first;
+    return picked;
   }
 }
