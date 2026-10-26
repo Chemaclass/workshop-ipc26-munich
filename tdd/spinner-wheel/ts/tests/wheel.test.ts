@@ -39,4 +39,13 @@ describe('Wheel', () => {
     );
     expect(wheel.names).toEqual(['Anna K.']);
   });
+
+  it('rejects a duplicate name in a different case', () => {
+    const wheel = new Wheel(['Anna K.']);
+
+    expect(() => wheel.add(' anna k. ')).toThrow(
+      'anna k. is already on the wheel. Add a last initial to tell them apart.',
+    );
+    expect(wheel.names).toEqual(['Anna K.']);
+  });
 });
