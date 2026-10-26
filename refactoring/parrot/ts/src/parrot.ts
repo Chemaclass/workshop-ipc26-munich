@@ -7,12 +7,12 @@ export class Parrot {
   private readonly kind: ParrotKind;
 
   constructor(
-    private readonly type: number,
-    private readonly numberOfCoconuts: number,
-    private readonly voltage: number,
-    private readonly isNailed: boolean,
+    type: number,
+    numberOfCoconuts: number,
+    voltage: number,
+    isNailed: boolean,
   ) {
-    this.kind = this.createKind();
+    this.kind = createParrotKind(type, numberOfCoconuts, voltage, isNailed);
   }
 
   getSpeed(): number {
@@ -22,18 +22,23 @@ export class Parrot {
   getCry(): string {
     return this.kind.getCry();
   }
+}
 
-  private createKind(): ParrotKind {
-    switch (this.type) {
-      case ParrotType.European:
-        return new EuropeanParrot();
-      case ParrotType.African:
-        return new AfricanParrot(this.numberOfCoconuts);
-      case ParrotType.NorwegianBlue:
-        return new NorwegianBlueParrot(this.voltage, this.isNailed);
-      default:
-        throw new Error('Should be unreachable');
-    }
+function createParrotKind(
+  type: number,
+  numberOfCoconuts: number,
+  voltage: number,
+  isNailed: boolean,
+): ParrotKind {
+  switch (type) {
+    case ParrotType.European:
+      return new EuropeanParrot();
+    case ParrotType.African:
+      return new AfricanParrot(numberOfCoconuts);
+    case ParrotType.NorwegianBlue:
+      return new NorwegianBlueParrot(voltage, isNailed);
+    default:
+      throw new Error('Should be unreachable');
   }
 }
 
