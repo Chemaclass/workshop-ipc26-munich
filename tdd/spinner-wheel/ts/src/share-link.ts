@@ -4,9 +4,11 @@ export interface SharedWheel {
 }
 
 export function encodeShare(shared: SharedWheel): string {
-  return btoa(JSON.stringify(shared));
+  const bytes = new TextEncoder().encode(JSON.stringify(shared));
+  return btoa(String.fromCharCode(...bytes));
 }
 
 export function decodeShare(text: string): SharedWheel {
-  return JSON.parse(atob(text));
+  const bytes = Uint8Array.from(atob(text), (char) => char.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
 }
