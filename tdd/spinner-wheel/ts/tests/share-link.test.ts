@@ -13,4 +13,11 @@ describe('share link', () => {
       'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6NDJ9',
     );
   });
+
+  it('encodes umlauts as UTF-8', () => {
+    const shared = { names: ['Jörg'], seed: 7 };
+
+    expect(encodeShare(shared)).toBe('eyJuYW1lcyI6WyJKw7ZyZyJdLCJzZWVkIjo3fQ==');
+    expect(decodeShare(encodeShare(shared))).toEqual(shared);
+  });
 });
