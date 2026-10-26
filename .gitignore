@@ -14,3 +14,4 @@ coverage
 composer.lock
 composer.phar
 pnpm-lock.yaml
+/package-lock.json
