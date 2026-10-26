@@ -3,6 +3,18 @@ import { decodeSharedWheel, encodeSharedWheel } from '../src/shared-wheel';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('shared wheel state', () => {
+  it('creates a compact URL-safe link less than half the old payload size', () => {
+    const state = {
+      names: ['Anna', 'Ben', 'Clara'],
+      chosen: 'Ben',
+      rotation: 198.75,
+    };
+    const oldHash = `#wheel=${encodeURIComponent(JSON.stringify({ version: 1, ...state }))}`;
+    const shortHash = encodeSharedWheel(state);
+    expect(shortHash).toMatch(/^#w=[A-Za-z0-9_-]+$/);
+    expect(shortHash.length).toBeLessThan(oldHash.length / 2);
+    expect(decodeSharedWheel(shortHash)).toEqual(state);
+  });
   it('restores an old winner without drawing and removes them when play continues', () => {
     const saved = decodeSharedWheel(
       '#wheel=%7B%22version%22%3A1%2C%22names%22%3A%5B%22Anna%22%2C%22Ben%22%2C%22Clara%22%5D%2C%22chosen%22%3A%22Ben%22%2C%22rotation%22%3A198.75%7D',
