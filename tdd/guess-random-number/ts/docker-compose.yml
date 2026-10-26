@@ -3,6 +3,8 @@ services:
     build: .
     container_name: ipc26-guess-number-ts
     command: sh -c "npm install && tail -f /dev/null"
+    ports:
+      - "4173:4173"
     working_dir: /srv/workshop-ipc26-munich/tdd/guess-random-number/ts
     volumes:
       - .:/srv/workshop-ipc26-munich/tdd/guess-random-number/ts:delegated

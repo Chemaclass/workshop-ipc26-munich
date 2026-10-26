@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "start": "npm run build && node dist/index.js",
+    "web": "node src/web-server.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "check-cs": "biome check .",

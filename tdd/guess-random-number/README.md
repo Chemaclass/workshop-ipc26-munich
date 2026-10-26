@@ -33,6 +33,10 @@ npm start
 
 The CLI accepts whole-number guesses from 1 to 100, reports whether the answer is higher or lower, and stops when you win, lose, or close input.
 
+### Play in the browser
+
+From the TypeScript project folder, run `npm run web` and open [http://localhost:4173](http://localhost:4173). Or, if you use Docker, run `make web` from `ts/`.
+
 ---
 
 ## About This Kata

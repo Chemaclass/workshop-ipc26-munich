@@ -32,3 +32,6 @@ fix-cs: ## Fix coding standards.
 
 watch: ## Run tests in watch mode (requires 'make up' first).
 	docker exec $(CONTAINER) npm run test:watch
+
+web: ## Play the web version at http://localhost:4173.
+	docker-compose run --rm --service-ports -e HOST=0.0.0.0 $(SERVICE) npm run web
