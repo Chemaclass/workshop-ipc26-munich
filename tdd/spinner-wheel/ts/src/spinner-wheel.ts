@@ -4,7 +4,7 @@ export class SpinnerWheel {
 
   add(name: string): string | null {
     if (!name.trim()) return 'Bitte gib einen Namen ein.';
-    this.names.push(name);
+    this.names.push(name.trim());
     return null;
   }
 }

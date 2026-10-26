@@ -2,6 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('SpinnerWheel', () => {
+  it('trims surrounding whitespace while preserving the name', () => {
+    const wheel = new SpinnerWheel(() => 0);
+    wheel.add('  Anna Maria \t');
+    expect(wheel.names).toEqual(['Anna Maria']);
+  });
   it('rejects empty and whitespace-only names with a message', () => {
     const wheel = new SpinnerWheel(() => 0);
     expect(wheel.add('')).toBe('Bitte gib einen Namen ein.');
