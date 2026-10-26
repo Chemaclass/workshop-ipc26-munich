@@ -4,19 +4,23 @@ const BASE_SPEED = 12.0;
 const LOAD_FACTOR = 9.0;
 
 export class Parrot {
+  private readonly kind: ParrotKind;
+
   constructor(
     private readonly type: number,
     private readonly numberOfCoconuts: number,
     private readonly voltage: number,
     private readonly isNailed: boolean,
-  ) {}
+  ) {
+    this.kind = this.createKind();
+  }
 
   getSpeed(): number {
-    return this.createKind().getSpeed();
+    return this.kind.getSpeed();
   }
 
   getCry(): string {
-    return this.createKind().getCry();
+    return this.kind.getCry();
   }
 
   private createKind(): ParrotKind {
