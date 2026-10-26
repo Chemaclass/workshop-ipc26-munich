@@ -1,4 +1,6 @@
+import { AfricanParrot } from './african-parrot';
 import { EuropeanParrot } from './european-parrot';
+import { NorwegianBlueParrot } from './norwegian-blue-parrot';
 import type { ParrotParent } from './parrot-parent';
 import { ParrotType } from './parrot-type';
 
@@ -15,44 +17,23 @@ export class Parrot {
         this.actualClass = new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
         
         break;
-     /*  case ParrotType.African:
+       case ParrotType.African:
         this.actualClass = new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
         break;
       case ParrotType.NorwegianBlue:
         this.actualClass = new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
         break;
       default:
-        throw new Error('Should be unreachable'); */
+        throw new Error('Should be unreachable');
     }
   }
 
   getSpeed(): number {
-    switch (this.type) {
-      case ParrotType.European:
-        return this.actualClass!.getSpeed();
-      case ParrotType.African:
-        return Math.max(
-          0,
-          this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
-        );
-      case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
-      default:
-        throw new Error('Should be unreachable');
-    }
+      return this.actualClass!.getSpeed();
   }
 
   getCry(): string {
-    switch (this.type) {
-      case ParrotType.European:
-        return this.actualClass!.getCry();
-      case ParrotType.African:
-        return 'Sqaark!';
-      case ParrotType.NorwegianBlue:
-        return this.voltage > 0 ? 'Bzzzzzz' : '...';
-      default:
-        throw new Error('Should be unreachable');
-    }
+    return this.actualClass!.getCry();
   }
 
   private getBaseSpeedWith(voltage: number): number {
