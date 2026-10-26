@@ -7,6 +7,7 @@ builtins: []
 targets:
   - claude
   - codex
+  - copilot
 
 # Set to error to fail sync when a target cannot represent a spec.
 on-unsupported: warn
