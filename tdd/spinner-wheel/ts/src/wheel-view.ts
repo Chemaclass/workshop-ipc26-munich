@@ -132,13 +132,15 @@ function drawSegments(group: Element, names: readonly string[]): void {
   names.forEach((name, index) => {
     const [fill, ink] = COLORS[index % COLORS.length] ?? COLORS[0];
     group.append(segment(index * slice, slice, fill, names.length === 1));
+    const middle = index * slice + slice / 2;
+    const [x, y] = pointAt(middle, RADIUS * 0.6);
     const label = svg('text', {
-      x: CENTER + RADIUS * 0.6,
-      y: CENTER,
+      x,
+      y,
       fill: ink,
       'text-anchor': 'middle',
       'dominant-baseline': 'central',
-      transform: `rotate(${index * slice + slice / 2 - 90} ${CENTER} ${CENTER})`,
+      transform: `rotate(${labelAngle(middle)} ${x} ${y})`,
     });
     label.textContent = name;
     group.append(label);
@@ -146,6 +148,10 @@ function drawSegments(group: Element, names: readonly string[]): void {
   group.append(
     svg('circle', { cx: CENTER, cy: CENTER, r: 18, class: 'wheel__hub' }),
   );
+}
+
+export function labelAngle(middle: number): number {
+  return middle > 180 ? middle - 270 : middle - 90;
 }
 
 function segment(
@@ -166,11 +172,11 @@ function segment(
   });
 }
 
-function pointAt(degrees: number): [number, number] {
+function pointAt(degrees: number, radius = RADIUS): [number, number] {
   const radians = ((degrees - 90) * Math.PI) / 180;
   return [
-    CENTER + RADIUS * Math.cos(radians),
-    CENTER + RADIUS * Math.sin(radians),
+    CENTER + radius * Math.cos(radians),
+    CENTER + radius * Math.sin(radians),
   ];
 }
 
