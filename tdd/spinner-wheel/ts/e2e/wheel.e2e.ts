@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { type Page, expect, test } from '@playwright/test';
 
 test('shows a wheel with the example names', async ({ page }) => {
   await page.goto('/');
@@ -178,4 +178,54 @@ test('celebrates the result with confetti', async ({ page }) => {
     timeout: 10_000,
   });
   await expect(page.locator('canvas')).toHaveCount(1);
+});
+
+test.describe('copy link', () => {
+  test.use({ permissions: ['clipboard-read', 'clipboard-write'] });
+
+  const spinAndExpect = async (page: Page, winner: string) => {
+    await page.getByRole('button', { name: 'Spin' }).click();
+    await expect(page.getByRole('status')).toHaveText(
+      `${winner} leads the next retro`,
+      { timeout: 10_000 },
+    );
+  };
+
+  const copiedLink = async (page: Page) => {
+    await page.getByRole('button', { name: 'Copy link' }).click();
+    return page.evaluate(() => navigator.clipboard.readText());
+  };
+
+  test('reproduces the pick from the link', async ({ page, context }) => {
+    await page.addInitScript(() => {
+      Math.random = () => 0.5;
+    });
+    await page.goto('/');
+    await spinAndExpect(page, 'Emil');
+
+    const link = await copiedLink(page);
+    expect(link).toMatch(/^http:\/\/localhost:4173\/#.+/);
+
+    const opened = await context.newPage();
+    await opened.goto(link);
+    await spinAndExpect(opened, 'Emil');
+  });
+
+  test('reproduces a pick that skipped the previous winner', async ({
+    page,
+    context,
+  }) => {
+    await page.addInitScript(() => {
+      Math.random = () => 0.5;
+    });
+    await page.goto('/');
+    await spinAndExpect(page, 'Emil');
+    await spinAndExpect(page, 'Fatma');
+
+    const link = await copiedLink(page);
+
+    const opened = await context.newPage();
+    await opened.goto(link);
+    await spinAndExpect(opened, 'Fatma');
+  });
 });
