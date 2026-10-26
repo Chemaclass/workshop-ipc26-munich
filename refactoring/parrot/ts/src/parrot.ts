@@ -24,7 +24,7 @@ class BaseParrot {
     private readonly numberOfCoconuts: number,
     private readonly voltage: number,
     private readonly isNailed: boolean,
-  ) {}
+  ) { }
 
   getSpeed(): number {
     switch (this.type) {
@@ -57,45 +57,24 @@ class BaseParrot {
 }
 
 export class Parrot {
-  private baseSpeed = 12
-  constructor(
-    private readonly type: number,
-    private readonly numberOfCoconuts: number,
-    private readonly voltage: number,
-    private readonly isNailed: boolean,
-  ) {}
-
-  getSpeed(): number {
-    switch (this.type) {
-      case ParrotType.European:
-        return this.baseSpeed;
+  constructor(type: number,
+    numberOfCoconuts: number,
+    voltage: number,
+    isNailed: boolean) {
+    switch (type) {
       case ParrotType.African:
-        return Math.max(
-          0,
-          this.baseSpeed - AFRICAN_PARROT_LOAD_FACTOR * this.numberOfCoconuts,
-        );
-      case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : Math.min(24.0, this.voltage * this.baseSpeed);
-      default:
-        throw new Error('Should be unreachable');
-    }
-  }
-
-  getCry(): string {
-    switch (this.type) {
+        return new AfricanParrot(type, numberOfCoconuts, voltage, isNailed)
       case ParrotType.European:
-        return 'Sqoork!';
-      case ParrotType.African:
-        return 'Sqaark!';
+        return new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed)
       case ParrotType.NorwegianBlue:
-        return this.voltage > 0 ? 'Bzzzzzz' : '...';
+        return new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed)
       default:
         throw new Error('Should be unreachable');
     }
   }
 }
 
-export class EuropeanParrot extends BaseParrot{
+export class EuropeanParrot extends BaseParrot {
   constructor(
     type: number,
     numberOfCoconuts: number,
@@ -106,7 +85,7 @@ export class EuropeanParrot extends BaseParrot{
   }
 }
 
-export class AfricanParrot extends BaseParrot{
+export class AfricanParrot extends BaseParrot {
   constructor(
     type: number,
     numberOfCoconuts: number,
@@ -117,7 +96,7 @@ export class AfricanParrot extends BaseParrot{
   }
 }
 
-export class NorwegianBlueParrot extends BaseParrot{
+export class NorwegianBlueParrot extends BaseParrot {
   constructor(
     type: number,
     numberOfCoconuts: number,
