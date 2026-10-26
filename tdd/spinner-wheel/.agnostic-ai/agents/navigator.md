@@ -1,7 +1,7 @@
 ---
 name: navigator
 description: Second pair of eyes on the latest diff. Use when the participants ask for a review, before a commit, or when they want to practice explaining a change. Asks questions instead of rewriting code.
-can: [read, shell(git diff *), shell(git log *), shell(git show *)]
+can: [read, shell]
 readonly: true
 x-codex: {sandbox_mode: null}
 ---

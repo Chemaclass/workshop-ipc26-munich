@@ -24,13 +24,21 @@ No Docker? `cd php && composer install && php -S localhost:8000 -t public`, or `
 
 ## Agent rules
 
-The rules your agent follows live in [`.agnostic-ai/AGNOSTIC_AI.md`](.agnostic-ai/AGNOSTIC_AI.md). [agnostic-ai](https://github.com/Chemaclass/agnostic-ai) generates `AGENTS.md` and `CLAUDE.md` from it. To change a rule, edit that file and run `agnostic-ai sync`.
+The rules your agent follows live in [`.agnostic-ai/`](.agnostic-ai/). [agnostic-ai](https://github.com/Chemaclass/agnostic-ai) turns them into the files your AI tool reads. Set it up once, from this folder:
+
+```bash
+npm install -g agnostic-ai                           # or: https://agnostic-ai.org/docs/installation/
+echo "targets: [gemini]" > agnostic-ai.local.yaml   # your tools: claude, codex, gemini, grok, junie, cursor, copilot, ...
+agnostic-ai sync
+```
+
+`agnostic-ai.local.yaml` and the generated files stay out of git, so each pair can use a different tool. Without a local file, sync writes files for Claude Code and Codex. To change a rule, edit `.agnostic-ai/` and run `agnostic-ai sync` again.
 
 The agent works as your pair partner: one step at a time, asking before it tells. These help you steer it:
 
 - `tdd-cycle`: one red, green, refactor cycle. The agent picks it up when you ask for the next test.
-- `/requirement <text>`: start a new requirement from the slides with a test list you build together.
-- `/refactor`: one small cleanup on green.
+- `requirement`: start a new requirement from the slides with a test list you build together.
+- `refactor`: one small cleanup on green.
 - `navigator`: an agent that reviews your latest diff by asking you questions.
 
-In Codex, run `$requirement` and `$refactor` instead.
+Run `requirement` and `refactor` the way your tool runs commands or skills: `/requirement` in Claude Code, `$requirement` in Codex.

@@ -1,7 +1,7 @@
 ---
 name: randomness-as-collaborator
 description: Test random picks through an injected random source, never the real one.
-globs: "{php,ts}/{src,tests}/**"
+alwaysApply: true
 ---
 
 Picking a person is random, and a test cannot assert a random result. Treat the random source as a collaborator:

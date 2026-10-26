@@ -1,3 +1,89 @@
+# Files agnostic-ai generates for every supported tool. Each participant picks tools in agnostic-ai.local.yaml and runs `agnostic-ai sync`.
+# Regenerate this list when you add a spec: enable every target with gitignore.enabled in a scratch copy and copy its block.
+/.agents/AGENTS.md
+/.agents/agents/
+/.agents/rules/
+/.agents/skills/
+/.augment/agents/
+/.augment/commands/
+/.claude/agent-memory-local/
+/.claude/agents/
+/.claude/commands/
+/.claude/rules/
+/.claude/scheduled_tasks.lock
+/.claude/settings.local.json
+/.claude/skills/
+/.claude/worktrees/
+/.cline/agents/
+/.cline/skills/
+/.clinerules/
+/.codebuddy/agents/
+/.codebuddy/commands/
+/.codebuddy/rules/
+/.codebuddy/skills/
+/.codex/agents/
+/.codex/config.toml
+/.continue/rules/
+/.continue/skills/
+/.cursor/agents/
+/.cursor/commands/
+/.cursor/rules/
+/.cursor/skills/
+/.devin/agents/
+/.devin/rules/
+/.factory/commands/
+/.factory/droids/
+/.factory/settings.local.json
+/.gemini/agents/
+/.gemini/commands/
+/.gemini/skills/
+/.github/agents/
+/.github/copilot-instructions.md
+/.github/instructions/
+/.github/skills/
+/.grok/agents/
+/.grok/commands/
+/.grok/rules/
+/.grok/skills/
+/.junie/AGENTS.md
+/.junie/agents/
+/.junie/commands/
+/.junie/skills/
+/.kilo/agents/
+/.kilo/commands/
+/.kimi-code/agents/
+/.kimi-code/skills/
+/.kiro/agents/
+/.kiro/prompts/
+/.kiro/skills/
+/.kiro/steering/
+/.opencode/agents/
+/.opencode/commands/
+/.opencode/skills/
+/.pi/prompts/
+/.pi/skills/
+/.qoder/agents/
+/.qoder/commands/
+/.qoder/settings.json
+/.qoder/skills/
+/.qwen/agents/
+/.qwen/commands/
+/.qwen/skills/
+/.rules
+/.trae/agents/
+/.trae/commands/
+/.trae/rules/
+/.trae/skills/
+/.vibe/agents/
+/.vibe/skills/
+/.vscode/settings.json
+/AGENTS.md
+/CLAUDE.md
+/CODEBUDDY.md
+/CONVENTIONS.md
+/GEMINI.md
+/QWEN.md
+
 # >>> agnostic-ai (managed) >>>
 # Generated paths. Edit specs, not this block. Run `agnostic-ai sync` to refresh.
 # Not committed: a fresh clone or `git worktree` lacks these until `agnostic-ai sync` runs (e.g. a post-checkout hook).
@@ -7,6 +93,3 @@
 /.agnostic-ai/packs/
 /agnostic-ai.local.yaml
 # <<< agnostic-ai (managed) <<<
-
-# The repo root ignores .claude/; this kata ships its generated Claude Code config.
-!/.claude/
