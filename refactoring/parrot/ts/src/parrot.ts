@@ -4,40 +4,19 @@ export class Parrot {
   constructor(
     private readonly type: number,
     protected readonly numberOfCoconuts: number,
-    private readonly voltage: number,
-    private readonly isNailed: boolean,
+    protected readonly voltage: number,
+    protected readonly isNailed: boolean,
   ) { }
 
   getSpeed(): number {
-    switch (this.type) {
-      case ParrotType.European:
-        return this.getBaseSpeed();
-      case ParrotType.African:
-        return Math.max(
-          0,
-          this.getBaseSpeed() - this.getLoadFactor() * this.numberOfCoconuts,
-        );
-      case ParrotType.NorwegianBlue:
-        return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
-      default:
-        throw new Error('Should be unreachable');
-    }
+    throw new Error('implement me');
   }
 
   getCry(): string {
-    switch (this.type) {
-      case ParrotType.European:
-        return 'Sqoork!';
-      case ParrotType.African:
-        return 'Sqaark!';
-      case ParrotType.NorwegianBlue:
-        return this.voltage > 0 ? 'Bzzzzzz' : '...';
-      default:
-        throw new Error('Should be unreachable');
-    }
+    throw new Error('implement me');
   }
 
-  private getBaseSpeedWith(voltage: number): number {
+  protected getBaseSpeedWith(voltage: number): number {
     return Math.min(24.0, voltage * this.getBaseSpeed());
   }
 
@@ -78,6 +57,20 @@ export class African extends Parrot {
 
   getCry(): string {
     return 'Sqaark!';
+  }
+}
+
+export class NorwegianBlue extends Parrot {
+  constructor(numberOfCoconuts: number, voltage: number, isNailed: boolean) {
+    super(ParrotType.NorwegianBlue, numberOfCoconuts, voltage, isNailed);
+  }
+
+  getSpeed(): number {
+    return this.isNailed ? 0 : this.getBaseSpeedWith(this.voltage);
+  }
+
+  getCry(): string {
+    return this.voltage > 0 ? 'Bzzzzzz' : '...';
   }
 }
 
