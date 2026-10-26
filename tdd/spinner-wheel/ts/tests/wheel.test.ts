@@ -16,6 +16,13 @@ describe('Wheel', () => {
     expect(new Wheel(['Anna K.', 'Ben'], random).spin()).toBe('Ben');
   });
 
+  it('spins with a random source given for this spin only', () => {
+    const wheel = new Wheel(['Anna K.', 'Ben'], { random: () => 0 });
+
+    expect(wheel.spin({ random: () => 0.5 })).toBe('Ben');
+    expect(wheel.spin()).toBe('Anna K.');
+  });
+
   it('puts an added name on the wheel', () => {
     const wheel = new Wheel(['Anna K.']);
 
