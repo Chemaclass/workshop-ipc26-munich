@@ -116,9 +116,10 @@ export function mountWheel(
     }
     const skip = wheel.lastWinner ?? undefined;
     const seed = options.newSeed();
+    const random = new SeededRandom(seed);
     let picked: string;
     try {
-      picked = wheel.spin(new SeededRandom(seed));
+      picked = wheel.spin(random);
     } catch (problem) {
       result.textContent = messageOf(problem);
       return;
@@ -128,6 +129,7 @@ export function mountWheel(
       wheel.names.indexOf(picked),
       wheel.names.length,
       rotation,
+      random.random(),
     );
     spinning = true;
     result.textContent = 'Spinning…';
@@ -177,10 +179,15 @@ function messageOf(problem: unknown): string {
   return problem instanceof Error ? problem.message : String(problem);
 }
 
-function rotationToShow(index: number, count: number, current: number): number {
+export function rotationToShow(
+  index: number,
+  count: number,
+  current: number,
+  landing: number,
+): number {
   const slice = 360 / count;
-  const middle = index * slice + slice / 2;
-  const turn = (((360 - middle - current) % 360) + 360) % 360;
+  const target = index * slice + slice * (0.1 + 0.8 * landing);
+  const turn = (((360 - target - current) % 360) + 360) % 360;
   return current + 5 * 360 + turn;
 }
 
