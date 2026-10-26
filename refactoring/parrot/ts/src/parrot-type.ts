@@ -3,3 +3,4 @@ export const ParrotType = {
   African: 1,
   NorwegianBlue: 2,
 } as const;
+
