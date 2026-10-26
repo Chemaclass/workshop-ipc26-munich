@@ -17,7 +17,7 @@ import { ParrotType } from './parrot-type';
 
 const AFRICAN_PARROT_LOAD_FACTOR = 9
 
-class BaseParrot {
+abstract class BaseParrot {
   protected baseSpeed = 12
   constructor(
     private readonly type: number,
