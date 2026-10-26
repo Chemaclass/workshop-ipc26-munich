@@ -18,4 +18,8 @@ export class AfricanParrot extends ParrotParent {
         return 'Sqaark!';
 
     }
+
+    private getLoadFactor(): number {
+        return 9.0;
+    }
 }
