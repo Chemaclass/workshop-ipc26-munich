@@ -69,6 +69,17 @@ describe('Spinner wheel page', () => {
     ]);
   });
 
+  it('colours the slices so that no neighbours match', () => {
+    const root = startApp();
+
+    enterNames(root, 'Anna, Ben, Chris, Dana, Emil, Finn, Gina');
+
+    const colors = Array.from(
+      root.querySelectorAll<HTMLElement>('.segment'),
+    ).map((segment) => segment.dataset.color);
+    expect(colors).toEqual(['0', '1', '2', '3', '4', '5', '1']);
+  });
+
   it('disables the spin button while there are no names', () => {
     const root = startApp();
 

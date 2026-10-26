@@ -223,22 +223,22 @@ body::before {
   transition: filter 0.3s;
 }
 
-.segment:nth-child(6n + 1) {
+.segment[data-color="0"] {
   --color: #e4572e;
 }
-.segment:nth-child(6n + 2) {
+.segment[data-color="1"] {
   --color: #2e86ab;
 }
-.segment:nth-child(6n + 3) {
+.segment[data-color="2"] {
   --color: #f3a712;
 }
-.segment:nth-child(6n + 4) {
+.segment[data-color="3"] {
   --color: #3a9d5d;
 }
-.segment:nth-child(6n + 5) {
+.segment[data-color="4"] {
   --color: #8e44ad;
 }
-.segment:nth-child(6n + 6) {
+.segment[data-color="5"] {
   --color: #d81b60;
 }
 

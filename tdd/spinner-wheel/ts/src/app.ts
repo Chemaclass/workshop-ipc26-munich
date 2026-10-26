@@ -1,3 +1,4 @@
+import { segmentColor } from './colors';
 import { segmentAngle, spinRotation, targetRotation } from './geometry';
 import { parseNames, removeName } from './names';
 import { Wheel } from './wheel';
@@ -139,6 +140,7 @@ function renderSegments(names: string[]): HTMLElement[] {
     segment.className = 'segment';
     segment.style.transform = `rotate(${index * slice}deg)`;
     segment.style.setProperty('--slice', `${slice}deg`);
+    segment.dataset.color = String(segmentColor(index, names.length));
     segment.append(label);
 
     return segment;
