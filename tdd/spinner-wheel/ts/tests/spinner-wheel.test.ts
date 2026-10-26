@@ -2,6 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { SpinnerWheel } from '../src/spinner-wheel';
 
 describe('SpinnerWheel', () => {
+  it('always selects the sole participant', () => {
+    const wheel = new SpinnerWheel(() => 0.99);
+    wheel.add('Anna');
+    expect(wheel.spin()).toBe('Anna');
+  });
   it('rejects duplicates regardless of case and surrounding whitespace', () => {
     const wheel = new SpinnerWheel(() => 0);
     wheel.add('Anna');
