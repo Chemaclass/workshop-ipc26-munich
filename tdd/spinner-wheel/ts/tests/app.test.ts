@@ -26,7 +26,7 @@ function addName(name: string) {
 
 describe('Spinner app', () => {
   it('spins to the chosen segment and keeps controls locked until the animation finishes', async () => {
-    const values = [0.5, 0.99];
+    const values = [0.4, 0.99];
     mountSpinner(root, () => values.shift() ?? 0);
     addName('Anna');
     addName('Ben');
@@ -51,7 +51,10 @@ describe('Spinner app', () => {
       String(firstFrames[1]?.transform).match(/rotate\(([\d.]+)deg\)/)?.[1],
     );
     expect(firstAngle).toBeGreaterThanOrEqual(360 * 5);
-    expect((firstAngle + 180) % 360).toBeCloseTo(0);
+    const firstLanding = (360 - (firstAngle % 360)) % 360;
+    expect(firstLanding).toBeGreaterThan(120);
+    expect(firstLanding).toBeLessThan(240);
+    expect(firstLanding).not.toBeCloseTo(180);
     finish();
     await Promise.resolve();
     expect(button('spin')?.disabled).toBe(false);
@@ -64,7 +67,10 @@ describe('Spinner app', () => {
       String(secondFrames[1]?.transform).match(/rotate\(([\d.]+)deg\)/)?.[1],
     );
     expect(secondAngle - firstAngle).toBeGreaterThanOrEqual(360 * 5);
-    expect((secondAngle + 300) % 360).toBeCloseTo(0);
+    const secondLanding = (360 - (secondAngle % 360)) % 360;
+    expect(secondLanding).toBeGreaterThan(240);
+    expect(secondLanding).toBeLessThan(360);
+    expect(secondLanding).not.toBeCloseTo(300);
     finish();
     await Promise.resolve();
     expect(root.querySelector('[role="status"]')?.textContent).toBe(

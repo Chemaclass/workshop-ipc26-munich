@@ -2,7 +2,11 @@ import { SpinnerWheel } from './spinner-wheel';
 import { optionColor, renderWheel } from './wheel-view';
 
 export function mountSpinner(root: HTMLElement, random: () => number): void {
-  const wheel = new SpinnerWheel(random);
+  let spinRandom = 0;
+  const wheel = new SpinnerWheel(() => {
+    spinRandom = random();
+    return spinRandom;
+  });
   let result: string | null = null;
   let drawing = false;
   let rotation = 0;
@@ -160,9 +164,13 @@ export function mountSpinner(root: HTMLElement, random: () => number): void {
     render('Wird ausgewählt…');
     const selected = wheel.spin();
     const selectedIndex = wheel.names.indexOf(selected ?? '');
-    const centerAngle = ((selectedIndex + 0.5) * 360) / wheel.names.length;
+    const positionInSegment = spinRandom * wheel.names.length - selectedIndex;
+    // Reuse the sample's fractional part, leaving 6% clear at either border.
+    const landingAngle =
+      ((selectedIndex + 0.06 + positionInSegment * 0.88) * 360) /
+      wheel.names.length;
     const previousRotation = rotation;
-    rotation += 360 * 5 + ((360 - centerAngle - (rotation % 360) + 360) % 360);
+    rotation += 360 * 5 + ((360 - landingAngle - (rotation % 360) + 360) % 360);
     const frames = [
       { transform: `rotate(${previousRotation}deg)` },
       { transform: `rotate(${rotation}deg)` },
