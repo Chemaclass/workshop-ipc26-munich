@@ -2,10 +2,28 @@ export interface RandomSource {
   random(): number;
 }
 
+export interface NameStore {
+  load(): string[] | null;
+  save(names: readonly string[]): void;
+}
+
+export const EXAMPLE_NAMES: readonly string[] = [
+  'Anna K.',
+  'Ben',
+  'Chema',
+  'Dana',
+  'Emil',
+  'Fatma',
+];
+
 const alwaysFirst: RandomSource = { random: () => 0 };
 
 export class Wheel {
   private readonly members: string[];
+
+  static load(_store: NameStore): Wheel {
+    return new Wheel([...EXAMPLE_NAMES]);
+  }
 
   constructor(
     names: string[],
