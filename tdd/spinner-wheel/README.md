@@ -38,7 +38,7 @@ Do this once per laptop before the kata. [agnostic-ai](https://github.com/Chemac
 3. Generate the files: `agnostic-ai sync`. It prints what your tool now reads.
 4. Start your AI tool from this folder, so it finds those files.
 
-Without `agnostic-ai.local.yaml`, sync writes files for Claude Code and Codex. Your local file and the generated files stay out of git. After a `git pull`, run `agnostic-ai sync` again. To change a rule, edit `.agnostic-ai/` and sync. Something wrong? Run `agnostic-ai doctor`.
+Without `agnostic-ai.local.yaml`, sync writes files for Claude Code and Codex. Your local file and the generated files stay out of git. One exception: Grok skips rule files that git ignores, so `.grok/rules/` shows up as untracked. Do not commit it. After a `git pull`, run `agnostic-ai sync` again. To change a rule, edit `.agnostic-ai/` and sync. Something wrong? Run `agnostic-ai doctor`.
 
 ### What the agent does
 

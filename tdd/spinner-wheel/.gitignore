@@ -1,5 +1,5 @@
 # Files agnostic-ai generates for every supported tool. Each participant picks tools in agnostic-ai.local.yaml and runs `agnostic-ai sync`.
-# Regenerate this list when you add a spec: enable every target with gitignore.enabled in a scratch copy and copy its block.
+# Regenerate when you add a spec: in a scratch copy, enable every target except grok with gitignore.enabled and copy its block. Grok rules stay visible because Grok skips ignored rule files.
 /.agents/AGENTS.md
 /.agents/agents/
 /.agents/rules/
@@ -43,7 +43,6 @@
 /.github/skills/
 /.grok/agents/
 /.grok/commands/
-/.grok/rules/
 /.grok/skills/
 /.junie/AGENTS.md
 /.junie/agents/

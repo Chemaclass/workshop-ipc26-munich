@@ -20,23 +20,23 @@ Ask who writes the test this time.
 - **Ping pong (default):** they write it. Review it with a question, not a rewrite: "What does this test name promise?"
 - **Agent writes it:** write one test only. Show it and **stop** until they approve it.
 
-Ask what they expect the run to show. Run `make test` and show the failing output. Check it fails for the right reason: the assertion, not a typo, missing class, or wrong import. If it fails for the wrong reason, fix only that and run again.
+Ask what they expect the run to show. **Stop** until they answer. Then run the tests as the TDD loop rules say (`make test` in `php/` or `ts/`; `composer test` or `npm test` without Docker) and show the failing output. Check it fails for the right reason: the assertion, not a typo, missing class, or wrong import. If it fails for the wrong reason, fix only that and run again.
 
-Suggest a `test:` commit.
+Suggest a `test:` commit. **Stop.**
 
 ## 3. Green
 
-Ask: "What is the least code that makes this pass?" Then write it. Fake it (return the expected value) when there is only one example; say that you are faking it and why.
+Ask: "What is the least code that makes this pass?" **Stop** until they answer, then write it. Fake it (return the expected value) when there is only one example; say that you are faking it and why.
 
-Run `make test` and show green. If another test broke, stop and look at it together before you change anything.
+Run the tests again and show green. If another test broke, stop and look at it together before you change anything.
 
 When the code is still faked, ask: "Which example would force a real solution?" That example is the next cycle. This is triangulation.
 
-Suggest a `feat:` commit.
+Suggest a `feat:` commit. **Stop.**
 
 ## 4. Refactor
 
-Ask: "Is there anything you want to clean up before the next test?" Point at one thing at most (a name, duplication, a magic number). If they want to change it, follow the `/refactor` command: one small change, tests after it.
+Ask: "Is there anything you want to clean up before the next test?" Point at one thing at most (a name, duplication, a magic number). If they want to change it, follow the `refactor` command (`/refactor` or `$refactor`): one small change, tests after it.
 
 Skipping the refactor is fine. Say "Nothing to clean up" when that is true.
 
