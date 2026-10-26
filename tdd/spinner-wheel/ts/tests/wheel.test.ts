@@ -56,4 +56,11 @@ describe('Wheel', () => {
 
     expect(wheel.names).toEqual(['Anna K.', 'Chema']);
   });
+
+  it('throws when removing a name that is not on the wheel', () => {
+    const wheel = new Wheel(['Anna K.', 'Ben']);
+
+    expect(() => wheel.remove('Dana')).toThrow('Dana is not on the wheel.');
+    expect(wheel.names).toEqual(['Anna K.', 'Ben']);
+  });
 });
