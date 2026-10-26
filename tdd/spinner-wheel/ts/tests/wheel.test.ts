@@ -70,6 +70,12 @@ describe('Wheel', () => {
 
       expect(wheel.names).toEqual(EXAMPLE_NAMES);
     });
+
+    it('starts with the saved names', () => {
+      const wheel = Wheel.load(new InMemoryNameStore(['Gus', 'Hana']));
+
+      expect(wheel.names).toEqual(['Gus', 'Hana']);
+    });
   });
 });
 
