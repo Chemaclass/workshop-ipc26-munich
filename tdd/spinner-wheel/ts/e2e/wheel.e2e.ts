@@ -122,3 +122,14 @@ test('a shared link shows its team read-only', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('listitem').filter({ hasText: 'Gus' })).toBeVisible();
 });
+
+test('a broken link offers to continue with the saved team', async ({ page }) => {
+  await page.goto('/#not-a-wheel');
+
+  await expect(page.getByRole('alert')).toHaveText('This link is broken.');
+  await page.getByRole('button', { name: 'Continue' }).click();
+
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('listitem')).toHaveCount(6);
+  await expect(page.getByLabel('Name')).toBeVisible();
+});
