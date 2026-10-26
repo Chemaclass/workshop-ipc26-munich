@@ -8,6 +8,12 @@ describe('share link', () => {
     expect(decodeShare(encodeShare(shared))).toEqual(shared);
   });
 
+  it('decodes a skipped name it encoded', () => {
+    const shared = { names: ['Anna K.', 'Ben'], seed: 42, skip: 'Ben' };
+
+    expect(decodeShare(encodeShare(shared))).toEqual(shared);
+  });
+
   it('encodes the JSON as base64', () => {
     expect(encodeShare({ names: ['Ben'], seed: 42 })).toBe(
       'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6NDJ9',
@@ -30,6 +36,7 @@ describe('share link', () => {
     ['names not a list', 'eyJuYW1lcyI6IkJlbiIsInNlZWQiOjF9'],
     ['a name not text', 'eyJuYW1lcyI6WzFdLCJzZWVkIjoxfQ=='],
     ['seed not a number', 'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6IngifQ=='],
+    ['skip not text', 'eyJuYW1lcyI6WyJCZW4iXSwic2VlZCI6MSwic2tpcCI6Mn0='],
   ])('rejects a broken link: %s', (_, text) => {
     expect(() => decodeShare(text)).toThrow('This link is broken.');
   });
