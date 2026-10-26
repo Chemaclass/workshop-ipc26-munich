@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { ChangeMe } from '../src/change-me';
 
-describe('ChangeMe', () => {
-  it('changes me', () => {
-    expect(new ChangeMe().changeMe()).toBe(true);
+describe('Random number', () => {
+  it('player guesses right', () => {
+    expect(new Game().guess(10)).toBe("you win");
   });
 });
