@@ -20,4 +20,4 @@ No Docker? `cd php && composer install && php -S localhost:8000 -t public`, or `
 
 1. Follow the stages on the slides, one at a time.
 2. Write each test before the code.
-3. Commit after every green test.
+3. Make a baby commit on each step: red -> green -> refactor
