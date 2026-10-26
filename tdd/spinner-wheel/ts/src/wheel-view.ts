@@ -89,7 +89,13 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
     if (spinning) {
       return;
     }
-    const picked = wheel.spin();
+    let picked: string;
+    try {
+      picked = wheel.spin();
+    } catch (problem) {
+      result.textContent = messageOf(problem);
+      return;
+    }
     rotation = rotationToShow(wheel.names.indexOf(picked), wheel.names.length, rotation);
     spinning = true;
     result.textContent = 'Spinning…';
