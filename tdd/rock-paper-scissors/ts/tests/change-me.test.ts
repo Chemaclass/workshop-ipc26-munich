@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Scissors } from '../src/scissors';
 import { Rock } from '../src/rock';
+import { Paper } from '../src/paper';
 
 describe('Rock paper scissors', () => {
   it('Rock beats scissors', () => {
@@ -9,5 +10,9 @@ describe('Rock paper scissors', () => {
 
   it('Scissors loses to Rock', () => {
     expect(new Scissors().beats(new Rock())).toBe(false);
+  });
+
+    it('Paper beats Rock', () => {
+    expect(new Paper().beats(new Rock())).toBe(true);
   });
 });
