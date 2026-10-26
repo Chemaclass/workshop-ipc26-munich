@@ -40,12 +40,10 @@ export class EuropeanParrot extends BaseParrot {
 
 export class AfricanParrot extends BaseParrot {
   private readonly loadFactor = 9
-  private numberOfCoconuts: number
   constructor(
-    numberOfCoconuts: number
+    private numberOfCoconuts: number
   ) {
     super()
-    this.numberOfCoconuts = numberOfCoconuts
   }
 
   getSpeed() {
@@ -61,15 +59,11 @@ export class AfricanParrot extends BaseParrot {
 }
 
 export class NorwegianBlueParrot extends BaseParrot {
-  private voltage: number
-  private isNailed: boolean
   constructor(
-    voltage: number,
-    isNailed: boolean,
+    private voltage: number,
+    private isNailed: boolean,
   ) {
     super()
-    this.voltage = voltage
-    this.isNailed = isNailed
   }
 
   getSpeed() {
