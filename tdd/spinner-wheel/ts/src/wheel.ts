@@ -31,6 +31,10 @@ export class Wheel {
     this.members.push(trimmed);
   }
 
+  remove(name: string): void {
+    this.members.splice(this.members.indexOf(name), 1);
+  }
+
   spin(): string {
     const index = Math.floor(this.random.random() * this.members.length);
     const picked = this.members[index];
