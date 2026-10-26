@@ -10,25 +10,25 @@ help: ## Show this help message.
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | column -t -s ':' | sed 's/^  //'
 
 build: ## Build the PHP container.
-	docker-compose build
+	docker compose build
 
 up: ## Start container in background.
-	docker-compose up -d
+	docker compose up -d
 
 down: ## Stop container.
-	docker-compose down
+	docker compose down
 
 test: ## Run the tests.
-	docker-compose run --rm $(SERVICE) composer test
+	docker compose run --rm $(SERVICE) composer test
 
 stan: ## Run static analysis.
-	docker-compose run --rm $(SERVICE) composer phpstan
+	docker compose run --rm $(SERVICE) composer phpstan
 
 cs: ## Check coding standards.
-	docker-compose run --rm $(SERVICE) composer check-cs
+	docker compose run --rm $(SERVICE) composer check-cs
 
 fix-cs: ## Fix coding standards.
-	docker-compose run --rm $(SERVICE) composer fix-cs
+	docker compose run --rm $(SERVICE) composer fix-cs
 
 watch: ## Run tests in watch mode (requires 'make up' first).
 	docker exec $(CONTAINER) composer test:watch

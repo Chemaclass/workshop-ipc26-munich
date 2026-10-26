@@ -11,10 +11,10 @@ help: ## Show this help.
 up: up-php up-ts ## Start every kata container (PHP + TS).
 
 up-php: ## Start all PHP kata containers.
-	@for d in $(KATAS_PHP); do (cd $$d && docker-compose up -d); done
+	@for d in $(KATAS_PHP); do (cd $$d && docker compose up -d); done
 
 up-ts: ## Start all TS kata containers.
-	@for d in $(KATAS_TS); do (cd $$d && docker-compose up -d); done
+	@for d in $(KATAS_TS); do (cd $$d && docker compose up -d); done
 
 down: ## Stop and remove all kata containers (PHP + TS).
 	docker rm -f \
