@@ -59,6 +59,7 @@ export class Wheel {
       throw new Error(`${name} is not on the wheel.`);
     }
     this.members.splice(index, 1);
+    this.store.save(this.members);
   }
 
   spin(): string {
