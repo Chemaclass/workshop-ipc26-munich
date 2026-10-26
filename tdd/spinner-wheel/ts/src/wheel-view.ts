@@ -35,6 +35,7 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
         <input id="team-name" name="name" autocomplete="off" placeholder="Anna K." />
         <button type="submit">Add</button>
       </form>
+      <p class="team__error" role="alert"></p>
       <ul class="team__list"></ul>
     </section>
   `;
@@ -47,6 +48,7 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
   const list = query(root, '.team__list');
   const form = query<HTMLFormElement>(root, '.team__form');
   const input = query<HTMLInputElement>(root, '#team-name');
+  const error = query(root, '.team__error');
 
   const render = () => {
     drawSegments(segments, wheel.names);
@@ -62,9 +64,17 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    wheel.add(input.value);
+    try {
+      wheel.add(input.value);
+    } catch (problem) {
+      error.textContent = messageOf(problem);
+      return;
+    }
     input.value = '';
     render();
+  });
+  input.addEventListener('input', () => {
+    error.textContent = '';
   });
 
   query(root, '.spin').addEventListener('click', () => {
@@ -81,6 +91,10 @@ export function mountWheel(root: HTMLElement, wheel: Wheel): void {
       result.textContent = `${picked} leads the next retro`;
     }, spinDuration());
   });
+}
+
+function messageOf(problem: unknown): string {
+  return problem instanceof Error ? problem.message : String(problem);
 }
 
 function rotationToShow(index: number, count: number, current: number): number {
