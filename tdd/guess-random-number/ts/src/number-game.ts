@@ -16,11 +16,8 @@ export class NumberGame {
     if(this.storedValue === undefined) {
       throw new Error('number not initialized')
     }
-    if(this.attempts === this.maxAttempts) {
+    if(this.attempts >= this.maxAttempts) {
       return `You lose! The number was ${this.storedValue}`
-    }
-    if (this.attempts > this.maxAttempts) {
-      return 'Attempts used up. Stop guessing :)'
     }
     this.attempts++
     if (number < this.storedValue) return 'Lower';
