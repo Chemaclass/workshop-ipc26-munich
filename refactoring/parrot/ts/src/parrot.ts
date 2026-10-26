@@ -1,17 +1,35 @@
+import { EuropeanParrot } from './european-parrot';
+import type { ParrotParent } from './parrot-parent';
 import { ParrotType } from './parrot-type';
 
 export class Parrot {
-  constructor(
+  private actualClass?: ParrotParent;
+ constructor(
     private readonly type: number,
     private readonly numberOfCoconuts: number,
     private readonly voltage: number,
     private readonly isNailed: boolean,
-  ) {}
+  ) {
+    switch (type) {
+      case ParrotType.European:
+        this.actualClass = new EuropeanParrot(type, numberOfCoconuts, voltage, isNailed);
+        
+        break;
+     /*  case ParrotType.African:
+        this.actualClass = new AfricanParrot(type, numberOfCoconuts, voltage, isNailed);
+        break;
+      case ParrotType.NorwegianBlue:
+        this.actualClass = new NorwegianBlueParrot(type, numberOfCoconuts, voltage, isNailed);
+        break;
+      default:
+        throw new Error('Should be unreachable'); */
+    }
+  }
 
   getSpeed(): number {
     switch (this.type) {
       case ParrotType.European:
-        return this.getBaseSpeed();
+        return this.actualClass!.getSpeed();
       case ParrotType.African:
         return Math.max(
           0,
@@ -27,7 +45,7 @@ export class Parrot {
   getCry(): string {
     switch (this.type) {
       case ParrotType.European:
-        return 'Sqoork!';
+        return this.actualClass!.getCry();
       case ParrotType.African:
         return 'Sqaark!';
       case ParrotType.NorwegianBlue:
