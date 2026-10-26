@@ -1,3 +1,4 @@
+import confetti from 'canvas-confetti';
 import { Wheel } from 'spin-wheel';
 import { fromShareHash, toShareHash } from './share-link';
 import { type RandomSource, SpinnerWheel } from './spinner-wheel';
@@ -18,6 +19,40 @@ const workoutColors = [
   '#ed6663',
   '#d54062',
 ];
+
+const confettiColors = [
+  '#ff8c1a',
+  '#ffb703',
+  '#ffd60a',
+  '#7b2cbf',
+  '#e63946',
+  '#2ec4b6',
+  '#00b4d8',
+  '#c77dff',
+];
+
+const celebratePick = () => {
+  const defaults = {
+    particleCount: 80,
+    spread: 100,
+    startVelocity: 28,
+    gravity: 0.85,
+    ticks: 220,
+    scalar: 0.95,
+    shapes: ['square'] as confetti.Shape[],
+    colors: confettiColors,
+    disableForReducedMotion: true,
+  };
+
+  confetti({
+    ...defaults,
+    origin: { x: 0.25, y: 0 },
+  });
+  confetti({
+    ...defaults,
+    origin: { x: 0.75, y: 0 },
+  });
+};
 
 const parseNames = (value: string): string[] =>
   value
@@ -88,6 +123,7 @@ if (app) {
       if (pendingPick !== null) {
         showMessage(`Retro lead: ${pendingPick}`, false);
         pendingPick = null;
+        celebratePick();
       }
     },
   });
