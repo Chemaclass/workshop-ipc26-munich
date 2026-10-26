@@ -119,6 +119,12 @@ describe('Wheel', () => {
       expect(Wheel.load(store).spin()).toBe('Gus');
     });
 
+    it('tells which name the next spin skips', () => {
+      const store = new InMemoryNameStore(['Gus', 'Hana'], 'Gus');
+
+      expect(Wheel.load(store).lastWinner).toBe('Gus');
+    });
+
     it('remembers the winner for the next spin', () => {
       const store = new InMemoryNameStore(['Gus', 'Hana']);
 
