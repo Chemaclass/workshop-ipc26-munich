@@ -5,6 +5,14 @@ describe('LocalStorageNameStore', () => {
   it('loads nothing when nothing is saved', () => {
     expect(new LocalStorageNameStore(new FakeStorage()).load()).toBeNull();
   });
+
+  it('loads the saved names after a reload', () => {
+    const storage = new FakeStorage();
+
+    new LocalStorageNameStore(storage).save(['Gus', 'Hana']);
+
+    expect(new LocalStorageNameStore(storage).load()).toEqual(['Gus', 'Hana']);
+  });
 });
 
 class FakeStorage {
