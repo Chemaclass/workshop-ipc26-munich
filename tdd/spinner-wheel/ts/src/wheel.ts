@@ -46,6 +46,10 @@ export class Wheel {
     return this.members;
   }
 
+  get lastWinner(): string | null {
+    return this.store.loadLastWinner();
+  }
+
   add(name: string): void {
     const trimmed = name.trim();
     if (trimmed === '') {
@@ -70,7 +74,7 @@ export class Wheel {
   }
 
   spin(random: RandomSource = this.random): string {
-    const lastWinner = this.store.loadLastWinner();
+    const lastWinner = this.lastWinner;
     const candidates = this.members.filter((name) => name !== lastWinner);
     const pool = candidates.length > 0 ? candidates : this.members;
     const index = Math.floor(random.random() * pool.length);
